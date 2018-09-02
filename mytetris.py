@@ -98,12 +98,11 @@ if __name__ == '__main__':
     strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
     # Intialize the library (must be called once before other functions).
     strip.begin()
+    pygame.init()
+    j = initGamepad()
 
     try:
-
         while True:
-            pygame.init()
-            j = initGamepad()
             getKeypress(j)
             #print ('Color wipe animations.')
             #colorWipe(strip, Color(255, 0, 0))  # Red wipe
