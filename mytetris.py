@@ -48,6 +48,7 @@ def initSound():
 
 def initGamepad():
     joystick_count = pygame.joystick.get_count()
+    print('Gamepad Anzahl: %s' % joystick_count)
     if joystick_count == 0:
         print ("How do you want to play Tetris without a joystick?")
         sys.exit()
