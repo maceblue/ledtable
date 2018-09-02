@@ -56,6 +56,26 @@ def initGamepad():
         j = pygame.joystick.Joystick(0)
         j.init()
         print('Initialized Joystick : %s' % j.get_name())
+        return j
+
+def getKeypress(j):
+        pygame.event.pump()
+        if j.get_axis(1) <= -0.5: #D-Pad nach oben
+            print("UP")    
+        if j.get_axis(1) >= +0.5: #D-Pad nach unten
+            print("DOWN")    
+        if j.get_axis(0) >= +0.5: #D-Pad rechts
+            print("RIGHT")
+        if j.get_axis(0) <= -0.5: #D-Pad nach links
+            print("LEFT")
+        if j.get_button(1): #Button A - right red button - Rotate right
+            print("A")
+        if j.get_button(2): #Button B - left red button - Rotate left
+            print("B")
+        if j.get_button(8):
+            print("SELECT")
+        if j.get_button(9):
+            print("START") 
 
 def gameOver():
         print("Game over. "+str(self.Tetris_Points)+" points.")
@@ -82,11 +102,14 @@ if __name__ == '__main__':
     try:
 
         while True:
-            initGamepad()
-            print ('Color wipe animations.')
-            colorWipe(strip, Color(255, 0, 0))  # Red wipe
-            colorWipe(strip, Color(0, 255, 0))  # Blue wipe
-            colorWipe(strip, Color(0, 0, 255))  # Green wipe
+            pygame.init()
+            j = initGamepad()
+            getKeypress(j)
+            #print ('Color wipe animations.')
+            #colorWipe(strip, Color(255, 0, 0))  # Red wipe
+            #colorWipe(strip, Color(0, 255, 0))  # Blue wipe
+            #colorWipe(strip, Color(0, 0, 255))  # Green wipe
             
     except KeyboardInterrupt:
         colorWipe(strip, Color(0,0,0), 10)
+        pygame.quit()
