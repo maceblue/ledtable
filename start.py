@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from TetrisClass import *
+from mytetris2 import *
 
 
 while True:
