@@ -7,5 +7,5 @@ while True:
     try:
         tetrisgame =RGB_Tetris(s,"mace")
         tetrisgame.startGame()
-     except: 
+    except: 
         pass
