@@ -135,7 +135,7 @@ class RGB_Tetris:
         self.running = False
         self.paused = False
         self.lastPressed = "NONE"
-        self.s=s
+        #self.s=s
         
     def printMatrix(self,matrix):
         for row in range (0,len(matrix)):
