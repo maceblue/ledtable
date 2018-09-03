@@ -100,6 +100,8 @@ class tiles:
               gamecolors.Z_COLOR]    
 class RGB_Tetris:
     #Variables for all instances of TetrisClass
+    width = 10
+    height = 15
     hiScores = []
     spidev = file("/dev/spidev0.0", "wb")
     snd_click = None
@@ -148,6 +150,71 @@ class RGB_Tetris:
                 else:
                     print (bcolors.ANSI_BLUE + "O" + bcolors.ENDC),
             print("]")
+
+    # Map a matrix to snake-sequenced LED-Strip
+    def matrix2snake(x,y):
+                #   _   _   _
+        ######     | | | | | |
+        ######  -> | | | | | |
+        ######     | | | | | |
+                #     -   -
+        mapping = {'0,0': 15,
+                    '0,1': 14,
+                    '0,2': 13,
+                    '0,3': 12,
+                    '0,4': 11,
+                    '0,5': 10,
+                    '0,6': 9,
+                    '0,7': 8,
+                    '0,8': 7,
+                    '0,9': 6,
+                    '0,10': 5,
+                    '0,11': 4,
+                    '0,12': 3,
+                    '0,13': 2,
+                    '0,14': 1,
+                    '1,0': 16,
+                    '1,1': 17,
+                    '1,2': 18,
+                    '1,3': 19,
+                    '1,4': 20,
+                    '1,5': 21,
+                    '1,6': 22,
+                    '1,7': 23,
+                    '1,8': 24,
+                    '1,9': 25,
+                    '1,10': 26,
+                    '1,11': 27,
+                    '1,12': 28,
+                    '1,13': 29,
+                    '1,14': 30,
+                    '2,0': 45,
+                    '2,1': 44,
+                    '3,0': 46
+                    }
+        s = x + ',' + y
+        #return mapping[s]
+
+
+        if x%2==0:
+            pos = (x+1)*height - y
+        else:
+            pos = (x*height) + 1 + y
+
+        return pos
+
+    def send2strip(self,matrix):
+        for y in range(height):
+            for x in range(width):
+                a = int(matrix[row][pixel][0]*self.brightness)
+                b = int(matrix[row][pixel][1]*self.brightness)
+                c = int(matrix[row][pixel][2]*self.brightness)
+                color = Color(a, b, c)
+                pos = self.matrix2snake(x,y)
+                strip.setPixelColor(pos, color)
+        strip.show()
+        time.sleep(0.001)
+
     def draw(self,matrix):
         sendstring = ""
         for row in range(20):
@@ -164,18 +231,19 @@ class RGB_Tetris:
         self.spidev.write(sendstring)        
         self.spidev.flush()
         time.sleep(0.001)
+
     def fadeInOut(self,c):
             self.brightness=0
             self.displayPixels = [[c for x in range(10)] for x in range(20)]
             while self.brightness <1.0:
-                    self.draw(self.displayPixels)
+                    self.send2strip(self.displayPixels)
                     self.brightness+=0.05
             while self.brightness >0.0:
-                    self.draw(self.displayPixels)
+                    self.send2strip(self.displayPixels)
                     self.brightness-=0.05
             self.displayPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(10)] for x in range(20)]
             self.brightness = 1.0
-            self.draw(self.displayPixels)
+            self.send2strip(self.displayPixels)
     
     #Shuffle the next bag of Tetronimos        
     def shuffleSeq(self):
@@ -748,7 +816,7 @@ class RGB_Tetris:
                     for col in range(len(self.activeTet[self.activeTetRotation][0])):
                         if self.activeTet[self.activeTetRotation][row][col]:
                             self.displayPixels[self.activeTetCoords[0]-2+row][self.activeTetCoords[1]+col]=self.activeTet[4]
-            self.draw(self.displayPixels)
+            self.send2strip(self.displayPixels)
     def getKey(self,item):
         return item[1]  
     def startGame(self):
