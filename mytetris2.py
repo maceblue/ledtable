@@ -720,7 +720,7 @@ class RGB_Tetris:
         elif self.linescleared>=91:
             self.level = 10
             
-        if self.level > prelevel:
+        #if self.level > prelevel:
             #self.snd_level.play()
         self.moveTimeout = (((11 - self.level) * 50))
         #print("Abgeraeumte Linien: "+str(self.linescleared)+" - Level: "+str(self.level)+" - moveTime: "+str(self.moveTimeout)+" - Tetris Points: "+str(self.Tetris_Points))
