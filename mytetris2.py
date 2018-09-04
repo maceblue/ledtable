@@ -154,7 +154,7 @@ class RGB_Tetris:
             print("]")
 
     # Map a matrix to snake-sequenced LED-Strip
-    def matrix2snake(x,y):
+    def matrix2snake(self,x,y):
                 #   _   _   _
         ######     | | | | | |
         ######  -> | | | | | |
