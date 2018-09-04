@@ -194,7 +194,7 @@ class RGB_Tetris:
                     '2,1': 44,
                     '3,0': 46
                     }
-        s = x + ',' + y
+        #s = x + ',' + y
         #return mapping[s]
 
 
