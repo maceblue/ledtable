@@ -173,48 +173,45 @@ class RGB_Tetris:
         ######  -> | | | | | |
         ######     | | | | | |
                 #     -   -
-        mapping = {'0,0': 15,
-                    '0,1': 14,
-                    '0,2': 13,
-                    '0,3': 12,
-                    '0,4': 11,
-                    '0,5': 10,
-                    '0,6': 9,
-                    '0,7': 8,
-                    '0,8': 7,
-                    '0,9': 6,
-                    '0,10': 5,
-                    '0,11': 4,
-                    '0,12': 3,
-                    '0,13': 2,
-                    '0,14': 1,
-                    '1,0': 16,
-                    '1,1': 17,
-                    '1,2': 18,
-                    '1,3': 19,
-                    '1,4': 20,
-                    '1,5': 21,
-                    '1,6': 22,
-                    '1,7': 23,
-                    '1,8': 24,
-                    '1,9': 25,
-                    '1,10': 26,
-                    '1,11': 27,
-                    '1,12': 28,
-                    '1,13': 29,
-                    '1,14': 30,
-                    '2,0': 45,
-                    '2,1': 44,
-                    '3,0': 46
+        mapping = {'0,0': 14,
+                    '0,1': 13,
+                    '0,2': 12,
+                    '0,3': 11,
+                    '0,4': 10,
+                    '0,5': 9,
+                    '0,6': 8,
+                    '0,7': 7,
+                    '0,8': 6,
+                    '0,9': 5,
+                    '0,10': 4,
+                    '0,11': 3,
+                    '0,12': 2,
+                    '0,13': 1,
+                    '0,14': 0,
+                    '1,0': 15,
+                    '1,1': 16,
+                    '1,2': 17,
+                    '1,3': 18,
+                    '1,4': 19,
+                    '1,5': 20,
+                    '1,6': 21,
+                    '1,7': 22,
+                    '1,8': 23,
+                    '1,9': 24,
+                    '1,10': 25,
+                    '1,11': 26,
+                    '1,12': 27,
+                    '1,13': 28,
+                    '1,14': 29
                     }
         #s = x + ',' + y
         #return mapping[s]
 
 
         if x%2==0:
-            pos = (x+1)*self.height - y
+            pos = (x+1)*self.height - y -1
         else:
-            pos = (x*self.height) + 1 + y
+            pos = (x*self.height) + y
 
         return pos
 
@@ -861,10 +858,10 @@ class RGB_Tetris:
             j.init()
             print('Initialized Joystick : %s' % j.get_name())
         print("Loading Hiscores..."),
-        #self.hiScores = pickle.load(open("/home/pi/ledtable/hiscores.zfl","rb"))
-        #self.hiScores.sort(key=self.getKey,reverse=True)
+        self.hiScores = pickle.load(open("/home/pi/ledtable/hiscores.zfl","rb"))
+        self.hiScores.sort(key=self.getKey,reverse=True)
         print("done")
-        #print("Aktueller Hiscore: "+str(self.hiScores[0][1])+" Punkte von "+str(self.hiScores[0][0]))
+        print("Aktueller Hiscore: "+str(self.hiScores[0][1])+" Punkte von "+str(self.hiScores[0][0]))
         print("Hi "+self.playerName+", good luck!")
         print("Game of Tetris started!")
         self.fadeInOut([255,255,255])
