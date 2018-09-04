@@ -206,9 +206,9 @@ class RGB_Tetris:
     def send2strip(self,matrix):
         for y in range(self.height):
             for x in range(self.width):
-                a = int(matrix[row][pixel][0]*self.brightness)
-                b = int(matrix[row][pixel][1]*self.brightness)
-                c = int(matrix[row][pixel][2]*self.brightness)
+                a = int(matrix[y][x][0]*self.brightness)
+                b = int(matrix[y][x][1]*self.brightness)
+                c = int(matrix[y][x][2]*self.brightness)
                 color = Color(a, b, c)
                 pos = self.matrix2snake(x,y)
                 strip.setPixelColor(pos, color)
