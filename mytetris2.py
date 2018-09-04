@@ -1,5 +1,7 @@
 import pygame, pickle
 import math, sys, os, random, socket, time, colorsys
+from neopixel import *
+
 class bcolors:
     ANSI_RED = '\033[91m'
     ANSI_GREEN = '\033[92m'
