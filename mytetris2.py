@@ -342,15 +342,15 @@ class RGB_Tetris:
         return False
     def moveRight(self):
         self.activeTetCoords[1]+=1
-        self.snd_click.play()    
+        #self.snd_click.play()    
     def moveLeft(self):
         self.activeTetCoords[1]-=1
-        self.snd_click.play()    
+        #self.snd_click.play()    
     #Player is gameover
     def gameOver(self):
         print("Game over. "+str(self.Tetris_Points)+" points.")
-        pygame.mixer.music.stop()
-        self.snd_gameover.play()
+        #pygame.mixer.music.stop()
+        #self.snd_gameover.play()
         time.sleep(3)
         self.fadeInOut([255,0,0])
         #sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
@@ -511,7 +511,7 @@ class RGB_Tetris:
                     self.activeTetCoords[0]+=0            
         elif self.activeTet == tiles.O_TILE:
             return False
-        self.snd_click.play()    
+        #self.snd_click.play()    
     #Teil nach rechts drehen
     def rotateRight(self):
         global fixedPixels,activeTet,activeTetCoords,activeTetRotation
@@ -665,7 +665,7 @@ class RGB_Tetris:
                     self.activeTetCoords[0]+=0
         elif self.activeTet == tiles.O_TILE:
             return False
-        self.snd_click.play()
+        #self.snd_click.play()
     #Process inputs
     def keyAction(self): 
         if self.lastPressed == "UP":
@@ -692,8 +692,8 @@ class RGB_Tetris:
         if self.lastPressed == "START":
             print ("Game paused")
             self.paused = True
-            pygame.mixer.music.pause()
-            self.snd_pause.play()
+            #pygame.mixer.music.pause()
+            #self.snd_pause.play()
         self.buildScreen()
         self.lastPressed ="NONE"
     def checkMoveDownCollision(self):
@@ -721,7 +721,7 @@ class RGB_Tetris:
             self.level = 10
             
         if self.level > prelevel:
-            self.snd_level.play()
+            #self.snd_level.play()
         self.moveTimeout = (((11 - self.level) * 50))
         #print("Abgeraeumte Linien: "+str(self.linescleared)+" - Level: "+str(self.level)+" - moveTime: "+str(self.moveTimeout)+" - Tetris Points: "+str(self.Tetris_Points))
     def checkFinishedLines(self):
@@ -739,7 +739,7 @@ class RGB_Tetris:
                 for mrow in range(row,0,-1):
                     for mcol in range(self.width):
                         self.fixedPixels[mrow][mcol]=self.fixedPixels[mrow-1][mcol]
-                self.snd_linekill.play()
+                #self.snd_linekill.play()
                 self.buildScreen()
                 
         if linesFinished==1:
@@ -760,7 +760,7 @@ class RGB_Tetris:
                     self.fixedPixels[self.activeTetCoords[0]+row][self.activeTetCoords[1]+col]=self.activeTet[4]
         self.activeTet=None
         self.checkFinishedLines()
-        self.snd_tilefix.play()
+        #self.snd_tilefix.play()
         time.sleep(self.moveTimeout/1000.0)
         self.Tetris_Points += ( (21 + (3 * self.level)) - self.dropPoints )
         self.spawn()
@@ -820,23 +820,23 @@ class RGB_Tetris:
     def getKey(self,item):
         return item[1]  
     def startGame(self):
-        print("Initialize sound system..."),
-        pygame.mixer.pre_init(44100, -16, 2, 2048)    
+        #print("Initialize sound system..."),
+        #pygame.mixer.pre_init(44100, -16, 2, 2048)    
         pygame.init()
         print("done")
-        print("Loading music..."),
-        pygame.mixer.music.load('/home/pi/ledtable/sounds/tetrisaccapella.ogg')
-        pygame.mixer.music.set_volume(0.2)
-        print("done")
-        print("Loading SFX..."),
-        self.snd_click = pygame.mixer.Sound('/home/pi/ledtable/sounds/click.ogg')
-        self.snd_linekill = pygame.mixer.Sound('/home/pi/ledtable/sounds/linekill.ogg')
-        self.snd_tilefix = pygame.mixer.Sound('/home/pi/ledtable/sounds/tilefix.ogg')
-        self.snd_pause = pygame.mixer.Sound('/home/pi/ledtable/sounds/pause.ogg')
-        self.snd_gameover = pygame.mixer.Sound('/home/pi/ledtable/sounds/gameover.ogg')
-        self.snd_level = pygame.mixer.Sound('/home/pi/ledtable/sounds/level.ogg')
-        print("done")
-        pygame.mixer.music.play(-1)
+        #print("Loading music..."),
+        #pygame.mixer.music.load('/home/pi/ledtable/sounds/tetrisaccapella.ogg')
+        #pygame.mixer.music.set_volume(0.2)
+        #print("done")
+        #print("Loading SFX..."),
+        #self.snd_click = pygame.mixer.Sound('/home/pi/ledtable/sounds/click.ogg')
+        #self.snd_linekill = pygame.mixer.Sound('/home/pi/ledtable/sounds/linekill.ogg')
+        #self.snd_tilefix = pygame.mixer.Sound('/home/pi/ledtable/sounds/tilefix.ogg')
+        #self.snd_pause = pygame.mixer.Sound('/home/pi/ledtable/sounds/pause.ogg')
+        #self.snd_gameover = pygame.mixer.Sound('/home/pi/ledtable/sounds/gameover.ogg')
+        #self.snd_level = pygame.mixer.Sound('/home/pi/ledtable/sounds/level.ogg')
+        #print("done")
+        #pygame.mixer.music.play(-1)
         joystick_count = pygame.joystick.get_count()
         if joystick_count == 0:
             print ("How do you want to play Tetris without a joystick?")
@@ -872,8 +872,8 @@ class RGB_Tetris:
                     pygame.event.pump()
                     if j.get_button(9):
                         print ("Game unpaused")
-                        self.snd_pause.play()
-                        pygame.mixer.music.unpause()
+                        #self.snd_pause.play()
+                        #pygame.mixer.music.unpause()
                         time.sleep(1)
                         self.paused = False
                         self.lastPressed="NONE"
