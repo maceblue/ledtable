@@ -121,9 +121,9 @@ class RGB_Tetris:
         self.level=1
         self.linescleared=0
         self.dropPoints=0
-        self.fixedPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(width)] for x in range(height+2)]
-        self.movingPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(width)] for x in range(height+2)]
-        self.displayPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(width)] for x in range(height)]
+        self.fixedPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(self.width)] for x in range(self.height+2)]
+        self.movingPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(self.width)] for x in range(self.height+2)]
+        self.displayPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(self.width)] for x in range(self.height)]
         self.keyPressTimeout = 125
         self.keyPressTime = 0
         self.keyTimeout = 150
@@ -197,15 +197,15 @@ class RGB_Tetris:
 
 
         if x%2==0:
-            pos = (x+1)*height - y
+            pos = (x+1)*self.height - y
         else:
-            pos = (x*height) + 1 + y
+            pos = (x*self.height) + 1 + y
 
         return pos
 
     def send2strip(self,matrix):
-        for y in range(height):
-            for x in range(width):
+        for y in range(self.height):
+            for x in range(self.width):
                 a = int(matrix[row][pixel][0]*self.brightness)
                 b = int(matrix[row][pixel][1]*self.brightness)
                 c = int(matrix[row][pixel][2]*self.brightness)
@@ -217,9 +217,9 @@ class RGB_Tetris:
 
     def draw(self,matrix):
         sendstring = ""
-        for row in range(height):
+        for row in range(self.height):
             if row%2==0:
-                for pixel in range(0,width):
+                for pixel in range(0,self.width):
                     for color in range(0,3):
                         c=int(matrix[row][pixel][color]*self.brightness)
                         sendstring += chr(c & 0xFF)
@@ -234,14 +234,14 @@ class RGB_Tetris:
 
     def fadeInOut(self,c):
             self.brightness=0
-            self.displayPixels = [[c for x in range(width)] for x in range(height)]
+            self.displayPixels = [[c for x in range(self.width)] for x in range(self.height)]
             while self.brightness <1.0:
                     self.send2strip(self.displayPixels)
                     self.brightness+=0.05
             while self.brightness >0.0:
                     self.send2strip(self.displayPixels)
                     self.brightness-=0.05
-            self.displayPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(width)] for x in range(height)]
+            self.displayPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(self.width)] for x in range(self.height)]
             self.brightness = 1.0
             self.send2strip(self.displayPixels)
     
@@ -252,13 +252,13 @@ class RGB_Tetris:
         return str_list
     #Check if new spawned Tetromino overlaps the current fixedPixels
     def checkSpawn(self):
-        tempPixels = [[0 for x in range(width)] for x in range(height+2)]
+        tempPixels = [[0 for x in range(self.width)] for x in range(self.height+2)]
         for row in range(len(self.activeTet[self.activeTetRotation])):
             for col in range(len(self.activeTet[self.activeTetRotation][0])):
                 if self.activeTet[self.activeTetRotation][row][col]:
                     tempPixels[self.activeTetCoords[0]+row][self.activeTetCoords[1]+col]=1
-        for row in range (height+2):
-            for col in range(width):
+        for row in range (self.height+2):
+            for col in range(self.width):
                 if tempPixels[row][col]==1:
                     if self.fixedPixels[row][col]!=gamecolors.BACKGROUNDCOLOR:
                         return True
@@ -272,9 +272,9 @@ class RGB_Tetris:
         self.linescleared=0
         self.dropPoints=0
         self.level=1
-        self.fixedPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(width)] for x in range(height+2)]
-        self.movingPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(width)] for x in range(height+2)]
-        self.displayPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(width)] for x in range(height)]
+        self.fixedPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(self.width)] for x in range(self.height+2)]
+        self.movingPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(self.width)] for x in range(self.height+2)]
+        self.displayPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(self.width)] for x in range(self.height)]
         self.keyPressTimeout = 150
         self.keyPressTime = 0    
         self.keyTimeout = 100
@@ -311,31 +311,31 @@ class RGB_Tetris:
             self.gameOver()
             self.resetGame()        
     def checkMoveLeftCollision(self):
-        tempPixels = [[0 for x in range(width)] for x in range(height+2)]
+        tempPixels = [[0 for x in range(self.width)] for x in range(self.height+2)]
         for row in range(len(self.activeTet[self.activeTetRotation])):
             for col in range(len(self.activeTet[self.activeTetRotation][0])):
                 if self.activeTet[self.activeTetRotation][row][col]:
                     tempPixels[self.activeTetCoords[0]+row][self.activeTetCoords[1]+col]=1
-        for row in range(height+2):
+        for row in range(self.height+2):
             if tempPixels[row][0]==1:
                 return True
-        for row in range (height+2):
-            for col in range(width):
+        for row in range (self.height+2):
+            for col in range(self.width):
                 if tempPixels[row][col]==1:
                     if self.fixedPixels[row][col-1]!=gamecolors.BACKGROUNDCOLOR:
                         return True
         return False    
     def checkMoveRightCollision(self):
-        tempPixels = [[0 for x in range(width)] for x in range(height+2)]
+        tempPixels = [[0 for x in range(self.width)] for x in range(self.height+2)]
         for row in range(len(self.activeTet[self.activeTetRotation])):
             for col in range(len(self.activeTet[self.activeTetRotation][0])):
                 if self.activeTet[self.activeTetRotation][row][col]:
                     tempPixels[self.activeTetCoords[0]+row][self.activeTetCoords[1]+col]=1
-        for row in range(height+2):
+        for row in range(self.height+2):
             if tempPixels[row][9]==1:
                 return True
-        for row in range (height+2):
-            for col in range(width):
+        for row in range (self.height+2):
+            for col in range(self.width):
                 if tempPixels[row][col]==1:
                     if self.fixedPixels[row][col+1]!=gamecolors.BACKGROUNDCOLOR:
                         return True
@@ -364,7 +364,7 @@ class RGB_Tetris:
         if self.activeTet == tiles.I_TILE:
             validMove = True
             if self.activeTetRotation == 0:
-                tempPixels = [[0 for x in range(width)] for x in range(height+2)]
+                tempPixels = [[0 for x in range(self.width)] for x in range(self.height+2)]
                 if self.activeTetCoords[0]>19:
                     validMove=False    
                 else:
@@ -372,8 +372,8 @@ class RGB_Tetris:
                         for col in range(len(self.activeTet[3][0])):
                             if self.activeTet[3][row][col]:
                                 tempPixels[self.activeTetCoords[0]-1+row][self.activeTetCoords[1]+1+col]=1
-                    for row in range (height+2):
-                        for col in range(width):
+                    for row in range (self.height+2):
+                        for col in range(self.width):
                             if tempPixels[row][col]==1:
                                 if self.fixedPixels[row][col]!=gamecolors.BACKGROUNDCOLOR:
                                     validMove = False                        
@@ -382,7 +382,7 @@ class RGB_Tetris:
                     self.activeTetCoords[1]+=1    
                     self.activeTetCoords[0]-=1        
             elif self.activeTetRotation == 3:
-                tempPixels = [[0 for x in range(width)] for x in range(height+2)]
+                tempPixels = [[0 for x in range(self.width)] for x in range(self.height+2)]
                 if self.activeTetCoords[1]<1 or self.activeTetCoords[1]>7:
                     validMove=False        
                 else:
@@ -390,8 +390,8 @@ class RGB_Tetris:
                         for col in range(len(self.activeTet[2][0])):
                             if self.activeTet[2][row][col]:
                                 tempPixels[self.activeTetCoords[0]+2+row][self.activeTetCoords[1]-1+col]=1
-                    for row in range (height+2):
-                        for col in range(width):
+                    for row in range (self.height+2):
+                        for col in range(self.width):
                             if tempPixels[row][col]==1:
                                 if self.fixedPixels[row][col]!=gamecolors.BACKGROUNDCOLOR:
                                     validMove = False                        
@@ -400,16 +400,16 @@ class RGB_Tetris:
                     self.activeTetCoords[1]-=1    
                     self.activeTetCoords[0]+=2            
             elif self.activeTetRotation == 2:
-                tempPixels = [[0 for x in range(width)] for x in range(height+2)]
-                if self.activeTetCoords[0]>height+2:
+                tempPixels = [[0 for x in range(self.width)] for x in range(self.height+2)]
+                if self.activeTetCoords[0]>self.height+2:
                     validMove=False    
                 else:
                     for row in range(len(self.activeTet[1])):
                         for col in range(len(self.activeTet[1][0])):
                             if self.activeTet[1][row][col]:
                                 tempPixels[self.activeTetCoords[0]-2+row][self.activeTetCoords[1]+2+col]=1
-                    for row in range (height+2):
-                        for col in range(width):
+                    for row in range (self.height+2):
+                        for col in range(self.width):
                             if tempPixels[row][col]==1:
                                 if self.fixedPixels[row][col]!=gamecolors.BACKGROUNDCOLOR:
                                     validMove = False                
@@ -418,7 +418,7 @@ class RGB_Tetris:
                     self.activeTetCoords[1]+=2    
                     self.activeTetCoords[0]-=2        
             elif self.activeTetRotation == 1:
-                tempPixels = [[0 for x in range(width)] for x in range(height+2)]
+                tempPixels = [[0 for x in range(self.width)] for x in range(self.height+2)]
                 if self.activeTetCoords[1]<2 or self.activeTetCoords[1]>8:
                     validMove=False    
                 else:
@@ -426,8 +426,8 @@ class RGB_Tetris:
                         for col in range(len(self.activeTet[0][0])):
                             if self.activeTet[0][row][col]:
                                 tempPixels[self.activeTetCoords[0]+1+row][self.activeTetCoords[1]-2+col]=1
-                    for row in range (height+2):
-                        for col in range(width):
+                    for row in range (self.height+2):
+                        for col in range(self.width):
                             if tempPixels[row][col]==1:
                                 if self.fixedPixels[row][col]!=gamecolors.BACKGROUNDCOLOR:
                                     validMove = False
@@ -438,16 +438,16 @@ class RGB_Tetris:
         elif self.activeTet == tiles.J_TILE or self.activeTet == tiles.L_TILE or self.activeTet == tiles.S_TILE or self.activeTet == tiles.T_TILE or self.activeTet == tiles.Z_TILE:
             validMove = True
             if self.activeTetRotation == 0:
-                tempPixels = [[0 for x in range(width)] for x in range(height+2)]
-                if self.activeTetCoords[0]>height-1:
+                tempPixels = [[0 for x in range(self.width)] for x in range(self.height+2)]
+                if self.activeTetCoords[0]>self.height-1:
                     validMove=False    
                 else:
                     for row in range(len(self.activeTet[3])):
                         for col in range(len(self.activeTet[3][0])):
                             if self.activeTet[3][row][col]:
                                 tempPixels[self.activeTetCoords[0]+row][self.activeTetCoords[1]+col]=1
-                    for row in range (height+2):
-                        for col in range(width):
+                    for row in range (self.height+2):
+                        for col in range(self.width):
                             if tempPixels[row][col]==1:
                                 if self.fixedPixels[row][col]!=gamecolors.BACKGROUNDCOLOR:
                                     validMove = False                        
@@ -456,7 +456,7 @@ class RGB_Tetris:
                     self.activeTetCoords[1]+=0    
                     self.activeTetCoords[0]-=0        
             elif self.activeTetRotation == 3:
-                tempPixels = [[0 for x in range(width)] for x in range(height+2)]
+                tempPixels = [[0 for x in range(self.width)] for x in range(self.height+2)]
                 if self.activeTetCoords[1]>7:
                     validMove=False        
                 else:
@@ -464,8 +464,8 @@ class RGB_Tetris:
                         for col in range(len(self.activeTet[2][0])):
                             if self.activeTet[2][row][col]:
                                 tempPixels[self.activeTetCoords[0]+1+row][self.activeTetCoords[1]+col]=1
-                    for row in range (height+2):
-                        for col in range(width):
+                    for row in range (self.height+2):
+                        for col in range(self.width):
                             if tempPixels[row][col]==1:
                                 if self.fixedPixels[row][col]!=gamecolors.BACKGROUNDCOLOR:
                                     validMove = False                        
@@ -474,16 +474,16 @@ class RGB_Tetris:
                     self.activeTetCoords[1]-=0    
                     self.activeTetCoords[0]+=1            
             elif self.activeTetRotation == 2:
-                tempPixels = [[0 for x in range(width)] for x in range(height+2)]
-                if self.activeTetCoords[0]>height:
+                tempPixels = [[0 for x in range(self.width)] for x in range(self.height+2)]
+                if self.activeTetCoords[0]>self.height:
                     validMove=False    
                 else:
                     for row in range(len(self.activeTet[1])):
                         for col in range(len(self.activeTet[1][0])):
                             if self.activeTet[1][row][col]:
                                 tempPixels[self.activeTetCoords[0]-1+row][self.activeTetCoords[1]+1+col]=1
-                    for row in range (height+2):
-                        for col in range(width):
+                    for row in range (self.height+2):
+                        for col in range(self.width):
                             if tempPixels[row][col]==1:
                                 if self.fixedPixels[row][col]!=gamecolors.BACKGROUNDCOLOR:
                                     validMove = False                
@@ -492,7 +492,7 @@ class RGB_Tetris:
                     self.activeTetCoords[1]+=1    
                     self.activeTetCoords[0]-=1        
             elif self.activeTetRotation == 1:
-                tempPixels = [[0 for x in range(width)] for x in range(height+2)]
+                tempPixels = [[0 for x in range(self.width)] for x in range(self.height+2)]
                 if self.activeTetCoords[1]<1:
                     validMove=False    
                 else:
@@ -500,8 +500,8 @@ class RGB_Tetris:
                         for col in range(len(self.activeTet[0][0])):
                             if self.activeTet[0][row][col]:
                                 tempPixels[self.activeTetCoords[0]+0+row][self.activeTetCoords[1]-1+col]=1
-                    for row in range (height+2):
-                        for col in range(width):
+                    for row in range (self.height+2):
+                        for col in range(self.width):
                             if tempPixels[row][col]==1:
                                 if self.fixedPixels[row][col]!=gamecolors.BACKGROUNDCOLOR:
                                     validMove = False
@@ -518,16 +518,16 @@ class RGB_Tetris:
         if self.activeTet == tiles.I_TILE:
             validMove = True
             if self.activeTetRotation == 0:
-                tempPixels = [[0 for x in range(width)] for x in range(height+2)]
-                if self.activeTetCoords[0]>height-1:
+                tempPixels = [[0 for x in range(self.width)] for x in range(self.height+2)]
+                if self.activeTetCoords[0]>self.height-1:
                     validMove=False    
                 else:
                     for row in range(len(self.activeTet[1])):
                         for col in range(len(self.activeTet[1][0])):
                             if self.activeTet[1][row][col]:
                                 tempPixels[self.activeTetCoords[0]-1+row][self.activeTetCoords[1]+2+col]=1
-                    for row in range (height+2):
-                        for col in range(width):
+                    for row in range (self.height+2):
+                        for col in range(self.width):
                             if tempPixels[row][col]==1:
                                 if self.fixedPixels[row][col]!=gamecolors.BACKGROUNDCOLOR:
                                     validMove = False                        
@@ -536,7 +536,7 @@ class RGB_Tetris:
                     self.activeTetCoords[1]+=2    
                     self.activeTetCoords[0]-=1        
             elif self.activeTetRotation == 1:
-                tempPixels = [[0 for x in range(width)] for x in range(height+2)]
+                tempPixels = [[0 for x in range(self.width)] for x in range(self.height+2)]
                 if self.activeTetCoords[1]<2 or self.activeTetCoords[1]>8:
                     validMove=False        
                 else:
@@ -544,8 +544,8 @@ class RGB_Tetris:
                         for col in range(len(self.activeTet[2][0])):
                             if self.activeTet[2][row][col]:
                                 tempPixels[self.activeTetCoords[0]+2+row][self.activeTetCoords[1]-2+col]=1
-                    for row in range (height+2):
-                        for col in range(width):
+                    for row in range (self.height+2):
+                        for col in range(self.width):
                             if tempPixels[row][col]==1:
                                 if self.fixedPixels[row][col]!=gamecolors.BACKGROUNDCOLOR:
                                     validMove = False                        
@@ -554,16 +554,16 @@ class RGB_Tetris:
                     self.activeTetCoords[1]-=2    
                     self.activeTetCoords[0]+=2            
             elif self.activeTetRotation == 2:
-                tempPixels = [[0 for x in range(width)] for x in range(height+2)]
-                if self.activeTetCoords[0]>height:
+                tempPixels = [[0 for x in range(self.width)] for x in range(self.height+2)]
+                if self.activeTetCoords[0]>self.height:
                     validMove=False    
                 else:
                     for row in range(len(self.activeTet[3])):
                         for col in range(len(self.activeTet[3][0])):
                             if self.activeTet[3][row][col]:
                                 tempPixels[self.activeTetCoords[0]-2+row][self.activeTetCoords[1]+1+col]=1
-                    for row in range (height+2):
-                        for col in range(width):
+                    for row in range (self.height+2):
+                        for col in range(self.width):
                             if tempPixels[row][col]==1:
                                 if self.fixedPixels[row][col]!=gamecolors.BACKGROUNDCOLOR:
                                     validMove = False                
@@ -572,7 +572,7 @@ class RGB_Tetris:
                     self.activeTetCoords[1]+=1    
                     self.activeTetCoords[0]-=2        
             elif self.activeTetRotation == 3:
-                tempPixels = [[0 for x in range(width)] for x in range(height+2)]
+                tempPixels = [[0 for x in range(self.width)] for x in range(self.height+2)]
                 if self.activeTetCoords[1]<1 or self.activeTetCoords[1]>7:
                     validMove=False    
                 else:
@@ -580,8 +580,8 @@ class RGB_Tetris:
                         for col in range(len(self.activeTet[0][0])):
                             if self.activeTet[0][row][col]:
                                 tempPixels[self.activeTetCoords[0]+1+row][self.activeTetCoords[1]-1+col]=1
-                    for row in range (height+2):
-                        for col in range(width):
+                    for row in range (self.height+2):
+                        for col in range(self.width):
                             if tempPixels[row][col]==1:
                                 if self.fixedPixels[row][col]!=gamecolors.BACKGROUNDCOLOR:
                                     validMove = False
@@ -592,16 +592,16 @@ class RGB_Tetris:
         elif self.activeTet == tiles.J_TILE or self.activeTet == tiles.L_TILE or self.activeTet == tiles.S_TILE or self.activeTet == tiles.T_TILE or self.activeTet == tiles.Z_TILE:
             validMove = True
             if self.activeTetRotation == 0:
-                tempPixels = [[0 for x in range(width)] for x in range(height+2)]
-                if self.activeTetCoords[0]>height-1:
+                tempPixels = [[0 for x in range(self.width)] for x in range(self.height+2)]
+                if self.activeTetCoords[0]>self.height-1:
                     validMove=False    
                 else:
                     for row in range(len(self.activeTet[1])):
                         for col in range(len(self.activeTet[1][0])):
                             if self.activeTet[1][row][col]:
                                 tempPixels[self.activeTetCoords[0]+row][self.activeTetCoords[1]+1+col]=1
-                    for row in range (height+2):
-                        for col in range(width):
+                    for row in range (self.height+2):
+                        for col in range(self.width):
                             if tempPixels[row][col]==1:
                                 if self.fixedPixels[row][col]!=gamecolors.BACKGROUNDCOLOR:
                                     validMove = False                        
@@ -610,7 +610,7 @@ class RGB_Tetris:
                     self.activeTetCoords[1]+=1    
                     self.activeTetCoords[0]-=0        
             elif self.activeTetRotation == 1:
-                tempPixels = [[0 for x in range(width)] for x in range(height+2)]
+                tempPixels = [[0 for x in range(self.width)] for x in range(self.height+2)]
                 if self.activeTetCoords[1]<1:
                     validMove=False        
                 else:
@@ -618,8 +618,8 @@ class RGB_Tetris:
                         for col in range(len(self.activeTet[2][0])):
                             if self.activeTet[2][row][col]:
                                 tempPixels[self.activeTetCoords[0]+1+row][self.activeTetCoords[1]-1+col]=1
-                    for row in range (height+2):
-                        for col in range(width):
+                    for row in range (self.height+2):
+                        for col in range(self.width):
                             if tempPixels[row][col]==1:
                                 if self.fixedPixels[row][col]!=gamecolors.BACKGROUNDCOLOR:
                                     validMove = False                        
@@ -628,16 +628,16 @@ class RGB_Tetris:
                     self.activeTetCoords[1]-=1    
                     self.activeTetCoords[0]+=1            
             elif self.activeTetRotation == 2:
-                tempPixels = [[0 for x in range(width)] for x in range(height+2)]
-                if self.activeTetCoords[0]>height:
+                tempPixels = [[0 for x in range(self.width)] for x in range(self.height+2)]
+                if self.activeTetCoords[0]>self.height:
                     validMove=False    
                 else:
                     for row in range(len(self.activeTet[3])):
                         for col in range(len(self.activeTet[3][0])):
                             if self.activeTet[3][row][col]:
                                 tempPixels[self.activeTetCoords[0]-1+row][self.activeTetCoords[1]+col]=1
-                    for row in range (height+2):
-                        for col in range(width):
+                    for row in range (self.height+2):
+                        for col in range(self.width):
                             if tempPixels[row][col]==1:
                                 if self.fixedPixels[row][col]!=gamecolors.BACKGROUNDCOLOR:
                                     validMove = False                
@@ -646,7 +646,7 @@ class RGB_Tetris:
                     self.activeTetCoords[1]+=0    
                     self.activeTetCoords[0]-=1        
             elif self.activeTetRotation == 3:
-                tempPixels = [[0 for x in range(width)] for x in range(height+2)]
+                tempPixels = [[0 for x in range(self.width)] for x in range(self.height+2)]
                 if self.activeTetCoords[1]>7:
                     validMove=False    
                 else:
@@ -654,8 +654,8 @@ class RGB_Tetris:
                         for col in range(len(self.activeTet[0][0])):
                             if self.activeTet[0][row][col]:
                                 tempPixels[self.activeTetCoords[0]+row][self.activeTetCoords[1]+col]=1
-                    for row in range (height+2):
-                        for col in range(width):
+                    for row in range (self.height+2):
+                        for col in range(self.width):
                             if tempPixels[row][col]==1:
                                 if self.fixedPixels[row][col]!=gamecolors.BACKGROUNDCOLOR:
                                     validMove = False
@@ -697,16 +697,16 @@ class RGB_Tetris:
         self.buildScreen()
         self.lastPressed ="NONE"
     def checkMoveDownCollision(self):
-        tempPixels = [[0 for x in range(width)] for x in range(height+3)]
+        tempPixels = [[0 for x in range(self.width)] for x in range(self.height+3)]
         for row in range(len(self.activeTet[self.activeTetRotation])):
             for col in range(len(self.activeTet[self.activeTetRotation][0])):
                 if self.activeTet[self.activeTetRotation][row][col]:
                     tempPixels[self.activeTetCoords[0]+1+row][self.activeTetCoords[1]+col]=1
-        for col in range(0,width):
-            if tempPixels[height+2][col]==1:
+        for col in range(0,self.width):
+            if tempPixels[self.height+2][col]==1:
                 return True    
-        for row in range (height+2):
-            for col in range(width):
+        for row in range (self.height+2):
+            for col in range(self.width):
                 if tempPixels[row][col]==1:
                     if self.fixedPixels[row][col]!=gamecolors.BACKGROUNDCOLOR:
                         return True
@@ -726,18 +726,18 @@ class RGB_Tetris:
         #print("Abgeraeumte Linien: "+str(self.linescleared)+" - Level: "+str(self.level)+" - moveTime: "+str(self.moveTimeout)+" - Tetris Points: "+str(self.Tetris_Points))
     def checkFinishedLines(self):
         linesFinished = 0
-        for row in range(height+2):
+        for row in range(self.height+2):
             counter = 0
-            for col in range(width):
+            for col in range(self.width):
                 if self.fixedPixels[row][col]!=gamecolors.BACKGROUNDCOLOR:
                     counter+=1
             if counter == 10:
                 linesFinished +=1
-                for col in range(width):
+                for col in range(self.width):
                     self.fixedPixels[row][col]=gamecolors.BACKGROUNDCOLOR
                 self.buildScreen()
                 for mrow in range(row,0,-1):
-                    for mcol in range(width):
+                    for mcol in range(self.width):
                         self.fixedPixels[mrow][mcol]=self.fixedPixels[mrow-1][mcol]
                 self.snd_linekill.play()
                 self.buildScreen()
@@ -808,8 +808,8 @@ class RGB_Tetris:
     #Overlay fixed and mobile Pixels
     def buildScreen(self):
         if self.running:
-            for row in range(height):
-                for pixel in range(width):
+            for row in range(self.height):
+                for pixel in range(self.width):
                     self.displayPixels[row][pixel]=self.fixedPixels[row+2][pixel]
             if self.activeTet != None:
                 for row in range(len(self.activeTet[self.activeTetRotation])):
