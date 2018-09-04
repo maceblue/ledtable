@@ -846,10 +846,10 @@ class RGB_Tetris:
             j.init()
             print('Initialized Joystick : %s' % j.get_name())
         print("Loading Hiscores..."),
-        self.hiScores = pickle.load(open("/home/pi/ledtable/hiscores.zfl","rb"))
-        self.hiScores.sort(key=self.getKey,reverse=True)
+        #self.hiScores = pickle.load(open("/home/pi/ledtable/hiscores.zfl","rb"))
+        #self.hiScores.sort(key=self.getKey,reverse=True)
         print("done")
-        print("Aktueller Hiscore: "+str(self.hiScores[0][1])+" Punkte von "+str(self.hiScores[0][0]))
+        #print("Aktueller Hiscore: "+str(self.hiScores[0][1])+" Punkte von "+str(self.hiScores[0][0]))
         print("Hi "+self.playerName+", good luck!")
         print("Game of Tetris started!")
         self.fadeInOut([255,255,255])
