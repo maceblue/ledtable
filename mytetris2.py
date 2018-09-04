@@ -112,6 +112,7 @@ class RGB_Tetris:
     snd_pause = None
     snd_gameover = None
     snd_level = None
+    strip = None
     
     #Variables per instance of TetrisClass
     def __init__(self,playerName="Anon"):
@@ -138,6 +139,9 @@ class RGB_Tetris:
         self.paused = False
         self.lastPressed = "NONE"
         #self.s=s
+        self.strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
+        # Intialize the library (must be called once before other functions).
+        self.strip.begin()
         
     def printMatrix(self,matrix):
         for row in range (0,len(matrix)):
@@ -213,8 +217,8 @@ class RGB_Tetris:
                 c = int(matrix[y][x][2]*self.brightness)
                 color = Color(a, b, c)
                 pos = self.matrix2snake(x,y)
-                strip.setPixelColor(pos, color)
-        strip.show()
+                self.strip.setPixelColor(pos, color)
+        self.strip.show()
         time.sleep(0.001)
 
     def draw(self,matrix):
