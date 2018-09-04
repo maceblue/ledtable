@@ -353,8 +353,8 @@ class RGB_Tetris:
         self.snd_gameover.play()
         time.sleep(3)
         self.fadeInOut([255,0,0])
-        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
-        sock.sendto(str(self.Tetris_Points), ("192.168.1.19", 56565))
+        #sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
+        #sock.sendto(str(self.Tetris_Points), ("192.168.1.19", 56565))
         entry = (self.playerName, self.Tetris_Points)
         self.hiScores.append(entry)
         self.hiScores.sort(key=self.getKey,reverse=True)
@@ -859,12 +859,12 @@ class RGB_Tetris:
         self.keyTime = self.moveTime
         self.keyPressTime = self.moveTime
         while self.running:
-            try:
-                data = self.s.recv(1024)
-                if data=="AbOrTTrObA":
-                    self.running=False
-            except: 
-                pass
+            #try:
+            #    data = self.s.recv(1024)
+            #    if data=="AbOrTTrObA":
+            #        self.running=False
+            #except: 
+            #    pass
             
             if self.paused:
                 time.sleep(1)

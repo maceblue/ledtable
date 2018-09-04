@@ -2,10 +2,12 @@
 
 from mytetris2 import *
 
+tetrisgame = RGB_Tetris("mace")
+tetrisgame.startGame()
 
 while True:
-    try:
-        tetrisgame = RGB_Tetris("mace")
-        tetrisgame.startGame()
-    except: 
-        pass
+	try:
+		pass
+	except:
+		tetrisgame.running = False
+		
