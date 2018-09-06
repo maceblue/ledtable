@@ -903,3 +903,9 @@ class RGB_Tetris:
                 self.buildScreen()
         pygame.quit()
         print("Tetris ended.")
+        nextGame = False
+        while nextGame==False:
+            self.getKeypress(j)
+            if self.lastPressed == 'START'
+                nextGame = True
+                self.startGame()
