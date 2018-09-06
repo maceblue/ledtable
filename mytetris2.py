@@ -901,7 +901,7 @@ class RGB_Tetris:
                     self.moveTime = pygame.time.get_ticks()
             if self.running:
                 self.buildScreen()
-        pygame.quit()
+        #pygame.quit()
         print("Tetris ended.")
         nextGame = False
         while nextGame==False:
