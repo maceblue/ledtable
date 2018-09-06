@@ -833,9 +833,11 @@ class RGB_Tetris:
         return item[1]  
     def startGame(self):
         #print("Initialize sound system..."),
-        #pygame.mixer.pre_init(44100, -16, 2, 2048)    
+        #pygame.mixer.pre_init(44100, -16, 2, 2048)
+        self.lastPressed = None
+        self.paused = False
         pygame.init()
-        print("done")
+        #print("done")
         #print("Loading music..."),
         #pygame.mixer.music.load('/home/pi/ledtable/sounds/tetrisaccapella.ogg')
         #pygame.mixer.music.set_volume(0.2)
@@ -908,4 +910,6 @@ class RGB_Tetris:
             self.getKeypress(j)
             if self.lastPressed == 'START':
                 nextGame = True
+                self.lastPressed = None
+                self.paused = False
                 self.startGame()
