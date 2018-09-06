@@ -906,6 +906,6 @@ class RGB_Tetris:
         nextGame = False
         while nextGame==False:
             self.getKeypress(j)
-            if self.lastPressed == 'START'
+            if self.lastPressed == 'START':
                 nextGame = True
                 self.startGame()
