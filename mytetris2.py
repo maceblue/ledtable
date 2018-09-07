@@ -168,46 +168,6 @@ class RGB_Tetris:
 
     # Map a matrix to snake-sequenced LED-Strip
     def matrix2snake(self,x,y):
-                #   _   _   _
-        ######     | | | | | |
-        ######  -> | | | | | |
-        ######     | | | | | |
-                #     -   -
-        mapping = {'0,0': 14,
-                    '0,1': 13,
-                    '0,2': 12,
-                    '0,3': 11,
-                    '0,4': 10,
-                    '0,5': 9,
-                    '0,6': 8,
-                    '0,7': 7,
-                    '0,8': 6,
-                    '0,9': 5,
-                    '0,10': 4,
-                    '0,11': 3,
-                    '0,12': 2,
-                    '0,13': 1,
-                    '0,14': 0,
-                    '1,0': 15,
-                    '1,1': 16,
-                    '1,2': 17,
-                    '1,3': 18,
-                    '1,4': 19,
-                    '1,5': 20,
-                    '1,6': 21,
-                    '1,7': 22,
-                    '1,8': 23,
-                    '1,9': 24,
-                    '1,10': 25,
-                    '1,11': 26,
-                    '1,12': 27,
-                    '1,13': 28,
-                    '1,14': 29
-                    }
-        #s = x + ',' + y
-        #return mapping[s]
-
-
         if x%2==0:
             pos = (x+1)*self.height - y -1
         else:
@@ -225,23 +185,6 @@ class RGB_Tetris:
                 pos = self.matrix2snake(x,y)
                 self.strip.setPixelColor(pos, color)
         self.strip.show()
-        time.sleep(0.001)
-
-    def draw(self,matrix):
-        sendstring = ""
-        for row in range(self.height):
-            if row%2==0:
-                for pixel in range(0,self.width):
-                    for color in range(0,3):
-                        c=int(matrix[row][pixel][color]*self.brightness)
-                        sendstring += chr(c & 0xFF)
-            else:
-                for pixel in range(9,-1,-1):
-                    for color in range(0,3):
-                        c=int(matrix[row][pixel][color]*self.brightness)
-                        sendstring += chr(c & 0xFF)            
-        self.spidev.write(sendstring)        
-        self.spidev.flush()
         time.sleep(0.001)
 
     def fadeInOut(self,c):
