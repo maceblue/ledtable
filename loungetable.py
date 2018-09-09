@@ -73,7 +73,7 @@ class LoungeTable:
     def changePixels(self):
         for i in range(0,5):
             row = random.randint(0,self.height-1)
-            col = random.randint(0,9)
+            col = random.randint(0,width-1)
             r, g, b = self.hsv2rgb(random.uniform(self.fromcolor,self.tocolor),1,1)
             self.pixels[row][col] = [r,g,b]
         self.send2strip()

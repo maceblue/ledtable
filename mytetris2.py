@@ -7,7 +7,7 @@ LED_COUNT      = 150      # Number of LED pixels.
 LED_PIN        = 18      # GPIO pin connected to the pixels (18 uses PWM!).
 LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
 LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
-LED_BRIGHTNESS = 55     # Set to 0 for darkest and 255 for brightest
+LED_BRIGHTNESS = 25     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 
@@ -199,6 +199,69 @@ class RGB_Tetris:
             self.displayPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(self.width)] for x in range(self.height)]
             self.brightness = 1.0
             self.send2strip(self.displayPixels)
+
+    def startSeq(self):
+        # number 3
+        self.displayPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(self.width)] for x in range(self.height)]
+        self.displayPixels[3][3] = Z_COLOR
+        self.displayPixels[3][4] = Z_COLOR
+        self.displayPixels[3][5] = Z_COLOR
+        self.displayPixels[3][6] = Z_COLOR
+        self.displayPixels[4][2] = Z_COLOR
+        self.displayPixels[4][7] = Z_COLOR
+        self.displayPixels[5][7] = Z_COLOR
+        self.displayPixels[6][7] = Z_COLOR
+        self.displayPixels[7][6] = Z_COLOR
+        self.displayPixels[8][7] = Z_COLOR
+        self.displayPixels[9][7] = Z_COLOR
+        self.displayPixels[10][7] = Z_COLOR
+        self.displayPixels[10][2] = Z_COLOR
+        self.displayPixels[11][6] = Z_COLOR
+        self.displayPixels[11][5] = Z_COLOR
+        self.displayPixels[11][4] = Z_COLOR
+        self.displayPixels[11][3] = Z_COLOR
+        self.send2strip(self.displayPixels)
+        time.sleep(1)
+
+        # number 2
+        self.displayPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(self.width)] for x in range(self.height)]
+        self.displayPixels[3][3] = L_COLOR
+        self.displayPixels[3][4] = L_COLOR
+        self.displayPixels[3][5] = L_COLOR
+        self.displayPixels[3][6] = L_COLOR
+        self.displayPixels[4][2] = L_COLOR
+        self.displayPixels[4][7] = L_COLOR
+        self.displayPixels[5][7] = L_COLOR
+        self.displayPixels[6][7] = L_COLOR
+        self.displayPixels[7][6] = L_COLOR
+        self.displayPixels[8][5] = L_COLOR
+        self.displayPixels[9][4] = L_COLOR
+        self.displayPixels[10][3] = L_COLOR
+        self.displayPixels[11][2] = L_COLOR
+        self.displayPixels[11][3] = L_COLOR
+        self.displayPixels[11][4] = L_COLOR
+        self.displayPixels[11][5] = L_COLOR
+        self.displayPixels[11][6] = L_COLOR
+        self.displayPixels[11][7] = L_COLOR
+        self.send2strip(self.displayPixels)
+        time.sleep(1)
+
+        # number 1
+        self.displayPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(self.width)] for x in range(self.height)]
+        self.displayPixels[3][4] = I_COLOR
+        self.displayPixels[3][5] = I_COLOR
+        self.displayPixels[4][3] = I_COLOR
+        self.displayPixels[4][5] = I_COLOR
+        self.displayPixels[5][2] = I_COLOR
+        self.displayPixels[5][5] = I_COLOR
+        self.displayPixels[6][5] = I_COLOR
+        self.displayPixels[7][5] = I_COLOR
+        self.displayPixels[8][5] = I_COLOR
+        self.displayPixels[9][5] = I_COLOR
+        self.displayPixels[10][5] = I_COLOR
+        self.displayPixels[11][5] = I_COLOR
+        self.send2strip(self.displayPixels)
+        time.sleep(1)
     
     #Shuffle the next bag of Tetronimos        
     def shuffleSeq(self):
@@ -809,7 +872,8 @@ class RGB_Tetris:
         print("Aktueller Hiscore: "+str(self.hiScores[0][1])+" Punkte von "+str(self.hiScores[0][0]))
         print("Hi "+self.playerName+", good luck!")
         print("Game of Tetris started!")
-        self.fadeInOut([255,255,255])
+        #self.fadeInOut([255,255,255])
+        self.startSeq()
         self.running = True
         self.spawn()
         self.moveTime = pygame.time.get_ticks()
