@@ -114,7 +114,6 @@ class RGB_Tetris:
     width = 10
     height = 15
     hiScores = []
-    spidev = file("/dev/spidev0.0", "wb")
     snd_click = None
     snd_linekil = None
     snd_tilefix = None
@@ -147,7 +146,6 @@ class RGB_Tetris:
         self.running = False
         self.paused = False
         self.lastPressed = "NONE"
-        #self.s=s
         self.strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
         # Intialize the library (must be called once before other functions).
         self.strip.begin()
@@ -200,7 +198,7 @@ class RGB_Tetris:
             self.brightness = 1.0
             self.send2strip(self.displayPixels)
 
-    def startSeq(self):
+    def countdown(self):
         # number 3
         self.displayPixels = [[gamecolors.BLACK for x in range(self.width)] for x in range(self.height)]
         self.displayPixels[3][3] = gamecolors.RED
@@ -371,10 +369,8 @@ class RGB_Tetris:
         print("Game over. "+str(self.Tetris_Points)+" points.")
         #pygame.mixer.music.stop()
         #self.snd_gameover.play()
-        time.sleep(3)
+        time.sleep(1)
         self.fadeInOut([255,0,0])
-        #sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
-        #sock.sendto(str(self.Tetris_Points), ("192.168.1.19", 56565))
         entry = (self.playerName, self.Tetris_Points)
         self.hiScores.append(entry)
         self.hiScores.sort(key=self.getKey,reverse=True)
@@ -874,21 +870,13 @@ class RGB_Tetris:
         print("Aktueller Hiscore: "+str(self.hiScores[0][1])+" Punkte von "+str(self.hiScores[0][0]))
         print("Hi "+self.playerName+", good luck!")
         print("Game of Tetris started!")
-        #self.fadeInOut([255,255,255])
-        self.startSeq()
+        self.countdown()
         self.running = True
         self.spawn()
         self.moveTime = pygame.time.get_ticks()
         self.keyTime = self.moveTime
         self.keyPressTime = self.moveTime
         while self.running:
-            #try:
-            #    data = self.s.recv(1024)
-            #    if data=="AbOrTTrObA":
-            #        self.running=False
-            #except: 
-            #    pass
-            
             if self.paused:
                 time.sleep(1)
                 while self.paused:

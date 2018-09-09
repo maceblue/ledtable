@@ -15,7 +15,6 @@ LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 
 class LoungeTable:
     REFRESHSCREEN = USEREVENT+1
-    spidev = file("/dev/spidev0.0", "wb")
     width = 10
     height = 15
     
@@ -28,7 +27,6 @@ class LoungeTable:
         self.waitbright = 200
         self.waitint = 100
         self.running = True
-        #self.s = s
         self.strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
         # Intialize the library (must be called once before other functions).
         self.strip.begin()
@@ -55,15 +53,6 @@ class LoungeTable:
                 self.strip.setPixelColor(pos, color)
         self.strip.show()
         time.sleep(0.001)
-
-    def draw(self):
-            for row in self.pixels:
-                    for pixel in row:
-                            for color in pixel:
-                                    c = int(color*self.brightness)
-                                    self.spidev.write(chr(c & 0xFF))
-            self.spidev.flush()
-            time.sleep(0.001)
     def initScreen(self):
         for row in range(0,self.height):
             for pixel in range(0,self.width):
@@ -99,19 +88,6 @@ class LoungeTable:
         startbright = start
         startint = start
         while self.running:
-            #try:
-                #data = self.s.recv(1024)
-
-                #if data.startswith("LOU"):
-                    #self.fromcolor = float(float(data[3:6])/360)
-                    #self.tocolor = float(float(data[6:9])/360)
-                    #self.brightness = float(data[9:13])/1000
-                    #self.waittime = int(data[13:])
-                    #print("Parameters updated")
-                #elif data=="AbOrTTrObA":
-                #    self.running=False
-            #except: 
-                #pass
             pygame.event.pump()
             #Check if waitbright-Intervall has passed since last change of brightness and update if buttons pressed
             if (pygame.time.get_ticks()>=startbright+self.waitbright):
