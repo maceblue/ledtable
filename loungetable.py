@@ -99,19 +99,19 @@ class LoungeTable:
         startbright = start
         startint = start
         while self.running:
-            try:
+            #try:
                 #data = self.s.recv(1024)
 
                 #if data.startswith("LOU"):
-                    self.fromcolor = float(float(data[3:6])/360)
-                    self.tocolor = float(float(data[6:9])/360)
-                    self.brightness = float(data[9:13])/1000
-                    self.waittime = int(data[13:])
-                    print("Parameters updated")
+                    #self.fromcolor = float(float(data[3:6])/360)
+                    #self.tocolor = float(float(data[6:9])/360)
+                    #self.brightness = float(data[9:13])/1000
+                    #self.waittime = int(data[13:])
+                    #print("Parameters updated")
                 #elif data=="AbOrTTrObA":
                 #    self.running=False
-            except: 
-                pass
+            #except: 
+                #pass
             pygame.event.pump()
             #Check if waitbright-Intervall has passed since last change of brightness and update if buttons pressed
             if (pygame.time.get_ticks()>=startbright+self.waitbright):
