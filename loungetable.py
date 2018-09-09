@@ -142,4 +142,5 @@ class LoungeTable:
                 self.changePixels()
                 start = pygame.time.get_ticks()
         pygame.quit()
+        self.pixels = [[[0,0,0] for x in range(self.width)] for x in range(self.height)]
         print("LoungeTable closed")
