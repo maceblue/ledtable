@@ -248,18 +248,18 @@ class RGB_Tetris:
 
         # number 1
         self.displayPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(self.width)] for x in range(self.height)]
-        self.displayPixels[3][4] = gamecolors.I_COLOR
-        self.displayPixels[3][5] = gamecolors.I_COLOR
-        self.displayPixels[4][3] = gamecolors.I_COLOR
-        self.displayPixels[4][5] = gamecolors.I_COLOR
-        self.displayPixels[5][2] = gamecolors.I_COLOR
-        self.displayPixels[5][5] = gamecolors.I_COLOR
-        self.displayPixels[6][5] = gamecolors.I_COLOR
-        self.displayPixels[7][5] = gamecolors.I_COLOR
-        self.displayPixels[8][5] = gamecolors.I_COLOR
-        self.displayPixels[9][5] = gamecolors.I_COLOR
-        self.displayPixels[10][5] = gamecolors.I_COLOR
-        self.displayPixels[11][5] = gamecolors.I_COLOR
+        self.displayPixels[3][4] = gamecolors.S_COLOR
+        self.displayPixels[3][5] = gamecolors.S_COLOR
+        self.displayPixels[4][3] = gamecolors.S_COLOR
+        self.displayPixels[4][5] = gamecolors.S_COLOR
+        self.displayPixels[5][2] = gamecolors.S_COLOR
+        self.displayPixels[5][5] = gamecolors.S_COLOR
+        self.displayPixels[6][5] = gamecolors.S_COLOR
+        self.displayPixels[7][5] = gamecolors.S_COLOR
+        self.displayPixels[8][5] = gamecolors.S_COLOR
+        self.displayPixels[9][5] = gamecolors.S_COLOR
+        self.displayPixels[10][5] = gamecolors.S_COLOR
+        self.displayPixels[11][5] = gamecolors.S_COLOR
         self.send2strip(self.displayPixels)
         time.sleep(1)
 
