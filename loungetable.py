@@ -77,6 +77,9 @@ class LoungeTable:
             r, g, b = self.hsv2rgb(random.uniform(self.fromcolor,self.tocolor),1,1)
             self.pixels[row][col] = [r,g,b]
         self.send2strip()
+    def stopTable(self):
+        self.pixels = [[[0,0,0] for x in range(self.width)] for x in range(self.height)]
+        self.send2strip()
     def startTable(self): 
         pygame.quit()
         print("LoungeTable started")
@@ -142,5 +145,4 @@ class LoungeTable:
                 self.changePixels()
                 start = pygame.time.get_ticks()
         pygame.quit()
-        self.pixels = [[[0,0,0] for x in range(self.width)] for x in range(self.height)]
         print("LoungeTable closed")
