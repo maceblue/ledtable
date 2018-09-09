@@ -2,7 +2,7 @@
 
 from loungetable import *
 
-table = LoungeTable("111","360","500","150")
+table = LoungeTable("111","360","50","150")
 table.startTable()
 
 while True:

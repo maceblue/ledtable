@@ -19,7 +19,7 @@ class LoungeTable:
     width = 10
     height = 15
     
-    def __init__(self,fromColor="111",toColor="000",brightness="500",waittime="150"):
+    def __init__(self,fromColor="111",toColor="000",brightness="50",waittime="150"):
         self.fromcolor = float(float(fromColor)/360)
         self.tocolor = float(float(toColor)/360)
         self.pixels = [[[0 for x in range(3)] for x in range(self.width)] for x in range(self.height)]
