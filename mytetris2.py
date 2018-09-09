@@ -203,65 +203,67 @@ class RGB_Tetris:
     def startSeq(self):
         # number 3
         self.displayPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(self.width)] for x in range(self.height)]
-        self.displayPixels[3][3] = Z_COLOR
-        self.displayPixels[3][4] = Z_COLOR
-        self.displayPixels[3][5] = Z_COLOR
-        self.displayPixels[3][6] = Z_COLOR
-        self.displayPixels[4][2] = Z_COLOR
-        self.displayPixels[4][7] = Z_COLOR
-        self.displayPixels[5][7] = Z_COLOR
-        self.displayPixels[6][7] = Z_COLOR
-        self.displayPixels[7][6] = Z_COLOR
-        self.displayPixels[8][7] = Z_COLOR
-        self.displayPixels[9][7] = Z_COLOR
-        self.displayPixels[10][7] = Z_COLOR
-        self.displayPixels[10][2] = Z_COLOR
-        self.displayPixels[11][6] = Z_COLOR
-        self.displayPixels[11][5] = Z_COLOR
-        self.displayPixels[11][4] = Z_COLOR
-        self.displayPixels[11][3] = Z_COLOR
+        self.displayPixels[3][3] = gamecolors.Z_COLOR
+        self.displayPixels[3][4] = gamecolors.Z_COLOR
+        self.displayPixels[3][5] = gamecolors.Z_COLOR
+        self.displayPixels[3][6] = gamecolors.Z_COLOR
+        self.displayPixels[4][2] = gamecolors.Z_COLOR
+        self.displayPixels[4][7] = gamecolors.Z_COLOR
+        self.displayPixels[5][7] = gamecolors.Z_COLOR
+        self.displayPixels[6][7] = gamecolors.Z_COLOR
+        self.displayPixels[7][6] = gamecolors.Z_COLOR
+        self.displayPixels[8][7] = gamecolors.Z_COLOR
+        self.displayPixels[9][7] = gamecolors.Z_COLOR
+        self.displayPixels[10][7] = gamecolors.Z_COLOR
+        self.displayPixels[10][2] = gamecolors.Z_COLOR
+        self.displayPixels[11][6] = gamecolors.Z_COLOR
+        self.displayPixels[11][5] = gamecolors.Z_COLOR
+        self.displayPixels[11][4] = gamecolors.Z_COLOR
+        self.displayPixels[11][3] = gamecolors.Z_COLOR
         self.send2strip(self.displayPixels)
         time.sleep(1)
 
         # number 2
         self.displayPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(self.width)] for x in range(self.height)]
-        self.displayPixels[3][3] = L_COLOR
-        self.displayPixels[3][4] = L_COLOR
-        self.displayPixels[3][5] = L_COLOR
-        self.displayPixels[3][6] = L_COLOR
-        self.displayPixels[4][2] = L_COLOR
-        self.displayPixels[4][7] = L_COLOR
-        self.displayPixels[5][7] = L_COLOR
-        self.displayPixels[6][7] = L_COLOR
-        self.displayPixels[7][6] = L_COLOR
-        self.displayPixels[8][5] = L_COLOR
-        self.displayPixels[9][4] = L_COLOR
-        self.displayPixels[10][3] = L_COLOR
-        self.displayPixels[11][2] = L_COLOR
-        self.displayPixels[11][3] = L_COLOR
-        self.displayPixels[11][4] = L_COLOR
-        self.displayPixels[11][5] = L_COLOR
-        self.displayPixels[11][6] = L_COLOR
-        self.displayPixels[11][7] = L_COLOR
+        self.displayPixels[3][3] = gamecolors.L_COLOR
+        self.displayPixels[3][4] = gamecolors.L_COLOR
+        self.displayPixels[3][5] = gamecolors.L_COLOR
+        self.displayPixels[3][6] = gamecolors.L_COLOR
+        self.displayPixels[4][2] = gamecolors.L_COLOR
+        self.displayPixels[4][7] = gamecolors.L_COLOR
+        self.displayPixels[5][7] = gamecolors.L_COLOR
+        self.displayPixels[6][7] = gamecolors.L_COLOR
+        self.displayPixels[7][6] = gamecolors.L_COLOR
+        self.displayPixels[8][5] = gamecolors.L_COLOR
+        self.displayPixels[9][4] = gamecolors.L_COLOR
+        self.displayPixels[10][3] = gamecolors.L_COLOR
+        self.displayPixels[11][2] = gamecolors.L_COLOR
+        self.displayPixels[11][3] = gamecolors.L_COLOR
+        self.displayPixels[11][4] = gamecolors.L_COLOR
+        self.displayPixels[11][5] = gamecolors.L_COLOR
+        self.displayPixels[11][6] = gamecolors.L_COLOR
+        self.displayPixels[11][7] = gamecolors.L_COLOR
         self.send2strip(self.displayPixels)
         time.sleep(1)
 
         # number 1
         self.displayPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(self.width)] for x in range(self.height)]
-        self.displayPixels[3][4] = I_COLOR
-        self.displayPixels[3][5] = I_COLOR
-        self.displayPixels[4][3] = I_COLOR
-        self.displayPixels[4][5] = I_COLOR
-        self.displayPixels[5][2] = I_COLOR
-        self.displayPixels[5][5] = I_COLOR
-        self.displayPixels[6][5] = I_COLOR
-        self.displayPixels[7][5] = I_COLOR
-        self.displayPixels[8][5] = I_COLOR
-        self.displayPixels[9][5] = I_COLOR
-        self.displayPixels[10][5] = I_COLOR
-        self.displayPixels[11][5] = I_COLOR
+        self.displayPixels[3][4] = gamecolors.I_COLOR
+        self.displayPixels[3][5] = gamecolors.I_COLOR
+        self.displayPixels[4][3] = gamecolors.I_COLOR
+        self.displayPixels[4][5] = gamecolors.I_COLOR
+        self.displayPixels[5][2] = gamecolors.I_COLOR
+        self.displayPixels[5][5] = gamecolors.I_COLOR
+        self.displayPixels[6][5] = gamecolors.I_COLOR
+        self.displayPixels[7][5] = gamecolors.I_COLOR
+        self.displayPixels[8][5] = gamecolors.I_COLOR
+        self.displayPixels[9][5] = gamecolors.I_COLOR
+        self.displayPixels[10][5] = gamecolors.I_COLOR
+        self.displayPixels[11][5] = gamecolors.I_COLOR
         self.send2strip(self.displayPixels)
         time.sleep(1)
+
+        self.displayPixels = [[gamecolors.BACKGROUNDCOLOR for x in range(self.width)] for x in range(self.height)]
     
     #Shuffle the next bag of Tetronimos        
     def shuffleSeq(self):
