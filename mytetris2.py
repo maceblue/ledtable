@@ -973,7 +973,7 @@ class RGB_Tetris:
                 if self.gamepad.get_axis(1) >= +0.5:
                     if self.brightness >= 0.05:
                         self.brightness -=0.05
-                self.send2strip()
+                self.send2strip(self.pixels)
                 startbright = pygame.time.get_ticks()
                             
             if (pygame.time.get_ticks()>=startint+self.waitint):
