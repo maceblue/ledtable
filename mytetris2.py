@@ -124,6 +124,7 @@ class RGB_Tetris:
     snd_level = None
     strip = None
     REFRESHSCREEN = USEREVENT+1
+    j = None
     
     #Variables per instance of TetrisClass
     def __init__(self,playerName="Anon"):
