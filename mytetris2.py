@@ -145,7 +145,7 @@ class RGB_Tetris:
         self.keyTime = 0
         self.moveTimeout = 500
         self.moveTime = 0
-        self.brightness = 0.5
+        self.brightness = 0.4
         self.Tetris_Points = 0
         self.running = False
         self.paused = False
@@ -956,6 +956,7 @@ class RGB_Tetris:
         #    j.quit()
         #    j.init()
         #    print 'Initialized Joystick : %s' % j.get_name()
+        self.brightness = 0.05
         self.initLoungeScreen()
         pygame.time.set_timer(self.REFRESHSCREEN, self.waittime)
         cl = pygame.time.Clock()
@@ -1001,4 +1002,5 @@ class RGB_Tetris:
                 self.loungeTableRunning = False
                 self.lastPressed = None
                 self.paused = False
+                self.brightness = 0.4
                 self.startGame()
