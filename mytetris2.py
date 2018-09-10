@@ -1,5 +1,7 @@
 import pygame, pickle
 import math, sys, os, random, socket, time, colorsys
+from pygame.locals import *
+from colorsys import hsv_to_rgb, rgb_to_hsv
 from neopixel import *
 
 # LED strip configuration:
