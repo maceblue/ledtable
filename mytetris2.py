@@ -941,7 +941,7 @@ class RGB_Tetris:
             col = random.randint(0,self.width-1)
             r, g, b = self.hsv2rgb(random.uniform(self.fromcolor,self.tocolor),1,1)
             self.pixels[row][col] = [r,g,b]
-        self.send2strip(self.pixels)
+        self.send2strip(self,self.pixels)
     def startLoungeTable(self): 
         self.loungeTableRunning = True
         #pygame.quit()
