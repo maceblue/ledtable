@@ -121,6 +121,7 @@ class RGB_Tetris:
     snd_gameover = None
     snd_level = None
     strip = None
+    REFRESHSCREEN = USEREVENT+1
     
     #Variables per instance of TetrisClass
     def __init__(self,playerName="Anon"):
@@ -146,6 +147,15 @@ class RGB_Tetris:
         self.running = False
         self.paused = False
         self.lastPressed = "NONE"
+        #lounge modus
+        self.fromcolor = float(float("111")/360)
+        self.tocolor = float(float("360")/360)
+        self.pixels = [[[0 for x in range(3)] for x in range(self.width)] for x in range(self.height)]
+        self.waittime = int("150")
+        self.waitbright = 200
+        self.waitint = 100
+        self.loungeTableRunning = False
+        #strip
         self.strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
         # Intialize the library (must be called once before other functions).
         self.strip.begin()
@@ -902,11 +912,90 @@ class RGB_Tetris:
                 self.buildScreen()
         #pygame.quit()
         print("Tetris ended.")
-        nextGame = False
-        while nextGame==False:
+        self.startLoungeTable()
+        #nextGame = False
+        #while nextGame==False:
+        #    self.getKeypress(j)
+        #    if self.lastPressed == 'START':
+        #        nextGame = True
+        #        self.lastPressed = None
+        #        self.paused = False
+        #        self.startGame()
+
+    # lounge modus functions
+    def hsv2rgb(self,h,s,v):
+        return tuple(int(i * 255) for i in colorsys.hsv_to_rgb(h,s,v))
+    def rgb2hsv(self,r,g,b):
+        return tuple(i  for i in colorsys.rgb_to_hsv(r/ 255.0, g/ 255.0, b/ 255.0))
+    def initLoungeScreen(self):
+        for row in range(0,self.height):
+            for pixel in range(0,self.width):
+                r, g, b = self.hsv2rgb(random.uniform(self.fromcolor,self.tocolor),1,1)
+                self.pixels[row][pixel]=[r,g,b]
+        self.send2strip()
+    def changePixels(self):
+        for i in range(0,5):
+            row = random.randint(0,self.height-1)
+            col = random.randint(0,self.width-1)
+            r, g, b = self.hsv2rgb(random.uniform(self.fromcolor,self.tocolor),1,1)
+            self.pixels[row][col] = [r,g,b]
+        self.send2strip(self.pixels)
+    def startLoungeTable(self): 
+        self.loungeTableRunning = True
+        #pygame.quit()
+        print("LoungeTable started")
+        #pygame.init()
+        #joystick_count = pygame.joystick.get_count()
+        #if joystick_count == 0:
+        #    print ("Error, I did not find any joysticks")
+        #else:
+        #    j = pygame.joystick.Joystick(0)
+        #    j.quit()
+        #    j.init()
+        #    print 'Initialized Joystick : %s' % j.get_name()
+        self.initLoungeScreen()
+        pygame.time.set_timer(self.REFRESHSCREEN, self.waittime)
+        cl = pygame.time.Clock()
+        start = pygame.time.get_ticks()
+        startbright = start
+        startint = start
+        while self.loungeTableRunning:
+            pygame.event.pump()
+            #Check if waitbright-Intervall has passed since last change of brightness and update if buttons pressed
+            if (pygame.time.get_ticks()>=startbright+self.waitbright):
+                if j.get_axis(1) <= -0.5:
+                    if self.brightness <= 0.95:
+                        self.brightness +=0.05
+                        
+                if j.get_axis(1) >= +0.5:
+                    if self.brightness >= 0.05:
+                        self.brightness -=0.05
+                self.send2strip()
+                startbright = pygame.time.get_ticks()
+                            
+            if (pygame.time.get_ticks()>=startint+self.waitint):
+                if j.get_axis(0) >= +0.5:
+                    if self.waittime <= 9980:
+                        self.waittime +=20
+                       
+                if j.get_axis(0) <= -0.5:
+                    if self.waittime >= 20:
+                        self.waittime -=20
+                startint = pygame.time.get_ticks() 
+    
+            if j.get_button(1):
+                self.waittime = 1
+                self.brightness = 1.0
+                startint = pygame.time.get_ticks()
+                self.changePixels()        
+            
+            if (pygame.time.get_ticks()>=start+self.waittime):
+                self.changePixels()
+                start = pygame.time.get_ticks()
+
             self.getKeypress(j)
             if self.lastPressed == 'START':
-                nextGame = True
+                self.loungeTableRunning = False
                 self.lastPressed = None
                 self.paused = False
                 self.startGame()
