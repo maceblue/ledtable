@@ -124,7 +124,7 @@ class RGB_Tetris:
     snd_level = None
     strip = None
     REFRESHSCREEN = USEREVENT+1
-    j = None
+    gamepad = None
     
     #Variables per instance of TetrisClass
     def __init__(self,playerName="Anon"):
@@ -873,9 +873,9 @@ class RGB_Tetris:
             print ("How do you want to play Tetris without a joystick?")
             sys.exit()
         else:
-            j = pygame.joystick.Joystick(0)
-            j.init()
-            print('Initialized Joystick : %s' % j.get_name())
+            self.gamepad = pygame.joystick.Joystick(0)
+            self.gamepad.init()
+            print('Initialized Joystick : %s' % self.gamepad.get_name())
         print("Loading Hiscores..."),
         self.hiScores = pickle.load(open("/home/pi/ledtable/hiscores.zfl","rb"))
         self.hiScores.sort(key=self.getKey,reverse=True)
@@ -894,7 +894,7 @@ class RGB_Tetris:
                 time.sleep(1)
                 while self.paused:
                     pygame.event.pump()
-                    if j.get_button(9):
+                    if self.gamepad.get_button(9):
                         print ("Game unpaused")
                         self.snd_pause.play()
                         pygame.mixer.music.unpause()
@@ -904,7 +904,7 @@ class RGB_Tetris:
             
             if self.running:
                 if pygame.time.get_ticks() > self.keyPressTime + self.keyPressTimeout:
-                     self.getKeypress(j)
+                     self.getKeypress(self.gamepad)
                 if pygame.time.get_ticks() > self.keyTime + self.keyTimeout:
                      self.keyAction()
                      self.keyTime = pygame.time.get_ticks()
@@ -918,7 +918,7 @@ class RGB_Tetris:
         self.startLoungeTable()
         #nextGame = False
         #while nextGame==False:
-        #    self.getKeypress(j)
+        #    self.getKeypress(self.gamepad)
         #    if self.lastPressed == 'START':
         #        nextGame = True
         #        self.lastPressed = None
@@ -966,27 +966,27 @@ class RGB_Tetris:
             pygame.event.pump()
             #Check if waitbright-Intervall has passed since last change of brightness and update if buttons pressed
             if (pygame.time.get_ticks()>=startbright+self.waitbright):
-                if j.get_axis(1) <= -0.5:
+                if self.gamepad.get_axis(1) <= -0.5:
                     if self.brightness <= 0.95:
                         self.brightness +=0.05
                         
-                if j.get_axis(1) >= +0.5:
+                if self.gamepad.get_axis(1) >= +0.5:
                     if self.brightness >= 0.05:
                         self.brightness -=0.05
                 self.send2strip()
                 startbright = pygame.time.get_ticks()
                             
             if (pygame.time.get_ticks()>=startint+self.waitint):
-                if j.get_axis(0) >= +0.5:
+                if self.gamepad.get_axis(0) >= +0.5:
                     if self.waittime <= 9980:
                         self.waittime +=20
                        
-                if j.get_axis(0) <= -0.5:
+                if self.gamepad.get_axis(0) <= -0.5:
                     if self.waittime >= 20:
                         self.waittime -=20
                 startint = pygame.time.get_ticks() 
     
-            if j.get_button(1):
+            if self.gamepad.get_button(1):
                 self.waittime = 1
                 self.brightness = 1.0
                 startint = pygame.time.get_ticks()
@@ -996,7 +996,7 @@ class RGB_Tetris:
                 self.changePixels()
                 start = pygame.time.get_ticks()
 
-            self.getKeypress(j)
+            self.getKeypress(self.gamepad)
             if self.lastPressed == 'START':
                 self.loungeTableRunning = False
                 self.lastPressed = None
