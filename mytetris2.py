@@ -123,6 +123,8 @@ class RGB_Tetris:
     snd_pause = None
     snd_gameover = None
     snd_level = None
+    snd_appluse = None
+    snd_rocket = None
     strip = None
     REFRESHSCREEN = USEREVENT+1
     gamepad = None
@@ -390,8 +392,17 @@ class RGB_Tetris:
         #voices = speakEngine.getProperty('voices')
         speakEngine.setProperty('voice', 'german')
         speakEngine.say("Du hast "+str(self.Tetris_Points)+" Punkte.")
-        speakEngine.say("Der Rekord liegt bei "+str(self.hiScores[0][1])+" Punkten.")
-        speakEngine.runAndWait()
+        if self.hiScores[0][1] < self.Tetris_Points:
+            speakEngine.say("Du hast einen neuen Rekord aufgestellt.")
+            speakEngine.runAndWait()
+            time.sleep(4)
+            self.snd_appluse.play()
+            time.sleep(6)
+            self.snd_rocket.play()
+            time.sleep(10)
+        else:
+            speakEngine.say("Der Rekord liegt bei "+str(self.hiScores[0][1])+" Punkten.")
+            speakEngine.runAndWait()
         self.fadeInOut([255,0,0])
         if self.hiScores[0][1] < self.Tetris_Points:
             entry = (self.playerName, self.Tetris_Points)
@@ -876,6 +887,8 @@ class RGB_Tetris:
         self.snd_pause = pygame.mixer.Sound('/home/pi/ledtable/sounds/pause.ogg')
         self.snd_gameover = pygame.mixer.Sound('/home/pi/ledtable/sounds/gameover.ogg')
         self.snd_level = pygame.mixer.Sound('/home/pi/ledtable/sounds/level.ogg')
+        self.snd_appluse = pygame.mixer.Sound('/home/pi/ledtable/sounds/applause.ogg')
+        self.snd_rocket = pygame.mixer.Sound('/home/pi/ledtable/sounds/rocket-start.ogg')
         print("done")
         pygame.mixer.music.play(-1)
         joystick_count = pygame.joystick.get_count()
