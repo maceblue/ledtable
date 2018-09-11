@@ -385,6 +385,7 @@ class RGB_Tetris:
         self.snd_gameover.play()
         time.sleep(1)
         speakEngine = pyttsx.init()
+        rate = speakEngine.getProperty('rate')
         speakEngine.setProperty('rate', rate-50)
         voices = speakEngine.getProperty('voices')
         speakEngine.setProperty('voice', voices[1].id)
