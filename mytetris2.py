@@ -392,14 +392,13 @@ class RGB_Tetris:
         #voices = speakEngine.getProperty('voices')
         speakEngine.setProperty('voice', 'german')
         speakEngine.say("Du hast "+str(self.Tetris_Points)+" Punkte.")
-        if self.hiScores[0][1] > self.Tetris_Points:
+        if self.hiScores[0][1] < self.Tetris_Points:
             entry = (self.playerName, self.Tetris_Points)
             self.hiScores.append(entry)
             self.hiScores.sort(key=self.getKey,reverse=True)
             pickle.dump(self.hiScores,open("/home/pi/ledtable/hiscores.zfl","wb"))
             speakEngine.say("Du hast einen neuen Rekord aufgestellt.")
             speakEngine.runAndWait()
-            time.sleep(4)
             self.snd_appluse.play()
             time.sleep(6)
             self.snd_rocket.play()
