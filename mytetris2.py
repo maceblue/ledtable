@@ -386,16 +386,18 @@ class RGB_Tetris:
         time.sleep(1)
         speakEngine = pyttsx.init()
         rate = speakEngine.getProperty('rate')
-        speakEngine.setProperty('rate', rate-100)
+        speakEngine.setProperty('rate', rate-50)
         #voices = speakEngine.getProperty('voices')
-        #speakEngine.setProperty('voice', voices[1].id)
-        speakEngine.say("You have "+str(self.Tetris_Points)+" points")
+        speakEngine.setProperty('voice', 'german')
+        speakEngine.say("Du hast "+str(self.Tetris_Points)+" Punkte.")
+        speakEngine.say("Der Rekord liegt bei "+str(self.hiScores[0][1])+" Punkten.")
         speakEngine.runAndWait()
         self.fadeInOut([255,0,0])
-        entry = (self.playerName, self.Tetris_Points)
-        self.hiScores.append(entry)
-        self.hiScores.sort(key=self.getKey,reverse=True)
-        pickle.dump(self.hiScores,open("/home/pi/ledtable/hiscores.zfl","wb"))
+        if self.hiScores[0][1] < self.Tetris_Points:
+            entry = (self.playerName, self.Tetris_Points)
+            self.hiScores.append(entry)
+            self.hiScores.sort(key=self.getKey,reverse=True)
+            pickle.dump(self.hiScores,open("/home/pi/ledtable/hiscores.zfl","wb"))
     #Teil nach links drehen
     def rotateLeft(self):
         if self.activeTet == tiles.I_TILE:
