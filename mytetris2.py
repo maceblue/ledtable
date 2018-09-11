@@ -1,5 +1,6 @@
 import pygame, pickle
 import math, sys, os, random, socket, time, colorsys
+import pyttsx
 from pygame.locals import *
 from colorsys import hsv_to_rgb, rgb_to_hsv
 from neopixel import *
@@ -380,6 +381,9 @@ class RGB_Tetris:
     #Player is gameover
     def gameOver(self):
         print("Game over. "+str(self.Tetris_Points)+" points.")
+        speakEngine = pyttsx.init()
+        speakEngine.say("Du hast "+str(self.Tetris_Points)+" Punkte")
+        speakEngine.runAndWait()
         pygame.mixer.music.stop()
         self.snd_gameover.play()
         time.sleep(1)
