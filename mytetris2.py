@@ -381,12 +381,12 @@ class RGB_Tetris:
     #Player is gameover
     def gameOver(self):
         print("Game over. "+str(self.Tetris_Points)+" points.")
-        speakEngine = pyttsx.init()
-        speakEngine.say("Du hast "+str(self.Tetris_Points)+" Punkte")
-        speakEngine.runAndWait()
         pygame.mixer.music.stop()
         self.snd_gameover.play()
         time.sleep(1)
+        speakEngine = pyttsx.init()
+        speakEngine.say("You have "+str(self.Tetris_Points)+" points")
+        speakEngine.runAndWait()
         self.fadeInOut([255,0,0])
         entry = (self.playerName, self.Tetris_Points)
         self.hiScores.append(entry)
