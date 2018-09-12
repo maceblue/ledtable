@@ -870,8 +870,8 @@ class RGB_Tetris:
             self.snd_gameover.set_volume(gameoverVol+0.1)
             levelVol = self.snd_level.get_volume()
             self.snd_level.set_volume(levelVol+0.1)
-        if u.get_button(7):
-            print("button 7")
+        if u.get_button(10):
+            print("button 10")
             musicVol = pygame.mixer.music.get_volume()
             pygame.mixer.music.set_volume(musicVol-0.1)
             clickVol = self.snd_click.get_volume()
@@ -886,6 +886,14 @@ class RGB_Tetris:
             self.snd_gameover.set_volume(gameoverVol-0.1)
             levelVol = self.snd_level.get_volume()
             self.snd_level.set_volume(levelVol-0.1)
+        if u.get_button(6):
+            print("button 6")
+        if u.get_button(7):
+            print("button 7")
+        if u.get_button(4):
+            print("button 4")
+        if u.get_button(3):
+            print("button 3")
     #Overlay fixed and mobile Pixels
     def buildScreen(self):
         if self.running:
