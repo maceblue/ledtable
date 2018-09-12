@@ -854,6 +854,37 @@ class RGB_Tetris:
             self.lastPressed = "SELECT"
         if u.get_button(9):
             self.lastPressed = "START"    
+        if u.get_button(5):
+            musicVol = pygame.mixer.music.get_volume()
+            pygame.mixer.music.set_volume(musicVol+0.1)
+            clickVol = self.snd_click.get_volume()
+            self.snd_click.set_volume(clickVol+0.1)
+            linekillVol = self.snd_linekill.get_volume()
+            self.snd_linekill.set_volume(linekillVol+0.1)
+            tilefixVol = self.snd_tilefix.get_volume()
+            self.snd_tilefix.set_volume(tilefixVol+0.1)
+            pauseVol = self.snd_pause.get_volume()
+            self.snd_pause.set_volume(pauseVol+0.1)
+            gameoverVol = self.snd_gameover.get_volume()
+            self.snd_gameover.set_volume(gameoverVol+0.1)
+            levelVol = self.snd_level.get_volume()
+            self.snd_level.set_volume(levelVol+0.1)
+
+        if u.get_button(6):
+            musicVol = pygame.mixer.music.get_volume()
+            pygame.mixer.music.set_volume(musicVol-0.1)
+            clickVol = self.snd_click.get_volume()
+            self.snd_click.set_volume(clickVol-0.1)
+            linekillVol = self.snd_linekill.get_volume()
+            self.snd_linekill.set_volume(linekillVol-0.1)
+            tilefixVol = self.snd_tilefix.get_volume()
+            self.snd_tilefix.set_volume(tilefixVol-0.1)
+            pauseVol = self.snd_pause.get_volume()
+            self.snd_pause.set_volume(pauseVol-0.1)
+            gameoverVol = self.snd_gameover.get_volume()
+            self.snd_gameover.set_volume(gameoverVol-0.1)
+            levelVol = self.snd_level.get_volume()
+            self.snd_level.set_volume(levelVol-0.1)
     #Overlay fixed and mobile Pixels
     def buildScreen(self):
         if self.running:
@@ -935,17 +966,9 @@ class RGB_Tetris:
                     self.moveTime = pygame.time.get_ticks()
             if self.running:
                 self.buildScreen()
-        #pygame.quit()
+        
         print("Tetris ended.")
         self.startLoungeTable()
-        #nextGame = False
-        #while nextGame==False:
-        #    self.getKeypress(self.gamepad)
-        #    if self.lastPressed == 'START':
-        #        nextGame = True
-        #        self.lastPressed = None
-        #        self.paused = False
-        #        self.startGame()
 
     # lounge modus functions
     def hsv2rgb(self,h,s,v):
@@ -967,18 +990,8 @@ class RGB_Tetris:
         self.send2strip(self.pixels)
     def startLoungeTable(self): 
         self.loungeTableRunning = True
-        #pygame.quit()
         print("LoungeTable started")
-        #pygame.init()
-        #joystick_count = pygame.joystick.get_count()
-        #if joystick_count == 0:
-        #    print ("Error, I did not find any joysticks")
-        #else:
-        #    j = pygame.joystick.Joystick(0)
-        #    j.quit()
-        #    j.init()
-        #    print 'Initialized Joystick : %s' % j.get_name()
-        self.brightness = 0.1
+        self.brightness = 0.3
         self.initLoungeScreen()
         pygame.time.set_timer(self.REFRESHSCREEN, self.waittime)
         cl = pygame.time.Clock()
