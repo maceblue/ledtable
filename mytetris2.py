@@ -855,6 +855,7 @@ class RGB_Tetris:
         if u.get_button(9):
             self.lastPressed = "START"    
         if u.get_button(5):
+            print("button 5")
             musicVol = pygame.mixer.music.get_volume()
             pygame.mixer.music.set_volume(musicVol+0.1)
             clickVol = self.snd_click.get_volume()
@@ -869,8 +870,8 @@ class RGB_Tetris:
             self.snd_gameover.set_volume(gameoverVol+0.1)
             levelVol = self.snd_level.get_volume()
             self.snd_level.set_volume(levelVol+0.1)
-
         if u.get_button(6):
+            print("button 6")
             musicVol = pygame.mixer.music.get_volume()
             pygame.mixer.music.set_volume(musicVol-0.1)
             clickVol = self.snd_click.get_volume()
