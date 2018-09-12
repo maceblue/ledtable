@@ -990,7 +990,7 @@ class RGB_Tetris:
     def startLoungeTable(self): 
         self.loungeTableRunning = True
         print("LoungeTable started")
-        self.brightness = 0.3
+        self.brightness = 0.6
         self.initLoungeScreen()
         pygame.time.set_timer(self.REFRESHSCREEN, self.waittime)
         cl = pygame.time.Clock()
@@ -1021,11 +1021,11 @@ class RGB_Tetris:
                         self.waittime -=20
                 startint = pygame.time.get_ticks() 
     
-            if self.gamepad.get_button(1):
-                self.waittime = 1
-                self.brightness = 1.0
-                startint = pygame.time.get_ticks()
-                self.changePixels()        
+            #if self.gamepad.get_button(1):
+                #self.waittime = 1
+                #self.brightness = 1.0
+                #startint = pygame.time.get_ticks()
+                #self.changePixels()        
             
             if (pygame.time.get_ticks()>=start+self.waittime):
                 self.changePixels()
