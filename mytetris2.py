@@ -148,7 +148,7 @@ class RGB_Tetris:
         self.keyTime = 0
         self.moveTimeout = 500
         self.moveTime = 0
-        self.brightness = 0.4
+        self.brightness = 0.7
         self.Tetris_Points = 0
         self.running = False
         self.paused = False
