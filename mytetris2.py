@@ -161,6 +161,10 @@ class RGB_Tetris:
         self.waitbright = 200
         self.waitint = 100
         self.loungeTableRunning = False
+        #snake game
+        self.snakeGameRunning = False
+        self.snake = None
+        self.snakeDirection = None
         #strip
         self.strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
         # Intialize the library (must be called once before other functions).
@@ -855,6 +859,7 @@ class RGB_Tetris:
         if u.get_button(9):
             self.lastPressed = "START"    
         if u.get_button(5): # right top button
+            self.lastPressed = "TOPRIGHT"
             musicVol = pygame.mixer.music.get_volume()
             pygame.mixer.music.set_volume(musicVol+0.1)
             clickVol = self.snd_click.get_volume()
@@ -870,6 +875,7 @@ class RGB_Tetris:
             levelVol = self.snd_level.get_volume()
             self.snd_level.set_volume(levelVol+0.1)
         if u.get_button(4): # left top button
+            self.lastPressed = "TOPLEFT"
             musicVol = pygame.mixer.music.get_volume()
             pygame.mixer.music.set_volume(musicVol-0.05)
             clickVol = self.snd_click.get_volume()
@@ -1036,5 +1042,130 @@ class RGB_Tetris:
                 self.loungeTableRunning = False
                 self.lastPressed = None
                 self.paused = False
-                self.brightness = 0.4
+                self.brightness = 0.5
                 self.startGame()
+            if self.lastPressed == 'SELECT':
+                self.loungeTableRunning = False
+                self.lastPressed = None
+                self.paused = False
+                self.brightness = 0.5
+                self.startSnakeGame()
+
+    # snake game
+    def startSnakeGame(self):
+        self.snakeGameRunning = True
+        self.snake = [[0,2],[0,1],[0,0]]
+        self.snakeDirection = "DOWN"
+
+        joystick_count = pygame.joystick.get_count()
+        if joystick_count == 0:
+            print ("How do you want to play Snake without a joystick?")
+            sys.exit()
+        else:
+            self.gamepad = pygame.joystick.Joystick(0)
+            self.gamepad.init()
+
+        self.moveTime = pygame.time.get_ticks()
+        self.keyTime = self.moveTime
+        self.keyPressTime = self.moveTime
+
+        while self.snakeGameRunning:
+            pygame.event.pump()
+            self.getKeypress(self.gamepad)
+            if pygame.time.get_ticks() > self.keyPressTime + self.keyPressTimeout:
+                self.getKeypress(self.gamepad)
+            if pygame.time.get_ticks() > self.keyTime + self.keyTimeout:
+                self.keyAction()
+                self.keyTime = pygame.time.get_ticks()
+            #if pygame.time.get_ticks() > self.moveTime + self.moveTimeout:
+             #   self.timeAction()
+              #  self.moveTime = pygame.time.get_ticks()
+            if lastPressed == "TOP":
+                self.snakeDirection = "TOP"
+            if lastPressed == "DOWN":
+                self.snakeDirection = "DOWN"
+            if lastPressed == "LEFT":
+                self.snakeDirection = "LEFT"
+            if lastPressed == "RIGHT":
+                self.snakeDirection = "RIGHT"
+
+            if self.cherrySpawned == False:
+                self.spawnCherry()
+
+            self.moveSnake()
+            self.buildSnakeScreen()
+            
+            time.sleep(1)
+
+
+    def moveSnake(self):
+        for index in range(len(self.snake)):
+            lastindexpos = self.snake[index]
+            if index == 0:
+                if self.snakeDirection == "TOP":
+                    if self.snake[index][1] == 0:
+                        self.snake[index][1] = self.height
+                    else:
+                        self.snake[index][1] -= 1
+                if self.snakeDirection == "DOWN":
+                    if self.snake[index][1] == self.height:
+                        self.snake[index][1] = 0
+                    else:
+                        self.snake[index][1] += 1
+                if self.snakeDirection == "LEFT":
+                    if self.snake[index][0] == 0:
+                        self.snake[index] = self.width
+                    else:
+                        self.snake[index][0] -= 1
+                if self.snakeDirection == "RIGHT":
+                    if self.snake[index][0] == self.width:
+                        self.snake[index][0] = 0
+                    else:
+                        self.snake[index][0] += 1
+            else:
+                self.snake[index] = lastindexpos
+
+        self.checkSnakeCollision()
+        self.checkSnakeBite(lastindexpos)
+
+
+    def buildSnakeScreen(self):
+        #set every pixel black
+        for row in range(0,self.height):
+            for pixel in range(0,self.width):
+                self.pixels[row][pixel] = gamecolors.BLACK
+        #set snake pixels green
+        for index in range(len(self.snake)):
+            self.pixels[self.snake[index][0]][self.snake[index][1]] = gamecolors.GREEN
+        #set cherry pixel
+            self.pixels[self.cherryPosition[0]][self.cherryPosition[1]] = gamecolors.RED
+        #draw the matrix
+        self.send2strip(self.pixels)
+
+    def spawnCherry(self):
+        x = random.randrange(0,self.width)
+        y = random.randrange(0,self.height)
+        onsnake = False
+        for index in range(len(self.snake)):
+            if self.snake[index][0] == x and self.snake[index][1] == y:
+                onsnake = True
+        if onsnake == False
+            self.cherryPosition = [int(x),int(y)]
+            self.cherrySpawned = True
+        else:
+            self.spawnCherry()
+
+    def checkSnakeCollision(self):
+        for index in range(len(self.snake)):
+            if self.snake[index][0] == self.snake[0][0] and self.snake[index][1] == self.snake[0][1]:
+                snakeGameOver()
+
+    def snakeGameOver(self):
+        self.snakeGameRunning = False
+        self.startLoungeTable()
+
+    def checkSnakeBite(self,lastindexpos):
+        if self.snake[0][0] == self.cherryPosition[0] and self.snake[0][1] == self.cherryPosition[1]:
+            #snake bites the cherry - longer snake
+            self.snake[len(self.snake)+1] = lastindexpos
+
