@@ -1101,6 +1101,7 @@ class RGB_Tetris:
 
 
     def moveSnake(self):
+        print("moveSnake")
         for index in range(len(self.snake)):
             lastindexpos = self.snake[index]
             if index == 0:
@@ -1132,6 +1133,7 @@ class RGB_Tetris:
 
 
     def buildSnakeScreen(self):
+        print(buildSnakeScreen)
         #set every pixel black
         for row in range(0,self.height):
             for pixel in range(0,self.width):
@@ -1145,6 +1147,7 @@ class RGB_Tetris:
         self.send2strip(self.pixels)
 
     def spawnCherry(self):
+        print("spawnCherry")
         x = random.randrange(0,self.width)
         y = random.randrange(0,self.height)
         onsnake = False
@@ -1158,15 +1161,18 @@ class RGB_Tetris:
             self.spawnCherry()
 
     def checkSnakeCollision(self):
+        print("checkSnakeCollision")
         for index in range(len(self.snake)):
             if self.snake[index][0] == self.snake[0][0] and self.snake[index][1] == self.snake[0][1]:
                 self.snakeGameOver()
 
     def snakeGameOver(self):
+        print("snakeGameOver")
         self.snakeGameRunning = False
         #self.startLoungeTable()
 
     def checkSnakeBite(self,lastindexpos):
+        print("checkSnakeBite")
         if self.snake[0][0] == self.cherryPosition[0] and self.snake[0][1] == self.cherryPosition[1]:
             #snake bites the cherry - longer snake
             self.snake[len(self.snake)+1] = lastindexpos
