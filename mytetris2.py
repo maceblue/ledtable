@@ -1077,9 +1077,9 @@ class RGB_Tetris:
             self.getKeypress(self.gamepad)
             if pygame.time.get_ticks() > self.keyPressTime + self.keyPressTimeout:
                 self.getKeypress(self.gamepad)
-            if pygame.time.get_ticks() > self.keyTime + self.keyTimeout:
-                self.keyAction()
-                self.keyTime = pygame.time.get_ticks()
+            #if pygame.time.get_ticks() > self.keyTime + self.keyTimeout:
+            #    self.keyAction()
+            #    self.keyTime = pygame.time.get_ticks()
             #if pygame.time.get_ticks() > self.moveTime + self.moveTimeout:
              #   self.timeAction()
               #  self.moveTime = pygame.time.get_ticks()
@@ -1105,6 +1105,7 @@ class RGB_Tetris:
         print("moveSnake")
         for index in range(len(self.snake)):
             if index == 0:
+                lastindexpos = self.snake[index]
                 if self.snakeDirection == "TOP":
                     if self.snake[index][0] == 0:
                         self.snake[index][0] = self.height
@@ -1125,10 +1126,10 @@ class RGB_Tetris:
                         self.snake[index][1] = 0
                     else:
                         self.snake[index][1] += 1
-                lastindexpos = self.snake[index]
             else:
+                lastindexpos2 = self.snake[index]
                 self.snake[index] = lastindexpos
-                lastindexpos = self.snake[index]
+                lastindexpos = lastindexpos2
 
         #self.checkSnakeCollision()
         self.checkSnakeBite(lastindexpos)
