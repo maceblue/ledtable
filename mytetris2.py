@@ -1103,7 +1103,6 @@ class RGB_Tetris:
     def moveSnake(self):
         print("moveSnake")
         for index in range(len(self.snake)):
-            lastindexpos = self.snake[index]
             if index == 0:
                 if self.snakeDirection == "TOP":
                     if self.snake[index][1] == 0:
@@ -1125,8 +1124,10 @@ class RGB_Tetris:
                         self.snake[index][0] = 0
                     else:
                         self.snake[index][0] += 1
+                lastindexpos = self.snake[index]
             else:
                 self.snake[index] = lastindexpos
+                lastindexpos = self.snake[index]
 
         #self.checkSnakeCollision()
         self.checkSnakeBite(lastindexpos)
