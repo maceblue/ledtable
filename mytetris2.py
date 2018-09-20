@@ -1149,7 +1149,7 @@ class RGB_Tetris:
         for index in range(len(self.snake)):
             if self.snake[index][0] == x and self.snake[index][1] == y:
                 onsnake = True
-        if onsnake == False
+        if onsnake == False:
             self.cherryPosition = [int(x),int(y)]
             self.cherrySpawned = True
         else:
