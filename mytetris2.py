@@ -1103,33 +1103,35 @@ class RGB_Tetris:
 
     def moveSnake(self):
         print("moveSnake")
+        new_snake = self.snake
         for index in range(0,len(self.snake)):
             if index == 0:
-                lastindexpos = self.snake[index]
+                #lastindexpos = self.snake[index]
                 if self.snakeDirection == "UP":
                     if self.snake[index][0] == 0:
-                        self.snake[index][0] = self.height-1
+                        new_snake[index][0] = self.height-1
                     else:
-                        self.snake[index][0] -= 1
+                        new_snake[index][0] -= 1
                 if self.snakeDirection == "DOWN":
                     if self.snake[index][0] == self.height:
-                        self.snake[index][0] = 0
+                        new_snake[index][0] = 0
                     else:
-                        self.snake[index][0] += 1
+                        new_snake[index][0] += 1
                 if self.snakeDirection == "LEFT":
                     if self.snake[index][1] == 0:
-                        self.snake[index] = self.width-1
+                        new_snake[index] = self.width-1
                     else:
-                        self.snake[index][1] -= 1
+                        new_snake[index][1] -= 1
                 if self.snakeDirection == "RIGHT":
                     if self.snake[index][1] == self.width:
-                        self.snake[index][1] = 0
+                        new_snake[index][1] = 0
                     else:
-                        self.snake[index][1] += 1
+                        new_snake[index][1] += 1
             else:
-                lastindexpos2 = self.snake[index]
-                self.snake[index] = lastindexpos
-                lastindexpos = lastindexpos2
+                #lastindexpos2 = self.snake[index]
+                #self.snake[index] = lastindexpos
+                #lastindexpos = lastindexpos2
+                new_snake[index] = self.snake[index-1]
         print(self.snake)
         #self.checkSnakeCollision()
         self.checkSnakeBite(lastindexpos)
