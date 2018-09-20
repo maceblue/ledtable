@@ -1159,7 +1159,7 @@ class RGB_Tetris:
     def checkSnakeCollision(self):
         for index in range(len(self.snake)):
             if self.snake[index][0] == self.snake[0][0] and self.snake[index][1] == self.snake[0][1]:
-                snakeGameOver()
+                self.snakeGameOver()
 
     def snakeGameOver(self):
         self.snakeGameRunning = False
