@@ -1149,8 +1149,8 @@ class RGB_Tetris:
 
     def spawnCherry(self):
         print("spawnCherry")
-        x = random.randrange(0,self.width)
-        y = random.randrange(0,self.height)
+        x = random.randrange(0,self.width-1)
+        y = random.randrange(0,self.height-1)
         onsnake = False
         for index in range(len(self.snake)):
             if self.snake[index][0] == x and self.snake[index][1] == y:
