@@ -1108,7 +1108,7 @@ class RGB_Tetris:
                 lastindexpos = self.snake[index]
                 if self.snakeDirection == "TOP":
                     if self.snake[index][0] == 0:
-                        self.snake[index][0] = self.height
+                        self.snake[index][0] = self.height-1
                     else:
                         self.snake[index][0] -= 1
                 if self.snakeDirection == "DOWN":
@@ -1118,7 +1118,7 @@ class RGB_Tetris:
                         self.snake[index][0] += 1
                 if self.snakeDirection == "LEFT":
                     if self.snake[index][1] == 0:
-                        self.snake[index] = self.width
+                        self.snake[index] = self.width-1
                     else:
                         self.snake[index][1] -= 1
                 if self.snakeDirection == "RIGHT":
@@ -1130,7 +1130,7 @@ class RGB_Tetris:
                 lastindexpos2 = self.snake[index]
                 self.snake[index] = lastindexpos
                 lastindexpos = lastindexpos2
-
+        print(self.snake)
         #self.checkSnakeCollision()
         self.checkSnakeBite(lastindexpos)
 
