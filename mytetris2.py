@@ -1056,7 +1056,8 @@ class RGB_Tetris:
     def startSnakeGame(self):
         print("startSnakeGame")
         self.snakeGameRunning = True
-        self.snake = [[0,2],[0,1],[0,0]]
+        #coords are [y,x] NOT [x,y] !!!
+        self.snake = [[2,0],[1,0],[0,0]]
         self.snakeDirection = "DOWN"
 
         joystick_count = pygame.joystick.get_count()
@@ -1105,25 +1106,25 @@ class RGB_Tetris:
         for index in range(len(self.snake)):
             if index == 0:
                 if self.snakeDirection == "TOP":
-                    if self.snake[index][1] == 0:
-                        self.snake[index][1] = self.height
-                    else:
-                        self.snake[index][1] -= 1
-                if self.snakeDirection == "DOWN":
-                    if self.snake[index][1] == self.height:
-                        self.snake[index][1] = 0
-                    else:
-                        self.snake[index][1] += 1
-                if self.snakeDirection == "LEFT":
                     if self.snake[index][0] == 0:
-                        self.snake[index] = self.width
+                        self.snake[index][0] = self.height
                     else:
                         self.snake[index][0] -= 1
-                if self.snakeDirection == "RIGHT":
-                    if self.snake[index][0] == self.width:
+                if self.snakeDirection == "DOWN":
+                    if self.snake[index][0] == self.height:
                         self.snake[index][0] = 0
                     else:
                         self.snake[index][0] += 1
+                if self.snakeDirection == "LEFT":
+                    if self.snake[index][1] == 0:
+                        self.snake[index] = self.width
+                    else:
+                        self.snake[index][1] -= 1
+                if self.snakeDirection == "RIGHT":
+                    if self.snake[index][1] == self.width:
+                        self.snake[index][1] = 0
+                    else:
+                        self.snake[index][1] += 1
                 lastindexpos = self.snake[index]
             else:
                 self.snake[index] = lastindexpos
@@ -1156,7 +1157,7 @@ class RGB_Tetris:
             if self.snake[index][0] == x and self.snake[index][1] == y:
                 onsnake = True
         if onsnake == False:
-            self.cherryPosition = [int(x),int(y)]
+            self.cherryPosition = [int(y),int(x)]
             self.cherrySpawned = True
         else:
             self.spawnCherry()
