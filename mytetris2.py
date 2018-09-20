@@ -1133,7 +1133,7 @@ class RGB_Tetris:
 
 
     def buildSnakeScreen(self):
-        print(buildSnakeScreen)
+        print("buildSnakeScreen")
         #set every pixel black
         for row in range(0,self.height):
             for pixel in range(0,self.width):
