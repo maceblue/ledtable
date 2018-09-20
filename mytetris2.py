@@ -1080,13 +1080,13 @@ class RGB_Tetris:
             #if pygame.time.get_ticks() > self.moveTime + self.moveTimeout:
              #   self.timeAction()
               #  self.moveTime = pygame.time.get_ticks()
-            if lastPressed == "TOP":
+            if self.lastPressed == "TOP":
                 self.snakeDirection = "TOP"
-            if lastPressed == "DOWN":
+            if self.lastPressed == "DOWN":
                 self.snakeDirection = "DOWN"
-            if lastPressed == "LEFT":
+            if self.lastPressed == "LEFT":
                 self.snakeDirection = "LEFT"
-            if lastPressed == "RIGHT":
+            if self.lastPressed == "RIGHT":
                 self.snakeDirection = "RIGHT"
 
             if self.cherrySpawned == False:
