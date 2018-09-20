@@ -1132,6 +1132,7 @@ class RGB_Tetris:
                 #self.snake[index] = lastindexpos
                 #lastindexpos = lastindexpos2
                 new_snake[index] = self.snake[index-1]
+        self.snake = new_snake
         print(self.snake)
         #self.checkSnakeCollision()
         #self.checkSnakeBite(lastindexpos)
