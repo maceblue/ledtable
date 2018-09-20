@@ -1134,7 +1134,7 @@ class RGB_Tetris:
                 new_snake[index] = self.snake[index-1]
         print(self.snake)
         #self.checkSnakeCollision()
-        self.checkSnakeBite(lastindexpos)
+        #self.checkSnakeBite(lastindexpos)
 
 
     def buildSnakeScreen(self):
