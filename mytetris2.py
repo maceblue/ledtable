@@ -1083,8 +1083,8 @@ class RGB_Tetris:
             #if pygame.time.get_ticks() > self.moveTime + self.moveTimeout:
              #   self.timeAction()
               #  self.moveTime = pygame.time.get_ticks()
-            if self.lastPressed == "TOP":
-                self.snakeDirection = "TOP"
+            if self.lastPressed == "UP":
+                self.snakeDirection = "UP"
             if self.lastPressed == "DOWN":
                 self.snakeDirection = "DOWN"
             if self.lastPressed == "LEFT":
@@ -1103,10 +1103,10 @@ class RGB_Tetris:
 
     def moveSnake(self):
         print("moveSnake")
-        for index in range(len(self.snake)):
+        for index in range(0,len(self.snake)):
             if index == 0:
                 lastindexpos = self.snake[index]
-                if self.snakeDirection == "TOP":
+                if self.snakeDirection == "UP":
                     if self.snake[index][0] == 0:
                         self.snake[index][0] = self.height-1
                     else:
