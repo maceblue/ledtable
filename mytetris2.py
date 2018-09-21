@@ -998,7 +998,7 @@ class RGB_Tetris:
     def startLoungeTable(self): 
         self.loungeTableRunning = True
         print("LoungeTable started")
-        self.brightness = 0.2
+        self.brightness = 0.5
         self.initLoungeScreen()
         pygame.time.set_timer(self.REFRESHSCREEN, self.waittime)
         cl = pygame.time.Clock()
@@ -1068,22 +1068,16 @@ class RGB_Tetris:
         else:
             self.gamepad = pygame.joystick.Joystick(0)
             self.gamepad.init()
-
+            
         self.moveTime = pygame.time.get_ticks()
         self.keyTime = self.moveTime
         self.keyPressTime = self.moveTime
 
         while self.snakeGameRunning:
             pygame.event.pump()
-            self.getKeypress(self.gamepad)
-            #if pygame.time.get_ticks() > self.keyPressTime + self.keyPressTimeout:
-            #    self.getKeypress(self.gamepad)
-            #if pygame.time.get_ticks() > self.keyTime + self.keyTimeout:
-            #    self.keyAction()
-            #    self.keyTime = pygame.time.get_ticks()
-            #if pygame.time.get_ticks() > self.moveTime + self.moveTimeout:
-             #   self.timeAction()
-              #  self.moveTime = pygame.time.get_ticks()
+            if pygame.time.get_ticks() > self.keyPressTime + self.keyPressTimeout:
+                self.getKeypress(self.gamepad)
+            #self.getKeypress(self.gamepad)
             if self.lastPressed == "UP":
                 self.snakeDirection = "UP"
             if self.lastPressed == "DOWN":
@@ -1103,7 +1097,7 @@ class RGB_Tetris:
 
 
     def moveSnake(self):
-        print("moveSnake")
+        #print("moveSnake")
         new_snake = deepcopy(self.snake)
         for index in range(0,len(self.snake)):
             if index == 0:
@@ -1133,12 +1127,12 @@ class RGB_Tetris:
 
         self.snake = deepcopy(new_snake)
         
-        #self.checkSnakeCollision()
+        self.checkSnakeCollision()
         self.checkSnakeBite(lastindexpos)
 
 
     def buildSnakeScreen(self):
-        print("buildSnakeScreen")
+        #print("buildSnakeScreen")
         #set every pixel black
         for row in range(0,self.height):
             for pixel in range(0,self.width):
@@ -1152,7 +1146,7 @@ class RGB_Tetris:
         self.send2strip(self.pixels)
 
     def spawnCherry(self):
-        print("spawnCherry")
+        #print("spawnCherry")
         x = random.randrange(0,self.width-1)
         y = random.randrange(0,self.height-1)
         onsnake = False
@@ -1166,18 +1160,18 @@ class RGB_Tetris:
             self.spawnCherry()
 
     def checkSnakeCollision(self):
-        print("checkSnakeCollision")
+        #print("checkSnakeCollision")
         for index in range(len(self.snake)):
             if self.snake[index][0] == self.snake[0][0] and self.snake[index][1] == self.snake[0][1]:
                 self.snakeGameOver()
 
     def snakeGameOver(self):
-        print("snakeGameOver")
+        #print("snakeGameOver")
         self.snakeGameRunning = False
-        #self.startLoungeTable()
+        self.startLoungeTable()
 
     def checkSnakeBite(self,lastindexpos):
-        print("checkSnakeBite")
+        #print("checkSnakeBite")
         if self.snake[0][0] == self.cherryPosition[0] and self.snake[0][1] == self.cherryPosition[1]:
             #snake bites the cherry - longer snake
             self.snake.append(lastindexpos)
