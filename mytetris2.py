@@ -1119,7 +1119,7 @@ class RGB_Tetris:
                         new_snake[index][0] += 1
                 if self.snakeDirection == "LEFT":
                     if self.snake[index][1] == 0:
-                        new_snake[index] = self.width-1
+                        new_snake[index][1] = self.width-1
                     else:
                         new_snake[index][1] -= 1
                 if self.snakeDirection == "RIGHT":
@@ -1134,7 +1134,7 @@ class RGB_Tetris:
         self.snake = deepcopy(new_snake)
         
         #self.checkSnakeCollision()
-        #self.checkSnakeBite(lastindexpos)
+        self.checkSnakeBite(lastindexpos)
 
 
     def buildSnakeScreen(self):
@@ -1181,4 +1181,5 @@ class RGB_Tetris:
         if self.snake[0][0] == self.cherryPosition[0] and self.snake[0][1] == self.cherryPosition[1]:
             #snake bites the cherry - longer snake
             self.snake[len(self.snake)+1] = lastindexpos
+            self.cherrySpawned = False
 
