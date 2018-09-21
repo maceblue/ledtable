@@ -1104,7 +1104,7 @@ class RGB_Tetris:
 
     def moveSnake(self):
         print("moveSnake")
-        new_snake = copy.deepcopy(self.snake)
+        new_snake = deepcopy(self.snake)
         for index in range(0,len(self.snake)):
             if index == 0:
                 #lastindexpos = self.snake[index]
@@ -1133,7 +1133,7 @@ class RGB_Tetris:
                 #self.snake[index] = lastindexpos
                 #lastindexpos = lastindexpos2
                 new_snake[index] = self.snake[index-1]
-        self.snake = copy.deepcopy(new_snake)
+        self.snake = deepcopy(new_snake)
         print(self.snake)
         #self.checkSnakeCollision()
         #self.checkSnakeBite(lastindexpos)
