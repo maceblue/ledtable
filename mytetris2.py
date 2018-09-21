@@ -1058,7 +1058,7 @@ class RGB_Tetris:
         print("startSnakeGame")
         self.snakeGameRunning = True
         #coords are [y,x] NOT [x,y] !!!
-        self.snake = [[2,0],[1,0],[0,0]]
+        self.snake = [[7,4],[6,4],[5,4],[4,4]]
         self.snakeDirection = "DOWN"
 
         joystick_count = pygame.joystick.get_count()
@@ -1107,7 +1107,6 @@ class RGB_Tetris:
         new_snake = deepcopy(self.snake)
         for index in range(0,len(self.snake)):
             if index == 0:
-                #lastindexpos = self.snake[index]
                 if self.snakeDirection == "UP":
                     if self.snake[index][0] == 0:
                         new_snake[index][0] = self.height-1
@@ -1129,12 +1128,11 @@ class RGB_Tetris:
                     else:
                         new_snake[index][1] += 1
             else:
-                #lastindexpos2 = self.snake[index]
-                #self.snake[index] = lastindexpos
-                #lastindexpos = lastindexpos2
                 new_snake[index] = self.snake[index-1]
+                lastindexpos = new_snake[index]
+
         self.snake = deepcopy(new_snake)
-        print(self.snake)
+        
         #self.checkSnakeCollision()
         #self.checkSnakeBite(lastindexpos)
 
