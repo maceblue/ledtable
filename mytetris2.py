@@ -1160,10 +1160,10 @@ class RGB_Tetris:
             self.spawnCherry()
 
     def checkSnakeCollision(self):
-        for index in range(len(self.snake)):
+        for index in range(1,len(self.snake)):
             if self.snake[index][0] == self.snake[0][0] and self.snake[index][1] == self.snake[0][1]:
                 print("SnakeCollision")
-                #self.snakeGameOver()
+                self.snakeGameOver()
 
     def snakeGameOver(self):
         #print("snakeGameOver")
