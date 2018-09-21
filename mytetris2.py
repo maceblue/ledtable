@@ -1171,6 +1171,9 @@ class RGB_Tetris:
         #print("snakeGameOver")
         self.snakeGameRunning = False
         time.sleep(1)
+        print("Du hast")
+        print(self.snakePoints)
+        print("Punkte.")
         self.fadeInOut([0,255,0])
         self.startLoungeTable()
 
