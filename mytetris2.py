@@ -1058,7 +1058,7 @@ class RGB_Tetris:
         print("startSnakeGame")
         self.snakeGameRunning = True
         #coords are [y,x] NOT [x,y] !!!
-        self.snake = [[7,4],[6,4],[5,4],[4,4]]
+        self.snake = [[5,0],[4,0],[3,0],[2,0],[1,0]]
         self.snakeDirection = "DOWN"
 
         joystick_count = pygame.joystick.get_count()
@@ -1076,8 +1076,8 @@ class RGB_Tetris:
         while self.snakeGameRunning:
             pygame.event.pump()
             self.getKeypress(self.gamepad)
-            if pygame.time.get_ticks() > self.keyPressTime + self.keyPressTimeout:
-                self.getKeypress(self.gamepad)
+            #if pygame.time.get_ticks() > self.keyPressTime + self.keyPressTimeout:
+            #    self.getKeypress(self.gamepad)
             #if pygame.time.get_ticks() > self.keyTime + self.keyTimeout:
             #    self.keyAction()
             #    self.keyTime = pygame.time.get_ticks()
@@ -1113,7 +1113,7 @@ class RGB_Tetris:
                     else:
                         new_snake[index][0] -= 1
                 if self.snakeDirection == "DOWN":
-                    if self.snake[index][0] == self.height:
+                    if self.snake[index][0] == self.height-1:
                         new_snake[index][0] = 0
                     else:
                         new_snake[index][0] += 1
@@ -1123,7 +1123,7 @@ class RGB_Tetris:
                     else:
                         new_snake[index][1] -= 1
                 if self.snakeDirection == "RIGHT":
-                    if self.snake[index][1] == self.width:
+                    if self.snake[index][1] == self.width-1:
                         new_snake[index][1] = 0
                     else:
                         new_snake[index][1] += 1
