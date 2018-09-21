@@ -1057,6 +1057,7 @@ class RGB_Tetris:
     def startSnakeGame(self):
         print("startSnakeGame")
         self.snakeGameRunning = True
+        self.snakePoints = 0
         #coords are [y,x] NOT [x,y] !!!
         self.snake = [[5,0],[4,0],[3,0],[2,0],[1,0]]
         self.snakeDirection = "DOWN"
@@ -1129,6 +1130,7 @@ class RGB_Tetris:
         
         self.checkSnakeCollision()
         self.checkSnakeBite(lastindexpos)
+        self.snakePoints += 1
 
 
     def buildSnakeScreen(self):
@@ -1168,6 +1170,11 @@ class RGB_Tetris:
     def snakeGameOver(self):
         #print("snakeGameOver")
         self.snakeGameRunning = False
+        time.sleep(1)
+        print("Du hast")
+        print(self.snakePoints)
+        print("Punkte.")
+        self.fadeInOut([0,255,0])
         self.startLoungeTable()
 
     def checkSnakeBite(self,lastindexpos):
@@ -1175,5 +1182,8 @@ class RGB_Tetris:
         if self.snake[0][0] == self.cherryPosition[0] and self.snake[0][1] == self.cherryPosition[1]:
             #snake bites the cherry - longer snake
             self.snake.append(lastindexpos)
+            #paint cherry green
+            self.pixels[self.cherryPosition[0]][self.cherryPosition[1]] = gamecolors.GREEN
+            self.send2strip(self.pixels)
             self.cherrySpawned = False
 
