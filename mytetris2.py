@@ -1180,6 +1180,6 @@ class RGB_Tetris:
         print("checkSnakeBite")
         if self.snake[0][0] == self.cherryPosition[0] and self.snake[0][1] == self.cherryPosition[1]:
             #snake bites the cherry - longer snake
-            self.snake[len(self.snake)+1] = lastindexpos
+            self.snake.append(lastindexpos)
             self.cherrySpawned = False
 
