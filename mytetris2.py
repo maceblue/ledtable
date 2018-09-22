@@ -1142,8 +1142,9 @@ class RGB_Tetris:
         #set snake pixels green
         for index in range(len(self.snake)):
             self.pixels[self.snake[index][0]][self.snake[index][1]] = gamecolors.GREEN
-        #set cherry pixel
-            self.pixels[self.cherryPosition[0]][self.cherryPosition[1]] = gamecolors.RED
+            #set cherry pixel
+            if self.cherrySpawned == True:
+                self.pixels[self.cherryPosition[0]][self.cherryPosition[1]] = gamecolors.RED
         #draw the matrix
         self.send2strip(self.pixels)
 
@@ -1153,7 +1154,7 @@ class RGB_Tetris:
         y = random.randrange(0,self.height-1)
         onsnake = False
         for index in range(len(self.snake)):
-            if self.snake[index][0] == x and self.snake[index][1] == y:
+            if self.snake[index][0] == y and self.snake[index][1] == x:
                 onsnake = True
         if onsnake == False:
             self.cherryPosition = [int(y),int(x)]
