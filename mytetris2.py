@@ -126,6 +126,7 @@ class RGB_Tetris:
     snd_level = None
     snd_appluse = None
     snd_rocket = None
+    snd_bite = None
     strip = None
     REFRESHSCREEN = USEREVENT+1
     gamepad = None
@@ -394,7 +395,7 @@ class RGB_Tetris:
         time.sleep(1)
         speakEngine = pyttsx.init()
         rate = speakEngine.getProperty('rate')
-        speakEngine.setProperty('rate', rate-50)
+        #speakEngine.setProperty('rate', rate-50)
         #voices = speakEngine.getProperty('voices')
         speakEngine.setProperty('voice', 'german')
         speakEngine.say("Du hast "+str(self.Tetris_Points)+" Punkte.")
@@ -926,6 +927,7 @@ class RGB_Tetris:
         self.snd_level = pygame.mixer.Sound('/home/pi/ledtable/sounds/level.ogg')
         self.snd_appluse = pygame.mixer.Sound('/home/pi/ledtable/sounds/applause.ogg')
         self.snd_rocket = pygame.mixer.Sound('/home/pi/ledtable/sounds/rocket-start.ogg')
+        self.snd_bite = pygame.mixer.Sound('/home/pi/ledtable/sounds/bite.ogg')
         print("done")
         pygame.mixer.music.play(-1)
         joystick_count = pygame.joystick.get_count()
@@ -1178,6 +1180,11 @@ class RGB_Tetris:
         print("Du hast")
         print(self.snakePoints)
         print("Punkte.")
+        speakEngine = pyttsx.init()
+        rate = speakEngine.getProperty('rate')
+        #speakEngine.setProperty('rate', rate-50)
+        speakEngine.setProperty('voice', 'german')
+        speakEngine.say("Du hast "+str(self.snakePoints)+" Punkte.")
         self.fadeInOut([0,255,0])
         self.startLoungeTable()
 
@@ -1190,5 +1197,5 @@ class RGB_Tetris:
             self.pixels[self.cherryPosition[0]][self.cherryPosition[1]] = gamecolors.GREEN
             self.send2strip(self.pixels)
             self.cherrySpawned = False
-            self.snd_click.play()
+            self.snd_bite.play()
 
