@@ -127,6 +127,7 @@ class RGB_Tetris:
     snd_appluse = None
     snd_rocket = None
     snd_bite = None
+    snd_snake_gameover = None
     strip = None
     REFRESHSCREEN = USEREVENT+1
     gamepad = None
@@ -932,6 +933,7 @@ class RGB_Tetris:
         self.snd_appluse = pygame.mixer.Sound('/home/pi/ledtable/sounds/applause.ogg')
         self.snd_rocket = pygame.mixer.Sound('/home/pi/ledtable/sounds/rocket-start.ogg')
         self.snd_bite = pygame.mixer.Sound('/home/pi/ledtable/sounds/bite.ogg')
+        self.snd_snake_gameover = pygame.mixer.Sound('/home/pi/ledtable/sounds/snake_gameover.ogg')
         print("done")
         pygame.mixer.music.play(-1)
         joystick_count = pygame.joystick.get_count()
@@ -1180,6 +1182,7 @@ class RGB_Tetris:
     def snakeGameOver(self):
         #print("snakeGameOver")
         self.snakeGameRunning = False
+        self.snd_snake_gameover.play()
         time.sleep(1)
         print("Du hast")
         print(self.snakePoints)
