@@ -1061,6 +1061,7 @@ class RGB_Tetris:
         #coords are [y,x] NOT [x,y] !!!
         self.snake = [[5,0],[4,0],[3,0],[2,0],[1,0]]
         self.snakeDirection = "DOWN"
+        self.waittime = 250
 
         joystick_count = pygame.joystick.get_count()
         if joystick_count == 0:
@@ -1073,6 +1074,8 @@ class RGB_Tetris:
         self.moveTime = pygame.time.get_ticks()
         self.keyTime = self.moveTime
         self.keyPressTime = self.moveTime
+
+        start = 0
 
         while self.snakeGameRunning:
             pygame.event.pump()
@@ -1091,11 +1094,11 @@ class RGB_Tetris:
             if self.cherrySpawned == False:
                 self.spawnCherry()
 
-            self.moveSnake()
-            self.buildSnakeScreen()
+            if (pygame.time.get_ticks()>=start+self.waittime):
+                self.moveSnake()
+                self.buildSnakeScreen()
+                start = pygame.time.get_ticks()
             
-            time.sleep(0.5)
-
 
     def moveSnake(self):
         #print("moveSnake")
@@ -1187,4 +1190,5 @@ class RGB_Tetris:
             self.pixels[self.cherryPosition[0]][self.cherryPosition[1]] = gamecolors.GREEN
             self.send2strip(self.pixels)
             self.cherrySpawned = False
+            self.snd_click.play()
 
