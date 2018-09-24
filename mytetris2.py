@@ -1089,7 +1089,10 @@ class RGB_Tetris:
         self.snakeDirection = "DOWN"
         self.waittime = 250
 
-        #self.hiScores_Snake = pickle.load(open("/home/pi/ledtable/hiscores_snake.zfl","rb"))
+        print("Loading Hiscores..."),
+        self.hiScores_Snake = pickle.load(open("/home/pi/ledtable/hiscores_snake.zfl","rb"))
+        self.hiScores_Snake.sort(key=self.getKey,reverse=True)
+        print("done")
 
         joystick_count = pygame.joystick.get_count()
         if joystick_count == 0:
