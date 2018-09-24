@@ -918,7 +918,7 @@ class RGB_Tetris:
             self.send2strip(self.displayPixels)
     def getKey(self,item):
         return item[1]  
-    def startGame(self):
+    def startTable(self):
         print("Initialize sound system..."),
         pygame.mixer.pre_init(44100, -16, 2, 2048)
         self.lastPressed = None
@@ -941,6 +941,8 @@ class RGB_Tetris:
         self.snd_bite = pygame.mixer.Sound('/home/pi/ledtable/sounds/bite.ogg')
         self.snd_snake_gameover = pygame.mixer.Sound('/home/pi/ledtable/sounds/snake_gameover.ogg')
         print("done")
+        self.startLoungeTable()
+    def startTetris(self):
         pygame.mixer.music.play(-1)
         joystick_count = pygame.joystick.get_count()
         if joystick_count == 0:
@@ -1059,7 +1061,7 @@ class RGB_Tetris:
                 self.lastPressed = None
                 self.paused = False
                 self.brightness = 0.5
-                self.startGame()
+                self.startTetris()
             if self.lastPressed == 'SELECT':
                 self.loungeTableRunning = False
                 self.lastPressed = None
