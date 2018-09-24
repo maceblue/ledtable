@@ -942,9 +942,6 @@ class RGB_Tetris:
         self.snd_bite = pygame.mixer.Sound('/home/pi/ledtable/sounds/bite.ogg')
         self.snd_snake_gameover = pygame.mixer.Sound('/home/pi/ledtable/sounds/snake_gameover.ogg')
         print("done")
-        self.startLoungeTable()
-    def startTetris(self):
-        pygame.mixer.music.play(-1)
         joystick_count = pygame.joystick.get_count()
         if joystick_count == 0:
             print ("How do you want to play Tetris without a joystick?")
@@ -953,6 +950,9 @@ class RGB_Tetris:
             self.gamepad = pygame.joystick.Joystick(0)
             self.gamepad.init()
             print('Initialized Joystick : %s' % self.gamepad.get_name())
+        self.startLoungeTable()
+    def startTetris(self):
+        pygame.mixer.music.play(-1)
         print("Loading Hiscores..."),
         self.hiScores = pickle.load(open("/home/pi/ledtable/hiscores.zfl","rb"))
         self.hiScores.sort(key=self.getKey,reverse=True)
