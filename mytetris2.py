@@ -120,6 +120,7 @@ class RGB_Tetris:
     width = 10
     height = 15
     hiScores = []
+    hiScores_Snake = []
     snd_click = None
     snd_linekil = None
     snd_tilefix = None
@@ -1079,6 +1080,8 @@ class RGB_Tetris:
         self.snakeDirection = "DOWN"
         self.waittime = 250
 
+        #self.hiScores_Snake = pickle.load(open("/home/pi/ledtable/hiscores_snake.zfl","rb"))
+
         joystick_count = pygame.joystick.get_count()
         if joystick_count == 0:
             print ("How do you want to play Snake without a joystick?")
@@ -1203,7 +1206,20 @@ class RGB_Tetris:
         speakEngine.setProperty('rate', rate-10)
         speakEngine.setProperty('voice', 'german')
         speakEngine.say("Du hast "+str(self.snakePoints)+" Punkte.")
-        speakEngine.runAndWait()
+        if self.hiScores_Snake[0][1] < self.snakePoints:
+            entry = (self.playerName, self.snakePoints)
+            self.hiScores_Snake.append(entry)
+            self.hiScores_Snake.sort(key=self.getKey,reverse=True)
+            pickle.dump(self.hiScores_Snake,open("/home/pi/ledtable/hiscores_snake.zfl","wb"))
+            speakEngine.say("Du hast einen neuen Rekord aufgestellt.")
+            speakEngine.runAndWait()
+            self.snd_appluse.play()
+            time.sleep(6)
+            self.snd_rocket.play()
+            time.sleep(10)
+        else:
+            speakEngine.say("Der Rekord liegt bei "+str(self.hiScores_Snake[0][1])+" Punkten.")
+            speakEngine.runAndWait()
         self.fadeInOut([0,255,0])
         self.startLoungeTable()
 
