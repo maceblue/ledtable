@@ -36,7 +36,9 @@ class gamecolors:
     PINK = [255,0,255]
     RED = [255,0,0]
     BLACK = [0,0,0]
-    WHITE = [255,255,255]    
+    WHITE = [255,255,255]
+    SNAKE1 = [0,255,204] #00ffcc
+    SNAKE2 = [0,153,153] #009999
 class tiles:
     I_TILE = [[[1,1,1,1]],
               [[1],
@@ -1154,12 +1156,15 @@ class RGB_Tetris:
         for row in range(0,self.height):
             for pixel in range(0,self.width):
                 self.pixels[row][pixel] = gamecolors.BLACK
-        #set snake pixels green
+        #set snake pixels light and dark cyan
         for index in range(len(self.snake)):
-            self.pixels[self.snake[index][0]][self.snake[index][1]] = gamecolors.GREEN
-            #set cherry pixel
-            if self.cherrySpawned == True:
-                self.pixels[self.cherryPosition[0]][self.cherryPosition[1]] = gamecolors.RED
+            if index%2:
+                self.pixels[self.snake[index][0]][self.snake[index][1]] = gamecolors.SNAKE1
+            else:
+                self.pixels[self.snake[index][0]][self.snake[index][1]] = gamecolors.SNAKE2
+        #set cherry pixel
+        if self.cherrySpawned == True:
+            self.pixels[self.cherryPosition[0]][self.cherryPosition[1]] = gamecolors.RED
         #draw the matrix
         self.send2strip(self.pixels)
 
