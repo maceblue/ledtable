@@ -159,6 +159,7 @@ class RGB_Tetris:
         self.running = False
         self.paused = False
         self.lastPressed = "NONE"
+        self.speakEngine = None
         #lounge modus
         self.fromcolor = float(float("1")/360)
         self.tocolor = float(float("360")/360)
@@ -397,26 +398,25 @@ class RGB_Tetris:
         pygame.mixer.music.stop()
         self.snd_gameover.play()
         time.sleep(1)
-        speakEngine = pyttsx.init()
-        rate = speakEngine.getProperty('rate')
-        speakEngine.setProperty('rate', rate-10)
-        #voices = speakEngine.getProperty('voices')
-        speakEngine.setProperty('voice', 'german')
-        speakEngine.say("Du hast "+str(self.Tetris_Points)+" Punkte.")
+        rate = self.speakEngine.getProperty('rate')
+        self.speakEngine.setProperty('rate', rate-10)
+        #voices = self.speakEngine.getProperty('voices')
+        self.speakEngine.setProperty('voice', 'german')
+        self.speakEngine.say("Du hast "+str(self.Tetris_Points)+" Punkte.")
         if self.hiScores[0][1] < self.Tetris_Points:
             entry = (self.playerName, self.Tetris_Points)
             self.hiScores.append(entry)
             self.hiScores.sort(key=self.getKey,reverse=True)
             pickle.dump(self.hiScores,open("/home/pi/ledtable/hiscores.zfl","wb"))
-            speakEngine.say("Du hast einen neuen Rekord aufgestellt.")
-            speakEngine.runAndWait()
+            self.speakEngine.say("Du hast einen neuen Rekord aufgestellt.")
+            self.speakEngine.runAndWait()
             self.snd_appluse.play()
             time.sleep(6)
             self.snd_rocket.play()
             time.sleep(10)
         else:
-            speakEngine.say("Der Rekord liegt bei "+str(self.hiScores[0][1])+" Punkten.")
-            speakEngine.runAndWait()
+            self.speakEngine.say("Der Rekord liegt bei "+str(self.hiScores[0][1])+" Punkten.")
+            self.speakEngine.runAndWait()
         self.fadeInOut([255,0,0])
             
     #Teil nach links drehen
@@ -885,6 +885,8 @@ class RGB_Tetris:
             self.snd_bite.set_volume(levelBite+0.1)
             levelSnakeGameOver = self.snd_snake_gameover.get_volume()
             self.snd_snake_gameover.set_volume(levelSnakeGameOver+0.1)
+            volume = self.speakEngine.getProperty('volume')
+            self.speakEngine.setProperty('volume'+0.1)
         if u.get_button(4): # left top button
             self.lastPressed = "TOPLEFT"
             musicVol = pygame.mixer.music.get_volume()
@@ -905,6 +907,8 @@ class RGB_Tetris:
             self.snd_bite.set_volume(levelBite-0.1)
             levelSnakeGameOver = self.snd_snake_gameover.get_volume()
             self.snd_snake_gameover.set_volume(levelSnakeGameOver-0.1)
+            volume = self.speakEngine.getProperty('volume')
+            self.speakEngine.setProperty('volume'-0.1)
     #Overlay fixed and mobile Pixels
     def buildScreen(self):
         if self.running:
@@ -942,6 +946,10 @@ class RGB_Tetris:
         self.snd_bite = pygame.mixer.Sound('/home/pi/ledtable/sounds/bite.ogg')
         self.snd_snake_gameover = pygame.mixer.Sound('/home/pi/ledtable/sounds/snake_gameover.ogg')
         print("done")
+        print("Loading self.speakEngine...")
+        self.speakEngine = pyttsx.init()
+        print("done")
+        print("Loading Gamepad...")
         joystick_count = pygame.joystick.get_count()
         if joystick_count == 0:
             print ("How do you want to play Tetris without a joystick?")
@@ -950,6 +958,7 @@ class RGB_Tetris:
             self.gamepad = pygame.joystick.Joystick(0)
             self.gamepad.init()
             print('Initialized Joystick : %s' % self.gamepad.get_name())
+        print("done")
         self.startLoungeTable()
     def startTetris(self):
         pygame.mixer.music.play(-1)
@@ -1201,25 +1210,24 @@ class RGB_Tetris:
         print("Du hast")
         print(self.snakePoints)
         print("Punkte.")
-        speakEngine = pyttsx.init()
-        rate = speakEngine.getProperty('rate')
-        speakEngine.setProperty('rate', rate-10)
-        speakEngine.setProperty('voice', 'german')
-        speakEngine.say("Du hast "+str(self.snakePoints)+" Punkte.")
+        rate = self.speakEngine.getProperty('rate')
+        self.speakEngine.setProperty('rate', rate-10)
+        self.speakEngine.setProperty('voice', 'german')
+        self.speakEngine.say("Du hast "+str(self.snakePoints)+" Punkte.")
         if self.hiScores_Snake[0][1] < self.snakePoints:
             entry = (self.playerName, self.snakePoints)
             self.hiScores_Snake.append(entry)
             self.hiScores_Snake.sort(key=self.getKey,reverse=True)
             pickle.dump(self.hiScores_Snake,open("/home/pi/ledtable/hiscores_snake.zfl","wb"))
-            speakEngine.say("Du hast einen neuen Rekord aufgestellt.")
-            speakEngine.runAndWait()
+            self.speakEngine.say("Du hast einen neuen Rekord aufgestellt.")
+            self.speakEngine.runAndWait()
             self.snd_appluse.play()
             time.sleep(6)
             self.snd_rocket.play()
             time.sleep(10)
         else:
-            speakEngine.say("Der Rekord liegt bei "+str(self.hiScores_Snake[0][1])+" Punkten.")
-            speakEngine.runAndWait()
+            self.speakEngine.say("Der Rekord liegt bei "+str(self.hiScores_Snake[0][1])+" Punkten.")
+            self.speakEngine.runAndWait()
         self.fadeInOut([0,255,0])
         self.startLoungeTable()
 
