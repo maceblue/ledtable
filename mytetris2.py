@@ -36,7 +36,9 @@ class gamecolors:
     PINK = [255,0,255]
     RED = [255,0,0]
     BLACK = [0,0,0]
-    WHITE = [255,255,255]    
+    WHITE = [255,255,255]
+    SNAKE1 = [0,255,204] #00ffcc
+    SNAKE2 = [0,153,153] #009999
 class tiles:
     I_TILE = [[[1,1,1,1]],
               [[1],
@@ -118,6 +120,7 @@ class RGB_Tetris:
     width = 10
     height = 15
     hiScores = []
+    hiScores_Snake = []
     snd_click = None
     snd_linekil = None
     snd_tilefix = None
@@ -916,7 +919,7 @@ class RGB_Tetris:
             self.send2strip(self.displayPixels)
     def getKey(self,item):
         return item[1]  
-    def startGame(self):
+    def startTable(self):
         print("Initialize sound system..."),
         pygame.mixer.pre_init(44100, -16, 2, 2048)
         self.lastPressed = None
@@ -939,6 +942,8 @@ class RGB_Tetris:
         self.snd_bite = pygame.mixer.Sound('/home/pi/ledtable/sounds/bite.ogg')
         self.snd_snake_gameover = pygame.mixer.Sound('/home/pi/ledtable/sounds/snake_gameover.ogg')
         print("done")
+        self.startLoungeTable()
+    def startTetris(self):
         pygame.mixer.music.play(-1)
         joystick_count = pygame.joystick.get_count()
         if joystick_count == 0:
@@ -1057,7 +1062,7 @@ class RGB_Tetris:
                 self.lastPressed = None
                 self.paused = False
                 self.brightness = 0.5
-                self.startGame()
+                self.startTetris()
             if self.lastPressed == 'SELECT':
                 self.loungeTableRunning = False
                 self.lastPressed = None
@@ -1074,6 +1079,8 @@ class RGB_Tetris:
         self.snake = [[5,0],[4,0],[3,0],[2,0],[1,0]]
         self.snakeDirection = "DOWN"
         self.waittime = 250
+
+        #self.hiScores_Snake = pickle.load(open("/home/pi/ledtable/hiscores_snake.zfl","rb"))
 
         joystick_count = pygame.joystick.get_count()
         if joystick_count == 0:
@@ -1094,13 +1101,13 @@ class RGB_Tetris:
             if pygame.time.get_ticks() > self.keyPressTime + self.keyPressTimeout:
                 self.getKeypress(self.gamepad)
             #self.getKeypress(self.gamepad)
-            if self.lastPressed == "UP":
+            if self.lastPressed == "UP" and self.snakeDirection != "DOWN":
                 self.snakeDirection = "UP"
-            if self.lastPressed == "DOWN":
+            if self.lastPressed == "DOWN" and self.snakeDirection != "UP":
                 self.snakeDirection = "DOWN"
-            if self.lastPressed == "LEFT":
+            if self.lastPressed == "LEFT" and self.snakeDirection != "RIGHT":
                 self.snakeDirection = "LEFT"
-            if self.lastPressed == "RIGHT":
+            if self.lastPressed == "RIGHT" and self.snakeDirection != "LEFT":
                 self.snakeDirection = "RIGHT"
 
             if self.cherrySpawned == False:
@@ -1154,12 +1161,15 @@ class RGB_Tetris:
         for row in range(0,self.height):
             for pixel in range(0,self.width):
                 self.pixels[row][pixel] = gamecolors.BLACK
-        #set snake pixels green
+        #set snake pixels light and dark cyan
         for index in range(len(self.snake)):
-            self.pixels[self.snake[index][0]][self.snake[index][1]] = gamecolors.GREEN
-            #set cherry pixel
-            if self.cherrySpawned == True:
-                self.pixels[self.cherryPosition[0]][self.cherryPosition[1]] = gamecolors.RED
+            if index%2:
+                self.pixels[self.snake[index][0]][self.snake[index][1]] = gamecolors.SNAKE1
+            else:
+                self.pixels[self.snake[index][0]][self.snake[index][1]] = gamecolors.SNAKE2
+        #set cherry pixel
+        if self.cherrySpawned == True:
+            self.pixels[self.cherryPosition[0]][self.cherryPosition[1]] = gamecolors.RED
         #draw the matrix
         self.send2strip(self.pixels)
 
@@ -1196,7 +1206,20 @@ class RGB_Tetris:
         speakEngine.setProperty('rate', rate-10)
         speakEngine.setProperty('voice', 'german')
         speakEngine.say("Du hast "+str(self.snakePoints)+" Punkte.")
-        speakEngine.runAndWait()
+        if self.hiScores_Snake[0][1] < self.snakePoints:
+            entry = (self.playerName, self.snakePoints)
+            self.hiScores_Snake.append(entry)
+            self.hiScores_Snake.sort(key=self.getKey,reverse=True)
+            pickle.dump(self.hiScores_Snake,open("/home/pi/ledtable/hiscores_snake.zfl","wb"))
+            speakEngine.say("Du hast einen neuen Rekord aufgestellt.")
+            speakEngine.runAndWait()
+            self.snd_appluse.play()
+            time.sleep(6)
+            self.snd_rocket.play()
+            time.sleep(10)
+        else:
+            speakEngine.say("Der Rekord liegt bei "+str(self.hiScores_Snake[0][1])+" Punkten.")
+            speakEngine.runAndWait()
         self.fadeInOut([0,255,0])
         self.startLoungeTable()
 
