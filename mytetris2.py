@@ -1094,13 +1094,13 @@ class RGB_Tetris:
             if pygame.time.get_ticks() > self.keyPressTime + self.keyPressTimeout:
                 self.getKeypress(self.gamepad)
             #self.getKeypress(self.gamepad)
-            if self.lastPressed == "UP":
+            if self.lastPressed == "UP" and self.snakeDirection != "DOWN":
                 self.snakeDirection = "UP"
-            if self.lastPressed == "DOWN":
+            if self.lastPressed == "DOWN" and self.snakeDirection != "UP":
                 self.snakeDirection = "DOWN"
-            if self.lastPressed == "LEFT":
+            if self.lastPressed == "LEFT" and self.snakeDirection != "RIGHT":
                 self.snakeDirection = "LEFT"
-            if self.lastPressed == "RIGHT":
+            if self.lastPressed == "RIGHT" and self.snakeDirection != "LEFT":
                 self.snakeDirection = "RIGHT"
 
             if self.cherrySpawned == False:
