@@ -37,8 +37,14 @@ class gamecolors:
     RED = [255,0,0]
     BLACK = [0,0,0]
     WHITE = [255,255,255]
-    SNAKE1 = [0,255,204] #00ffcc
-    SNAKE2 = [0,153,153] #009999
+    SNAKE_GREEN_1 = [0,255,204] #00ffcc
+    SNAKE_GREEN_2 = [0,153,153] #009999
+    SNAKE_YELLOW_1 = [255,204,0]
+    SNAKE_YELLOW_2 = [102,0,204] # lila
+    SNAKE_RED_1 = [204,0,0]
+    SNAKE_RED_1 = YELLOW
+    SNAKE_BLUE_1 = [0,102,255]
+    SNAKE_BLUE_2 = ORANGE
 class tiles:
     I_TILE = [[[1,1,1,1]],
               [[1],
@@ -173,6 +179,7 @@ class RGB_Tetris:
         self.snake = None
         self.snakeDirection = None
         self.cherrySpawned = False
+        self.snakeColor = 'green'
         #strip
         self.strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
         # Intialize the library (must be called once before other functions).
@@ -859,8 +866,12 @@ class RGB_Tetris:
             self.lastPressed = "LEFT"
         if u.get_button(1): #Button A - right red button - Rotate right
             self.lastPressed = "A"
-        if u.get_button(2): #Button B - left red button - Rotate left
+        if u.get_button(2): #Button B - left yellow button - Rotate left
             self.lastPressed = "B"
+        if u.get_button(3): #Button X - right green button - Rotate right
+            self.lastPressed = "C"
+        if u.get_button(4): #Button Y - left blue button - Rotate left
+            self.lastPressed = "Y"
         if u.get_button(8):
             self.lastPressed = "SELECT"
         if u.get_button(9):
@@ -1130,6 +1141,15 @@ class RGB_Tetris:
             if self.lastPressed == "RIGHT" and self.snakeDirection != "LEFT":
                 self.snakeDirection = "RIGHT"
 
+            if self.lastPressed == "A":
+                self.snakeColor = "yellow"
+            if self.lastPressed == "B":
+                self.snakeColor = "red"
+            if self.lastPressed == "X":
+                self.snakeColor = "green"
+            if self.lastPressed == "Y":
+                self.snakeColor = "blue"
+
             if self.cherrySpawned == False:
                 self.spawnCherry()
 
@@ -1183,13 +1203,32 @@ class RGB_Tetris:
                 self.pixels[row][pixel] = gamecolors.BLACK
         #set snake pixels light and dark cyan
         for index in range(len(self.snake)):
-            if index%2:
-                self.pixels[self.snake[index][0]][self.snake[index][1]] = gamecolors.SNAKE1
-            else:
-                self.pixels[self.snake[index][0]][self.snake[index][1]] = gamecolors.SNAKE2
+            if self.snakeColor == 'green':
+                if index%3:
+                    self.pixels[self.snake[index][0]][self.snake[index][1]] = gamecolors.SNAKE_GREEN_1
+                else:
+                    self.pixels[self.snake[index][0]][self.snake[index][1]] = gamecolors.SNAKE_GREEN_2
+            elif self.snakeColor == 'yellow':
+                if index%3:
+                    self.pixels[self.snake[index][0]][self.snake[index][1]] = gamecolors.SNAKE_YELLOW_1
+                else:
+                    self.pixels[self.snake[index][0]][self.snake[index][1]] = gamecolors.SNAKE_YELLOW_2
+            elif self.snakeColor == 'red':
+                if index%3:
+                    self.pixels[self.snake[index][0]][self.snake[index][1]] = gamecolors.SNAKE_RED_1
+                else:
+                    self.pixels[self.snake[index][0]][self.snake[index][1]] = gamecolors.SNAKE_RED_2
+            elif self.snakeColor == 'blue':
+                if index%3:
+                    self.pixels[self.snake[index][0]][self.snake[index][1]] = gamecolors.SNAKE_BLUE_1
+                else:
+                    self.pixels[self.snake[index][0]][self.snake[index][1]] = gamecolors.SNAKE_BLUE_2
         #set cherry pixel
         if self.cherrySpawned == True:
-            self.pixels[self.cherryPosition[0]][self.cherryPosition[1]] = gamecolors.RED
+            if self.snakeColor == 'red':
+                self.pixels[self.cherryPosition[0]][self.cherryPosition[1]] = gamecolors.YELLOW
+            else:
+                self.pixels[self.cherryPosition[0]][self.cherryPosition[1]] = gamecolors.RED
         #draw the matrix
         self.send2strip(self.pixels)
 
