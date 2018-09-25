@@ -864,7 +864,7 @@ class RGB_Tetris:
             self.lastPressed = "A"
         if u.get_button(2): #Button B - left yellow button 
             self.lastPressed = "B"
-        if u.get_button(6): #Button X - right green button 
+        if u.get_button(0): #Button X - right green button 
             self.lastPressed = "X"
         if u.get_button(4): #Button Y - left blue button 
             self.lastPressed = "Y"
