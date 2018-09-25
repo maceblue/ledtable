@@ -852,6 +852,32 @@ class RGB_Tetris:
             self.dropPoints+=1
     def getKeypress(self,u):
         pygame.event.pump()
+        if u.get_button(0):
+            print("0")
+        if u.get_button(1):
+            print("1")
+        if u.get_button(2):
+            print("2")
+        if u.get_button(3):
+            print("3")
+        if u.get_button(4):
+            print("4")
+        if u.get_button(5):
+            print("5")
+        if u.get_button(6):
+            print("6")
+        if u.get_button(7):
+            print("7")
+        if u.get_button(8):
+            print("8")
+        if u.get_button(9):
+            print("9")
+        if u.get_button(10):
+            print("10")
+        if u.get_button(11):
+            print("11")
+        if u.get_button(12):
+            print("12") 
         if u.get_axis(1) <= -0.5: #D-Pad nach oben
             self.lastPressed = "UP"    
         if u.get_axis(1) >= +0.5: #D-Pad nach unten
