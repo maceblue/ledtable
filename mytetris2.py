@@ -872,12 +872,12 @@ class RGB_Tetris:
             print("8")
         if u.get_button(9):
             print("9")
-        if u.get_button(10):
-            print("10")
-        if u.get_button(11):
-            print("11")
-        if u.get_button(12):
-            print("12") 
+        # if u.get_button(10):
+        #     print("10")
+        # if u.get_button(11):
+        #     print("11")
+        # if u.get_button(12):
+        #     print("12") 
         if u.get_axis(1) <= -0.5: #D-Pad nach oben
             self.lastPressed = "UP"    
         if u.get_axis(1) >= +0.5: #D-Pad nach unten
