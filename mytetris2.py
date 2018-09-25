@@ -865,7 +865,7 @@ class RGB_Tetris:
         if u.get_button(2): #Button B - left yellow button - Rotate left
             self.lastPressed = "B"
         if u.get_button(3): #Button X - right green button - Rotate right
-            self.lastPressed = "C"
+            self.lastPressed = "X"
         if u.get_button(4): #Button Y - left blue button - Rotate left
             self.lastPressed = "Y"
         if u.get_button(8):
@@ -1141,13 +1141,13 @@ class RGB_Tetris:
                 self.snakeDirection = "RIGHT"
 
             if self.lastPressed == "A":
-                self.snakeColor = "yellow"
-            if self.lastPressed == "B":
                 self.snakeColor = "red"
+            if self.lastPressed == "B":
+                self.snakeColor = "yellow"
             if self.lastPressed == "X":
-                self.snakeColor = "green"
-            if self.lastPressed == "Y":
                 self.snakeColor = "blue"
+            if self.lastPressed == "Y":
+                self.snakeColor = "green"
 
             if self.cherrySpawned == False:
                 self.spawnCherry()
