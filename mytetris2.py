@@ -42,7 +42,7 @@ class gamecolors:
     SNAKE_YELLOW_1 = [255,204,0]
     SNAKE_YELLOW_2 = [102,0,204] # lila
     SNAKE_RED_1 = [204,0,0]
-    SNAKE_RED_1 = YELLOW
+    SNAKE_RED_2 = YELLOW
     SNAKE_BLUE_1 = [0,102,255]
     SNAKE_BLUE_2 = ORANGE
 class tiles:
