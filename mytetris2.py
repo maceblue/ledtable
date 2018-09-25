@@ -860,13 +860,13 @@ class RGB_Tetris:
             self.lastPressed = "RIGHT"
         if u.get_axis(0) <= -0.5: #D-Pad nach links
             self.lastPressed = "LEFT"
-        if u.get_button(1): #Button A - right red button - Rotate right
+        if u.get_button(1): #Button A - right red button 
             self.lastPressed = "A"
-        if u.get_button(2): #Button B - left yellow button - Rotate left
+        if u.get_button(2): #Button B - left yellow button 
             self.lastPressed = "B"
-        if u.get_button(3): #Button X - right green button - Rotate right
+        if u.get_button(6): #Button X - right green button 
             self.lastPressed = "X"
-        if u.get_button(4): #Button Y - left blue button - Rotate left
+        if u.get_button(4): #Button Y - left blue button 
             self.lastPressed = "Y"
         if u.get_button(8):
             self.lastPressed = "SELECT"
@@ -1225,7 +1225,7 @@ class RGB_Tetris:
         #set cherry pixel
         if self.cherrySpawned == True:
             if self.snakeColor == 'red':
-                self.pixels[self.cherryPosition[0]][self.cherryPosition[1]] = gamecolors.YELLOW
+                self.pixels[self.cherryPosition[0]][self.cherryPosition[1]] = gamecolors.GREEN
             else:
                 self.pixels[self.cherryPosition[0]][self.cherryPosition[1]] = gamecolors.RED
         #draw the matrix
