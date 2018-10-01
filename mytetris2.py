@@ -1401,9 +1401,10 @@ class RGB_Tetris:
 
     def moveRoad(self):
         # road direction
-        r = random.randint(0,9)
+        r = random.randint(0,1)
+        print(r)
         new_road_elem = deepcopy(self.road[0])
-        if r <= 4:
+        if r == 0:
             # road turns left
             for i in range(0,2):
                 new_road_elem[i][1] -= 1 
@@ -1418,7 +1419,9 @@ class RGB_Tetris:
         else:
             # move down road
             self.road.insert(0,new_road_elem)
-            #del self.road[-1]
+            if len(self.road) >= self.height:
+                del self.road[-1]
+                
             if self.road_tick == 250:
                 self.road_tick = 10;
             else:
