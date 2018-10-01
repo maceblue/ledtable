@@ -1390,11 +1390,11 @@ class RGB_Tetris:
 
         # draw road black
         for row in range(0,len(self.road)):
-            for pixel in range(0,2):
+            for pixel in range(0,3):
                 self.pixels[row][pixel] = gamecolors.BLACK
 
         # draw car blue
-        for i in range(0,len(self.car)-1):
+        for i in range(0,len(self.car)):
             self.pixels[self.car[i][0]][self.car[i][1]] = gamecolors.BLUE
 
         self.send2strip(self.pixels)
@@ -1407,11 +1407,11 @@ class RGB_Tetris:
 
         if r == 0:
             # road turns left
-            for i in range(0,2):
+            for i in range(0,3):
                 new_road_elem[i][1] -= 1 
         else:
             # road turns left
-            for i in range(0,2):
+            for i in range(0,3):
                 new_road_elem[i][1] += 1
 
         # check collision
