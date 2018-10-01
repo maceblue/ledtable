@@ -1329,7 +1329,9 @@ class RGB_Tetris:
         self.rainbowDriveRunning = True
         self.waittime = 150
         self.car = [[15,4],[14,4]] #coords are [y,x] NOT [x,y] !!!
-        self.road = [[0,3],[0,4],[0,5]]
+        self.road = [
+                        [[0,3],[0,4],[0,5]]
+                    ]
 
         # print("Loading Hiscores..."),
         # self.hiScores_Snake = pickle.load(open("/home/pi/ledtable/hiscores_snake.zfl","rb"))
@@ -1338,7 +1340,7 @@ class RGB_Tetris:
 
         joystick_count = pygame.joystick.get_count()
         if joystick_count == 0:
-            print ("How do you want to play Snake without a joystick?")
+            print ("How do you want to drive without a joystick?")
             sys.exit()
         else:
             self.gamepad = pygame.joystick.Joystick(0)
@@ -1365,32 +1367,35 @@ class RGB_Tetris:
         for row in range(0,self.height):
             for pixel in range(0,self.width):
                 self.pixels[row][pixel] = gamecolors.BLACK
-        # draw road
 
-        # draw car
+        # draw full matrix as rainbow
+
+        # draw road black
+
+        # draw car blue
         for i in range(0,len(self.car)-1):
             self.pixels[self.car[i][0]][self.snake[i][1]] = gamecolors.BLUE
 
     def moveRoad(self):
         # road direction
         r = random.randint(0,1)
-        new_road = deepcopy(self.road)
+        new_road_elem = deepcopy(self.road[0])
         if r == 0:
             # road turns left
-            for i in range(0,len(self.road)-1):
-                new_road[i][1] = new_road[i][1] - 1 
+            for i in range(0,2):
+                new_road_elem[i][1] = new_road_elem[i][1] - 1 
         else:
             # road turns left
-            for i in range(0,len(self.road)-1):
-                new_road[i][1] = new_road[i][1] + 1
+            for i in range(0,2):
+                new_road_elem[i][1] = new_road_elem[i][1] + 1
 
         # check collision
-        if self.road[0][1] < 0 || self.road[len(self.road)-1][1] > self.width:
+        if new_road_elem[0][1] < 0 || new_road_elem[2][1] > self.width:
             self.moveRoad()
         else:
             # move down old road
-
-            self.road = new_road
+            self.road.insert(0,new_road_elem)
+            del self.road[-1]
 
 
 
