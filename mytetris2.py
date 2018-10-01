@@ -1341,7 +1341,7 @@ class RGB_Tetris:
         self.keyPressTimeout = 550
         self.car = [[13,4],[12,4]] #coords are [y,x] NOT [x,y] !!!
         self.road = [
-                        [[0,3],[0,4],[0,5]]
+                        [[0,3],[0,4],[0,5],[0,6]]
                     ]
         self.road_tick = 1
 
@@ -1390,7 +1390,7 @@ class RGB_Tetris:
 
         # draw road black
         for row in range(0,len(self.road)):
-            for pixel in range(0,3):
+            for pixel in range(0,len(self.road[row])):
                 self.pixels[row][self.road[row][pixel][1]] = gamecolors.BLACK
 
         # draw car blue
@@ -1407,11 +1407,11 @@ class RGB_Tetris:
             r = random.randint(0,1)
             if r == 0:
                 # road turns left
-                for i in range(0,3):
+                for i in range(0,len(new_road_elem)):
                     new_road_elem[i][1] -= 1 
             else:
                 # road turns left
-                for i in range(0,3):
+                for i in range(0,len(new_road_elem)):
                     new_road_elem[i][1] += 1
 
         # check collision
