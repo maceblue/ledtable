@@ -1343,7 +1343,7 @@ class RGB_Tetris:
         self.road = [
                         [[0,3],[0,4],[0,5]]
                     ]
-        self.road_tick = 10
+        self.road_tick = 1
 
         # print("Loading Hiscores..."),
         # self.hiScores_Snake = pickle.load(open("/home/pi/ledtable/hiscores_snake.zfl","rb"))
@@ -1400,36 +1400,35 @@ class RGB_Tetris:
         self.send2strip(self.pixels)
 
     def moveRoad(self):
-        # road direction
-        r = random.randint(0,1)
         new_road_elem = deepcopy(self.road[0])
         
-
-        if r == 0:
-            # road turns left
-            for i in range(0,3):
-                new_road_elem[i][1] -= 1 
-        else:
-            # road turns left
-            for i in range(0,3):
-                new_road_elem[i][1] += 1
+        if self.road_tick%5 == 0:
+            # road direction
+            r = random.randint(0,1)
+            if r == 0:
+                # road turns left
+                for i in range(0,3):
+                    new_road_elem[i][1] -= 1 
+            else:
+                # road turns left
+                for i in range(0,3):
+                    new_road_elem[i][1] += 1
 
         # check collision
-        if new_road_elem[0][1] < 0 or new_road_elem[2][1] > self.width:
+        if new_road_elem[0][1] < 0 or new_road_elem[2][1] > self.width-1:
             self.moveRoad()
         else:
-            
             # move down road
             self.road.insert(0,new_road_elem)
             if len(self.road) > self.height:
                 del self.road[-1]
                 
-            if self.road_tick == 250:
-                self.road_tick = 10;
+            if self.road_tick == 255:
+                self.road_tick = 1;
             else:
-                self.road_tick += 10
-        print(self.road)
-        print("----------------------")
+                self.road_tick += 1
+        #print(self.road)
+        #print("----------------------")
 
     def moveCar(self):
         if self.lastPressed == "LEFT":
