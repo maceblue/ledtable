@@ -1344,7 +1344,7 @@ class RGB_Tetris:
         print("Starting Rainbow Drive...")
         self.rainbowDriveRunning = True
         self.waittime = 150
-        self.car = [[15,4],[14,4]] #coords are [y,x] NOT [x,y] !!!
+        self.car = [[14,4],[13,4]] #coords are [y,x] NOT [x,y] !!!
         self.road = [
                         [[0,3],[0,4],[0,5]]
                     ]
