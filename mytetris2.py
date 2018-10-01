@@ -1373,6 +1373,7 @@ class RGB_Tetris:
                 self.moveCar()
                 self.buildRainbowDriveScreen()
                 start = pygame.time.get_ticks()
+                self.lastPressed = None
 
     def buildRainbowDriveScreen(self):
         # all black
@@ -1382,7 +1383,7 @@ class RGB_Tetris:
 
         # draw full matrix as rainbow
         for row in range(0,self.height):
-            color = self.wheel((row + self.road_tick) & 50)
+            color = self.wheel((row + self.road_tick) & 255)
             for pixel in range(0,self.width):
                 self.pixels[row][pixel] = color
 
@@ -1424,22 +1425,23 @@ class RGB_Tetris:
 
     def moveCar(self):
         if self.lastPressed == "LEFT":
-            self.car[0][0] -= 1
-            self.car[1][0] -= 1
+            self.car[0][1] -= 1
+            self.car[1][1] -= 1
         if self.lastPressed == "RIGHT":
-            self.car[0][0] += 1
-            self.car[1][0] += 1
+            self.car[0][1] += 1
+            self.car[1][1] += 1
 
     def wheel(self,pos):
+        fac = 5
         """Generate rainbow colors across 0-255 positions."""
         if pos < 85:
-            return [pos * 3, 255 - pos * 3, 0] #Color(pos * 3, 255 - pos * 3, 0)
+            return [pos * fac, 255 - pos * fac, 0] #Color(pos * 3, 255 - pos * 3, 0)
         elif pos < 170:
             pos -= 85
-            return [255 - pos * 3, 0, pos * 3] #Color(255 - pos * 3, 0, pos * 3)
+            return [255 - pos * fac, 0, pos * fac] #Color(255 - pos * 3, 0, pos * 3)
         else:
             pos -= 170
-            return [0, pos * 3, 255 - pos * 3] #Color(0, pos * 3, 255 - pos * 3)
+            return [0, pos * fac, 255 - pos * fac] #Color(0, pos * 3, 255 - pos * 3)
 
     def rainbowDriveGameOver(self):
         self.rainbowDriveRunning = False
