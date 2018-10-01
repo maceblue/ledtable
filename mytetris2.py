@@ -1338,7 +1338,7 @@ class RGB_Tetris:
         print("Starting Rainbow Drive...")
         self.rainbowDriveRunning = True
         self.waittime = 150
-        self.keyPressTimeout = 250
+        self.keyPressTimeout = 550
         self.car = [[14,4],[13,4]] #coords are [y,x] NOT [x,y] !!!
         self.road = [
                         [[0,3],[0,4],[0,5]]
@@ -1403,7 +1403,7 @@ class RGB_Tetris:
         # road direction
         r = random.randint(0,1)
         new_road_elem = deepcopy(self.road[0])
-        print(new_road_elem)
+        
 
         if r == 0:
             # road turns left
@@ -1418,8 +1418,7 @@ class RGB_Tetris:
         if new_road_elem[0][1] < 0 or new_road_elem[2][1] > self.width:
             self.moveRoad()
         else:
-            print(new_road_elem)
-            print("----------------------")
+            
             # move down road
             self.road.insert(0,new_road_elem)
             if len(self.road) > self.height:
@@ -1429,6 +1428,8 @@ class RGB_Tetris:
                 self.road_tick = 10;
             else:
                 self.road_tick += 10
+        print(self.road)
+        print("----------------------")
 
     def moveCar(self):
         if self.lastPressed == "LEFT":
