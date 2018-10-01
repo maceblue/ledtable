@@ -405,6 +405,11 @@ class RGB_Tetris:
         pygame.mixer.music.stop()
         self.snd_gameover.play()
         time.sleep(1)
+        self.speakEngine = None
+        self.speakEngine = pyttsx.init()
+        rate = self.speakEngine.getProperty('rate')
+        self.speakEngine.setProperty('rate', rate-10)
+        self.speakEngine.setProperty('voice', 'german')
         self.speakEngine.say("Du hast "+str(self.Tetris_Points)+" Punkte.")
         if self.hiScores[0][1] < self.Tetris_Points:
             entry = (self.playerName, self.Tetris_Points)
@@ -1122,6 +1127,12 @@ class RGB_Tetris:
                 self.paused = False
                 self.brightness = 0.5
                 self.startSnakeGame()
+            if self.lastPressed == 'B':
+                self.loungeTableRunning = False
+                self.lastPressed = None
+                self.paused = False
+                self.brightness = 0.5
+                self.startRainbowDrive()
 
 ####################################################################################
 ################################### Snake-Game #####################################
@@ -1288,6 +1299,11 @@ class RGB_Tetris:
         print("Du hast")
         print(self.snakePoints)
         print("Punkte.")
+        self.speakEngine = None
+        self.speakEngine = pyttsx.init()
+        rate = self.speakEngine.getProperty('rate')
+        self.speakEngine.setProperty('rate', rate-10)
+        self.speakEngine.setProperty('voice', 'german')
         self.speakEngine.say("Du hast "+str(self.snakePoints)+" Punkte.")
         if self.hiScores_Snake[0][1] < self.snakePoints:
             entry = (self.playerName, self.snakePoints)
@@ -1409,7 +1425,15 @@ class RGB_Tetris:
             else:
                 self.road_tick += 1
 
-    def wheel(pos):
+    def moveCar(self):
+        if self.lastPressed == "LEFT":
+            self.car[0][0] -= 1
+            self.car[1][0] -= 1
+        if self.lastPressed == "RIGHT":
+            self.car[0][0] += 1
+            self.car[1][0] += 1
+
+    def wheel(self,pos):
         """Generate rainbow colors across 0-255 positions."""
         if pos < 85:
             return Color(pos * 3, 255 - pos * 3, 0)
@@ -1419,5 +1443,10 @@ class RGB_Tetris:
         else:
             pos -= 170
             return Color(0, pos * 3, 255 - pos * 3)
+
+    def rainbowDriveGameOver(self):
+        self.rainbowDriveRunning = False
+        self.fadeInOut([0,0,255])
+        self.startLoungeTable()
 
 
