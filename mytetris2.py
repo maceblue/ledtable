@@ -1338,7 +1338,7 @@ class RGB_Tetris:
         print("Starting Rainbow Drive...")
         self.rainbowDriveRunning = True
         self.waittime = 150
-        self.keyPressTimeout = 550
+        self.keyPressTimeout = 100
         self.car = [[13,4],[12,4]] #coords are [y,x] NOT [x,y] !!!
         self.road = [
                         [[0,3],[0,4],[0,5],[0,6]]
@@ -1375,6 +1375,7 @@ class RGB_Tetris:
                 self.moveCar()
                 self.buildRainbowDriveScreen()
                 start = pygame.time.get_ticks()
+                
                 
 
     def buildRainbowDriveScreen(self):
