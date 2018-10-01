@@ -1338,6 +1338,7 @@ class RGB_Tetris:
         print("Starting Rainbow Drive...")
         self.rainbowDriveRunning = True
         self.waittime = 150
+        self.keyPressTimeout = 250
         self.car = [[14,4],[13,4]] #coords are [y,x] NOT [x,y] !!!
         self.road = [
                         [[0,3],[0,4],[0,5]]
@@ -1400,16 +1401,16 @@ class RGB_Tetris:
 
     def moveRoad(self):
         # road direction
-        r = random.randint(0,1)
+        r = random.randint(0,9)
         new_road_elem = deepcopy(self.road[0])
-        if r == 0:
+        if r <= 4:
             # road turns left
             for i in range(0,2):
-                new_road_elem[i][1] = new_road_elem[i][1] - 1 
+                new_road_elem[i][1] -= 1 
         else:
             # road turns left
             for i in range(0,2):
-                new_road_elem[i][1] = new_road_elem[i][1] + 1
+                new_road_elem[i][1] += 1
 
         # check collision
         if new_road_elem[0][1] < 0 or new_road_elem[2][1] > self.width:
@@ -1417,7 +1418,7 @@ class RGB_Tetris:
         else:
             # move down road
             self.road.insert(0,new_road_elem)
-            del self.road[-1]
+            #del self.road[-1]
             if self.road_tick == 250:
                 self.road_tick = 10;
             else:
