@@ -1339,7 +1339,7 @@ class RGB_Tetris:
         self.rainbowDriveRunning = True
         self.waittime = 150
         self.keyPressTimeout = 550
-        self.car = [[14,4],[13,4]] #coords are [y,x] NOT [x,y] !!!
+        self.car = [[13,4],[12,4]] #coords are [y,x] NOT [x,y] !!!
         self.road = [
                         [[0,3],[0,4],[0,5]]
                     ]
@@ -1431,10 +1431,10 @@ class RGB_Tetris:
         #print("----------------------")
 
     def moveCar(self):
-        if self.lastPressed == "LEFT":
+        if self.lastPressed == "LEFT" and self.car[0][1] > 0:
             self.car[0][1] -= 1
             self.car[1][1] -= 1
-        if self.lastPressed == "RIGHT":
+        if self.lastPressed == "RIGHT" and self.car[0][1] < self.width-1:
             self.car[0][1] += 1
             self.car[1][1] += 1
 
