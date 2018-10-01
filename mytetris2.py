@@ -1342,7 +1342,7 @@ class RGB_Tetris:
         self.road = [
                         [[0,3],[0,4],[0,5]]
                     ]
-        self.road_tick = 10
+        self.road_tick = 50
 
         # print("Loading Hiscores..."),
         # self.hiScores_Snake = pickle.load(open("/home/pi/ledtable/hiscores_snake.zfl","rb"))
@@ -1418,9 +1418,9 @@ class RGB_Tetris:
             self.road.insert(0,new_road_elem)
             del self.road[-1]
             if self.road_tick == 250:
-                self.road_tick = 10;
+                self.road_tick = 100;
             else:
-                self.road_tick += 10
+                self.road_tick += 50
 
     def moveCar(self):
         if self.lastPressed == "LEFT":
