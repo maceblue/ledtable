@@ -1414,7 +1414,7 @@ class RGB_Tetris:
                 new_road_elem[i][1] = new_road_elem[i][1] + 1
 
         # check collision
-        if new_road_elem[0][1] < 0 || new_road_elem[2][1] > self.width:
+        if new_road_elem[0][1] < 0 or new_road_elem[2][1] > self.width:
             self.moveRoad()
         else:
             # move down road
