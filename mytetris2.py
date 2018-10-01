@@ -1391,7 +1391,7 @@ class RGB_Tetris:
         # draw road black
         for row in range(0,len(self.road)):
             for pixel in range(0,3):
-                self.pixels[row][self.road[row][pixel]] = gamecolors.BLACK
+                self.pixels[row][self.road[row][pixel][1]] = gamecolors.BLACK
 
         # draw car blue
         for i in range(0,len(self.car)):
