@@ -1368,13 +1368,14 @@ class RGB_Tetris:
             pygame.event.pump()
             if pygame.time.get_ticks() > self.keyPressTime + self.keyPressTimeout:
                 self.getKeypress(self.gamepad)
+                self.lastPressed = None
 
             if (pygame.time.get_ticks()>=start+self.waittime):
                 self.moveRoad()
                 self.moveCar()
                 self.buildRainbowDriveScreen()
                 start = pygame.time.get_ticks()
-                self.lastPressed = None
+                
 
     def buildRainbowDriveScreen(self):
         # all black
@@ -1415,7 +1416,7 @@ class RGB_Tetris:
                     new_road_elem[i][1] += 1
 
         # check collision
-        if new_road_elem[0][1] < 0 or new_road_elem[2][1] > self.width-1:
+        if new_road_elem[0][1] < 0 or new_road_elem[len(new_road_elem)-1][1] > self.width-1:
             self.moveRoad()
         else:
             # move down road
