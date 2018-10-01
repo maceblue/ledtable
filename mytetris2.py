@@ -857,32 +857,26 @@ class RGB_Tetris:
             self.dropPoints+=1
     def getKeypress(self,u):
         pygame.event.pump()
-        if u.get_button(0):
-            print("0")
-        if u.get_button(1):
-            print("1")
-        if u.get_button(2):
-            print("2")
-        if u.get_button(3):
-            print("3")
-        if u.get_button(4):
-            print("4")
-        if u.get_button(5):
-            print("5")
-        if u.get_button(6):
-            print("6")
-        if u.get_button(7):
-            print("7")
-        if u.get_button(8):
-            print("8")
-        if u.get_button(9):
-            print("9")
-        # if u.get_button(10):
-        #     print("10")
-        # if u.get_button(11):
-        #     print("11")
-        # if u.get_button(12):
-        #     print("12") 
+        # if u.get_button(0):
+        #     print("0")
+        # if u.get_button(1):
+        #     print("1")
+        # if u.get_button(2):
+        #     print("2")
+        # if u.get_button(3):
+        #     print("3")
+        # if u.get_button(4):
+        #     print("4")
+        # if u.get_button(5):
+        #     print("5")
+        # if u.get_button(6):
+        #     print("6")
+        # if u.get_button(7):
+        #     print("7")
+        # if u.get_button(8):
+        #     print("8")
+        # if u.get_button(9):
+        #     print("9")
         if u.get_axis(1) <= -0.5: #D-Pad nach oben
             self.lastPressed = "UP"    
         if u.get_axis(1) >= +0.5: #D-Pad nach unten
@@ -1376,6 +1370,7 @@ class RGB_Tetris:
 
             if (pygame.time.get_ticks()>=start+self.waittime):
                 self.moveRoad()
+                self.moveCar()
                 self.buildRainbowDriveScreen()
                 start = pygame.time.get_ticks()
 
@@ -1387,7 +1382,7 @@ class RGB_Tetris:
 
         # draw full matrix as rainbow
         for row in range(0,self.height):
-            color = self.wheel((row + self.road_tick) & 255)
+            color = self.wheel((row + self.road_tick) & 50)
             for pixel in range(0,self.width):
                 self.pixels[row][pixel] = color
 
@@ -1437,13 +1432,13 @@ class RGB_Tetris:
 
     def wheel(self,pos):
         """Generate rainbow colors across 0-255 positions."""
-        if pos < 85:
+        if pos < 15:
             return [pos * 3, 255 - pos * 3, 0] #Color(pos * 3, 255 - pos * 3, 0)
-        elif pos < 170:
+        elif pos < 35:
             pos -= 85
             return [255 - pos * 3, 0, pos * 3] #Color(255 - pos * 3, 0, pos * 3)
         else:
-            pos -= 170
+            pos -= 35
             return [0, pos * 3, 255 - pos * 3] #Color(0, pos * 3, 255 - pos * 3)
 
     def rainbowDriveGameOver(self):
