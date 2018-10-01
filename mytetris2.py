@@ -1400,6 +1400,8 @@ class RGB_Tetris:
         for i in range(0,len(self.car)-1):
             self.pixels[self.car[i][0]][self.car[i][1]] = gamecolors.BLUE
 
+        self.send2strip(self.pixels)
+
     def moveRoad(self):
         # road direction
         r = random.randint(0,1)
