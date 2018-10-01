@@ -1332,6 +1332,7 @@ class RGB_Tetris:
         self.road = [
                         [[0,3],[0,4],[0,5]]
                     ]
+        self.road_tick = 0
 
         # print("Loading Hiscores..."),
         # self.hiScores_Snake = pickle.load(open("/home/pi/ledtable/hiscores_snake.zfl","rb"))
@@ -1369,12 +1370,19 @@ class RGB_Tetris:
                 self.pixels[row][pixel] = gamecolors.BLACK
 
         # draw full matrix as rainbow
+        for row in range(0,self.height):
+            color = self.wheel((row + self.road_tick) & 255)
+            for pixel in range(0,self.width):
+                self.pixels[row][pixel] = color
 
         # draw road black
+        for row in range(0,len(self.road)):
+            for pixel in range(0,2):
+                self.pixels[row][pixel] = gamecolors.BLACK
 
         # draw car blue
         for i in range(0,len(self.car)-1):
-            self.pixels[self.car[i][0]][self.snake[i][1]] = gamecolors.BLUE
+            self.pixels[self.car[i][0]][self.car[i][1]] = gamecolors.BLUE
 
     def moveRoad(self):
         # road direction
@@ -1393,9 +1401,23 @@ class RGB_Tetris:
         if new_road_elem[0][1] < 0 || new_road_elem[2][1] > self.width:
             self.moveRoad()
         else:
-            # move down old road
+            # move down road
             self.road.insert(0,new_road_elem)
             del self.road[-1]
+            if self.road_tick == 255:
+                self.road_tick = 0;
+            else:
+                self.road_tick += 1
 
+    def wheel(pos):
+        """Generate rainbow colors across 0-255 positions."""
+        if pos < 85:
+            return Color(pos * 3, 255 - pos * 3, 0)
+        elif pos < 170:
+            pos -= 85
+            return Color(255 - pos * 3, 0, pos * 3)
+        else:
+            pos -= 170
+            return Color(0, pos * 3, 255 - pos * 3)
 
 
