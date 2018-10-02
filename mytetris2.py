@@ -1449,7 +1449,7 @@ class RGB_Tetris:
                 for road_pos in range(0,len(self.road[road_row])):
                     if self.car[car_pos] == self.road[road_row][road_pos]:
                         matches += 1
-        if matches < len(self.car)
+        if matches < len(self.car):
             print("car collision!")
             self.rainbowDriveGameOver()
 
