@@ -36,7 +36,7 @@ class gamecolors:
     PINK = [255,0,255]
     RED = [255,0,0]
     BLACK = [0,0,0]
-    GREY = [10,10,10]
+    GREY = [50,50,50]
     WHITE = [255,255,255]
     SNAKE_GREEN_1 = [0,255,204] #00ffcc
     SNAKE_GREEN_2 = [0,153,153] #009999
@@ -1376,7 +1376,7 @@ class RGB_Tetris:
                 self.moveRoad()
                 self.moveCar()
                 self.buildRainbowDriveScreen()
-                #self.checkCarCollision()
+                self.checkCarCollision()
                 start = pygame.time.get_ticks()
                 self.lastPressed = None
                 
