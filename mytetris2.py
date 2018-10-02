@@ -1388,7 +1388,7 @@ class RGB_Tetris:
 
         # draw full matrix as rainbow
         for row in range(0,self.height):
-            color = self.rainbow_color((row + self.road_tick) & 255)
+            color = self.rainbow_color((row + self.road_tick) & 10)
             for pixel in range(0,self.width):
                 self.pixels[row][pixel] = color
 
