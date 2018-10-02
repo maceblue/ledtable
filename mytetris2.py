@@ -1445,8 +1445,8 @@ class RGB_Tetris:
     def checkCarCollision(self):
         for car_pos in range(0,len(self.car)):
             for road_row in range(0,len(self.road)):
-                for road_pos in range(0,len(road_row)):
-                    if car_pos != road_pos:
+                for road_pos in range(0,len(self.road[road_row])):
+                    if self.car[car_pos] != self.road[road_row][road_pos]:
                         print("car collision!")
                         self.rainbowDriveGameOver()
 
