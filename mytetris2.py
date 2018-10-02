@@ -1458,14 +1458,14 @@ class RGB_Tetris:
         for row in range(0,self.height-1):
             for pixel in range(0,self.width-1):
                 match = False;
-                for road_pos in range(0,len(self.road[row])):
-                    if road_pos == pixel:
-                        match = True
-                if match == False:
-                    try:
+                try:
+                    for road_pos in range(0,len(self.road[row])):
+                        if road_pos == pixel:
+                            match = True
+                    if match == False:
                         road_negative[row][pixel] = 1
-                    except IndexError:
-                        print("index error")
+                except IndexError:
+                    print("index error")
         return road_negative
 
     def wheel(self,pos):
