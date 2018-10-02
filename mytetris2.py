@@ -1473,6 +1473,50 @@ class RGB_Tetris:
             pos -= 170
             return [0, pos * fac, 255 - pos * fac] #Color(0, pos * 3, 255 - pos * 3)
 
+    def rainbow_color(self,position):
+        """Get color from wheel value (0 - 30)."""
+        if position < 0:
+            position = 0
+        if position > 30:
+            position = 30
+
+        if position < 10:
+            r = 9 - position % 10
+            g = position % 128
+            b = 0
+        elif position < 20:
+            g = 9 - position % 10
+            b = position % 10
+            r = 0
+        else:
+            b = 9 - position % 10
+            r = position % 10
+            g = 0
+
+        return [r, g, b]
+    
+    def wheel_color(position):
+        """Get color from wheel value (0 - 384)."""
+        if position < 0:
+            position = 0
+        if position > 384:
+            position = 384
+
+        if position < 128:
+            r = 127 - position % 128
+            g = position % 128
+            b = 0
+        elif position < 256:
+            g = 127 - position % 128
+            b = position % 128
+            r = 0
+        else:
+            b = 127 - position % 128
+            r = position % 128
+            g = 0
+
+        return Color(r, g, b)  
+
     def rainbowDriveGameOver(self):
         self.rainbowDriveRunning = False
         self.fadeInOut([0,0,255])
