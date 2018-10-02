@@ -36,6 +36,7 @@ class gamecolors:
     PINK = [255,0,255]
     RED = [255,0,0]
     BLACK = [0,0,0]
+    GREY = [10,10,10]
     WHITE = [255,255,255]
     SNAKE_GREEN_1 = [0,255,204] #00ffcc
     SNAKE_GREEN_2 = [0,153,153] #009999
@@ -1375,7 +1376,7 @@ class RGB_Tetris:
                 self.moveRoad()
                 self.moveCar()
                 self.buildRainbowDriveScreen()
-                self.checkCarCollision()
+                #self.checkCarCollision()
                 start = pygame.time.get_ticks()
                 self.lastPressed = None
                 
@@ -1387,14 +1388,14 @@ class RGB_Tetris:
 
         # draw full matrix as rainbow
         for row in range(0,self.height):
-            color = self.wheel((row + self.road_tick) & 255)
+            color = self.rainbow_color((row + self.road_tick) & 255)
             for pixel in range(0,self.width):
                 self.pixels[row][pixel] = color
 
-        # draw road black
+        # draw road grey
         for row in range(0,len(self.road)):
             for pixel in range(0,len(self.road[row])):
-                self.pixels[row][self.road[row][pixel][1]] = gamecolors.BLACK
+                self.pixels[row][self.road[row][pixel][1]] = gamecolors.GREY
 
         # draw car blue
         for i in range(0,len(self.car)):
@@ -1459,7 +1460,10 @@ class RGB_Tetris:
                     if road_pos == pixel:
                         match = True
                 if match == False:
-                    road_negative[row][pixel] = 1
+                    try:
+                        road_negative[row][pixel] = 1
+                    except IndexError:
+                        print("index error")
         return road_negative
 
     def wheel(self,pos):
