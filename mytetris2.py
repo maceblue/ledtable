@@ -1344,6 +1344,7 @@ class RGB_Tetris:
                         [[0,3],[0,4],[0,5],[0,6]]
                     ]
         self.road_tick = 1
+        self.road_turn_interval = 5
 
         # print("Loading Hiscores..."),
         # self.hiScores_Snake = pickle.load(open("/home/pi/ledtable/hiscores_snake.zfl","rb"))
@@ -1374,10 +1375,9 @@ class RGB_Tetris:
                 self.moveRoad()
                 self.moveCar()
                 self.buildRainbowDriveScreen()
+                self.checkCarCollision()
                 start = pygame.time.get_ticks()
                 
-                
-
     def buildRainbowDriveScreen(self):
         # all black
         for row in range(0,self.height):
@@ -1404,7 +1404,7 @@ class RGB_Tetris:
     def moveRoad(self):
         new_road_elem = deepcopy(self.road[0])
         
-        if self.road_tick%5 == 0:
+        if self.road_tick%self.road_turn_interval == 0: # turn every [interval] ticks
             # road direction
             r = random.randint(0,1)
             if r == 0:
@@ -1416,7 +1416,7 @@ class RGB_Tetris:
                 for i in range(0,len(new_road_elem)):
                     new_road_elem[i][1] += 1
 
-        # check collision
+        # check road wall collision
         if new_road_elem[0][1] < 0 or new_road_elem[len(new_road_elem)-1][1] > self.width-1:
             self.moveRoad()
         else:
@@ -1439,6 +1439,27 @@ class RGB_Tetris:
         if self.lastPressed == "RIGHT" and self.car[0][1] < self.width-1:
             self.car[0][1] += 1
             self.car[1][1] += 1
+
+    def checkCarCollision(self):
+        road_negative = self.getRoadNegative()
+        for road_row in range(0,len(road_negative)):
+            for road_pos in range(0,len(road_negative[road_row])):
+                for car_pixel in range(0,len(self.car)):
+                    if car_pixel[0] == road_negative[road_pos][0] and car_pixel[1] == road_negative[road_pos][1]:
+                        print("car collision!")
+                        self.rainbowDriveGameOver()
+
+    def getRoadNegative(self):
+        road_negative = []
+        for row in range(0,self.height-1):
+            for pixel in range(0,self.width-1):
+                match = False;
+                for road_pos in range(0,len(self.road[row])):
+                    if road_pos == pixel:
+                        match = True
+                if match == False:
+                    road_negative[row][pixel] = 1
+        return road_negative
 
     def wheel(self,pos):
         fac = 3
