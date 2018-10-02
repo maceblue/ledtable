@@ -1443,30 +1443,12 @@ class RGB_Tetris:
             self.car[1][1] += 1
 
     def checkCarCollision(self):
-        road_negative = self.getRoadNegative()
-        print(road_negative)
-        print("-------------")
-        # for road_row in range(0,len(road_negative)):
-        #     for road_pos in range(0,len(road_negative[road_row])):
-        #         for car_pixel in range(0,len(self.car)):
-        #             if car_pixel[0] == road_negative[road_pos][0] and car_pixel[1] == road_negative[road_pos][1]:
-        #                 print("car collision!")
-        #                 self.rainbowDriveGameOver()
-
-    def getRoadNegative(self):
-        road_negative = []
-        for row in range(0,self.height-1):
-            for pixel in range(0,self.width-1):
-                match = False;
-                try:
-                    for road_pos in range(0,len(self.road[row])):
-                        if road_pos == pixel:
-                            match = True
-                    if match == False:
-                        road_negative[row][pixel] = 1
-                except IndexError:
-                    print("index error")
-        return road_negative
+        for car_pos in range(0,len(self.car)):
+            for road_row in range(0,len(self.road)):
+                for road_pos in range(0,len(road_row)):
+                    if car_pos != road_pos:
+                        print("car collision!")
+                        self.rainbowDriveGameOver()
 
     def wheel(self,pos):
         fac = 3
