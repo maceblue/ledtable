@@ -1388,7 +1388,7 @@ class RGB_Tetris:
 
         # draw full matrix as rainbow
         for row in range(0,self.height):
-            color = self.rainbow_color((row + self.road_tick) & 10)
+            color = self.wheel((row + self.road_tick) & 255)
             for pixel in range(0,self.width):
                 self.pixels[row][pixel] = color
 
@@ -1444,12 +1444,14 @@ class RGB_Tetris:
 
     def checkCarCollision(self):
         road_negative = self.getRoadNegative()
-        for road_row in range(0,len(road_negative)):
-            for road_pos in range(0,len(road_negative[road_row])):
-                for car_pixel in range(0,len(self.car)):
-                    if car_pixel[0] == road_negative[road_pos][0] and car_pixel[1] == road_negative[road_pos][1]:
-                        print("car collision!")
-                        self.rainbowDriveGameOver()
+        print(road_negative)
+        print("-------------")
+        # for road_row in range(0,len(road_negative)):
+        #     for road_pos in range(0,len(road_negative[road_row])):
+        #         for car_pixel in range(0,len(self.car)):
+        #             if car_pixel[0] == road_negative[road_pos][0] and car_pixel[1] == road_negative[road_pos][1]:
+        #                 print("car collision!")
+        #                 self.rainbowDriveGameOver()
 
     def getRoadNegative(self):
         road_negative = []
