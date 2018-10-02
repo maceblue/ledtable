@@ -1443,12 +1443,15 @@ class RGB_Tetris:
             self.car[1][1] += 1
 
     def checkCarCollision(self):
+        matches = 0
         for car_pos in range(0,len(self.car)):
             for road_row in range(0,len(self.road)):
                 for road_pos in range(0,len(self.road[road_row])):
-                    if self.car[car_pos] != self.road[road_row][road_pos]:
-                        print("car collision!")
-                        self.rainbowDriveGameOver()
+                    if self.car[car_pos] == self.road[road_row][road_pos]:
+                        matches += 1
+        if matches < len(self.car)
+            print("car collision!")
+            self.rainbowDriveGameOver()
 
     def wheel(self,pos):
         fac = 3
