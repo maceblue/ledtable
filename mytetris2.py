@@ -926,6 +926,10 @@ class RGB_Tetris:
             self.snd_appluse.set_volume(levelApplause+0.1)
             levelRocket = self.snd_rocket.get_volume()
             self.snd_rocket.set_volume(levelRocket+0.1)
+            levelEngine = self.snd_engine.get_volume()
+            self.snd_engine.set_volume(levelEngine+0.1)
+            levelCarCrash = self.snd_car_crash.get_volume()
+            self.snd_car_crash.set_volume(levelCarCrash+0.1)
         if u.get_button(4): # left top button
             self.lastPressed = "TOPLEFT"
             musicVol = pygame.mixer.music.get_volume()
@@ -952,6 +956,10 @@ class RGB_Tetris:
             self.snd_appluse.set_volume(levelApplause-0.1)
             levelRocket = self.snd_rocket.get_volume()
             self.snd_rocket.set_volume(levelRocket-0.1)
+            levelEngine = self.snd_engine.get_volume()
+            self.snd_engine.set_volume(levelEngine-0.1)
+            levelCarCrash = self.snd_car_crash.get_volume()
+            self.snd_car_crash.set_volume(levelCarCrash-0.1)
     #Overlay fixed and mobile Pixels
     def buildScreen(self):
         if self.running:
