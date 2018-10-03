@@ -1465,7 +1465,7 @@ class RGB_Tetris:
                         matches += 1
         if matches < 2:
             print("car collision!")
-            #self.rainbowDriveGameOver()
+            self.rainbowDriveGameOver()
 
     def wheel(self,pos):
         fac = 3
