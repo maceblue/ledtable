@@ -1525,6 +1525,7 @@ class RGB_Tetris:
 
     def rainbowDriveGameOver(self):
         self.rainbowDriveRunning = False
+        time.sleep(1)
         self.fadeInOut([0,0,255])
         self.startLoungeTable()
 
