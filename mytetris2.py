@@ -1400,6 +1400,7 @@ class RGB_Tetris:
                 
 
             if (pygame.time.get_ticks()>=start+self.waittime):
+                self.waittime -= 0.05
                 self.moveRoad()
                 self.moveCar()
                 self.buildRainbowDriveScreen()
