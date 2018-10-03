@@ -138,6 +138,8 @@ class RGB_Tetris:
     snd_rocket = None
     snd_bite = None
     snd_snake_gameover = None
+    snd_car_crash = None
+    snd_engine = None
     strip = None
     REFRESHSCREEN = USEREVENT+1
     gamepad = None
@@ -986,6 +988,8 @@ class RGB_Tetris:
         self.snd_rocket = pygame.mixer.Sound('/home/pi/ledtable/sounds/rocket-start.ogg')
         self.snd_bite = pygame.mixer.Sound('/home/pi/ledtable/sounds/bite.ogg')
         self.snd_snake_gameover = pygame.mixer.Sound('/home/pi/ledtable/sounds/snake_gameover.ogg')
+        self.snd_car_crash = pygame.mixer.Sound('/home/pi/ledtable/sounds/car-crash.ogg')
+        self.snd_engine = pygame.mixer.Sound('/home/pi/ledtable/sounds/diesel-engine.ogg')
         print("done")
         print("Loading self.speakEngine...")
         self.speakEngine = pyttsx.init()
@@ -1377,6 +1381,7 @@ class RGB_Tetris:
         self.moveTime = pygame.time.get_ticks()
         self.keyTime = self.moveTime
         self.keyPressTime = self.moveTime
+        self.snd_engine.play(-1)
 
         start = 0
 
@@ -1465,6 +1470,8 @@ class RGB_Tetris:
                         matches += 1
         if matches < 2:
             print("car collision!")
+            self.snd_engine.stop()
+            self.snd_car_crash.play()
             self.rainbowDriveGameOver()
 
     def wheel(self,pos):
@@ -1525,7 +1532,7 @@ class RGB_Tetris:
 
     def rainbowDriveGameOver(self):
         self.rainbowDriveRunning = False
-        time.sleep(1)
+        time.sleep(3)
         self.fadeInOut([0,0,255])
         self.startLoungeTable()
 
