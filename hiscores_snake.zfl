@@ -1,6 +1,10 @@
 (lp0
 (S'mace'
 p1
-I511
+I770
 tp2
+a(S'mace'
+p3
+I511
+tp4
 a.
