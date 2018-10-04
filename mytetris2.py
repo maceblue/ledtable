@@ -36,7 +36,7 @@ class gamecolors:
     PINK = [255,0,255]
     RED = [255,0,0]
     BLACK = [0,0,0]
-    GREY = [50,50,50]
+    GREY = [40,40,40]
     WHITE = [255,255,255]
     SNAKE_GREEN_1 = [0,255,204] #00ffcc
     SNAKE_GREEN_2 = [0,153,153] #009999
@@ -412,7 +412,7 @@ class RGB_Tetris:
         self.speakEngine = None
         self.speakEngine = pyttsx.init()
         rate = self.speakEngine.getProperty('rate')
-        self.speakEngine.setProperty('rate', rate-10)
+        #self.speakEngine.setProperty('rate', rate-10)
         self.speakEngine.setProperty('voice', 'german')
         self.speakEngine.say("Du hast "+str(self.Tetris_Points)+" Punkte.")
         if self.hiScores[0][1] < self.Tetris_Points:
@@ -1003,7 +1003,7 @@ class RGB_Tetris:
         print("Loading self.speakEngine...")
         self.speakEngine = pyttsx.init()
         rate = self.speakEngine.getProperty('rate')
-        self.speakEngine.setProperty('rate', rate-10)
+        #self.speakEngine.setProperty('rate', rate-10)
         self.speakEngine.setProperty('voice', 'german')
         print("done")
         print("Loading Gamepad...")
@@ -1310,7 +1310,7 @@ class RGB_Tetris:
         self.speakEngine = None
         self.speakEngine = pyttsx.init()
         rate = self.speakEngine.getProperty('rate')
-        self.speakEngine.setProperty('rate', rate-10)
+        #self.speakEngine.setProperty('rate', rate-10)
         self.speakEngine.setProperty('voice', 'german')
         self.speakEngine.say("Du hast "+str(self.snakePoints)+" Punkte.")
         if self.hiScores_Snake[0][1] < self.snakePoints:
@@ -1490,7 +1490,7 @@ class RGB_Tetris:
             self.rainbowDriveGameOver()
 
     def getRainbowColor(self,pos):
-        fac = 6
+        fac = 3
         """Generate rainbow colors across 0-255 positions."""
         if pos < 85:
             col = [pos * fac, 255 - pos * fac, 0] #Color(pos * 3, 255 - pos * 3, 0)
@@ -1509,7 +1509,7 @@ class RGB_Tetris:
         self.speakEngine = None
         self.speakEngine = pyttsx.init()
         rate = self.speakEngine.getProperty('rate')
-        self.speakEngine.setProperty('rate', rate-10)
+        #self.speakEngine.setProperty('rate', rate-10)
         self.speakEngine.setProperty('voice', 'german')
         self.speakEngine.say("Du hast "+str(self.rainbow_points)+" Punkte.")
         if self.hiScores_RainbowDrive[0][1] < self.rainbow_points:
