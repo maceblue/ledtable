@@ -1377,10 +1377,10 @@ class RGB_Tetris:
         self.road_tick = 1
         self.road_turn_interval = 5
 
-        # print("Loading Hiscores..."),
-        # self.hiScores_Snake = pickle.load(open("/home/pi/ledtable/hiscores_snake.zfl","rb"))
-        # self.hiScores_Snake.sort(key=self.getKey,reverse=True)
-        # print("done")
+        print("Loading Hiscores..."),
+        self.hiScores_RainbowDrive = pickle.load(open("/home/pi/ledtable/hiscores_rainbowdrive.zfl","rb"))
+        self.hiScores_RainbowDrive.sort(key=self.getKey,reverse=True)
+        print("done")
 
         joystick_count = pygame.joystick.get_count()
         if joystick_count == 0:
@@ -1506,20 +1506,26 @@ class RGB_Tetris:
     def rainbowDriveGameOver(self):
         self.rainbowDriveRunning = False
         print("Du hast "+str(self.rainbow_points)+" Punkte")
-        # if self.hiScores_RainbowDrive[0][1] < self.rainbow_points:
-        entry = (self.playerName, self.rainbow_points)
-        self.hiScores_RainbowDrive.append(entry)
-        self.hiScores_RainbowDrive.sort(key=self.getKey,reverse=True)
-        pickle.dump(self.hiScores_RainbowDrive,open("/home/pi/ledtable/hiscores_rainbowdrive.zfl","wb"))
-        self.speakEngine.say("Du hast einen neuen Rekord aufgestellt.")
-        self.speakEngine.runAndWait()
-        self.snd_appluse.play()
-        time.sleep(6)
-        self.snd_rocket.play()
-        time.sleep(10)
-        # else:
-        #     self.speakEngine.say("Der Rekord liegt bei "+str(self.hiScores_RainbowDrive[0][1])+" Punkten.")
-        #     self.speakEngine.runAndWait()
+        self.speakEngine = None
+        self.speakEngine = pyttsx.init()
+        rate = self.speakEngine.getProperty('rate')
+        self.speakEngine.setProperty('rate', rate-10)
+        self.speakEngine.setProperty('voice', 'german')
+        self.speakEngine.say("Du hast "+str(self.rainbow_points)+" Punkte.")
+        if self.hiScores_RainbowDrive[0][1] < self.rainbow_points:
+            entry = (self.playerName, self.rainbow_points)
+            self.hiScores_RainbowDrive.append(entry)
+            self.hiScores_RainbowDrive.sort(key=self.getKey,reverse=True)
+            pickle.dump(self.hiScores_RainbowDrive,open("/home/pi/ledtable/hiscores_rainbowdrive.zfl","wb"))
+            self.speakEngine.say("Du hast einen neuen Rekord aufgestellt.")
+            self.speakEngine.runAndWait()
+            self.snd_appluse.play()
+            time.sleep(6)
+            self.snd_rocket.play()
+            time.sleep(10)
+        else:
+            self.speakEngine.say("Der Rekord liegt bei "+str(self.hiScores_RainbowDrive[0][1])+" Punkten.")
+            self.speakEngine.runAndWait()
         self.waittime = 250
         time.sleep(3)
         self.fadeInOut([0,0,255])
