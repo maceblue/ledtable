@@ -1351,6 +1351,7 @@ class RGB_Tetris:
         print("Starting Rainbow Drive...")
         self.rainbowDriveRunning = True
         self.waittime = 200
+        self.rainbowCompression = 10 #full rainbow-length = 255 pixel
         self.keyPressTimeout = 100
         self.acceleration = 0.3
         self.rainbow_points = 0
@@ -1420,7 +1421,7 @@ class RGB_Tetris:
 
         # draw full matrix as rainbow
         for row in range(0,self.height):
-            color = self.wheel((row*8 + self.road_tick) & 255)
+            color = self.getRainbowColor((row*self.rainbowCompression + self.road_tick) & 255)
             for pixel in range(0,self.width):
                 self.pixels[row][pixel] = color
 
@@ -1487,9 +1488,8 @@ class RGB_Tetris:
             self.snd_car_crash.play()
             self.rainbowDriveGameOver()
 
-    def wheel(self,pos):
+    def getRainbowColor(self,pos):
         fac = 3
-        print(pos)
         """Generate rainbow colors across 0-255 positions."""
         if pos < 85:
             col = [pos * fac, 255 - pos * fac, 0] #Color(pos * 3, 255 - pos * 3, 0)
@@ -1499,53 +1499,8 @@ class RGB_Tetris:
         else:
             pos -= 170
             col = [0, pos * fac, 255 - pos * fac] #Color(0, pos * 3, 255 - pos * 3)
-        print(col)
+        
         return col
-
-
-    def rainbow_color(self,position):
-        """Get color from wheel value (0 - 30)."""
-        if position < 0:
-            position = 0
-        if position > 30:
-            position = 30
-
-        if position < 10:
-            r = 9 - position % 10
-            g = position % 128
-            b = 0
-        elif position < 20:
-            g = 9 - position % 10
-            b = position % 10
-            r = 0
-        else:
-            b = 9 - position % 10
-            r = position % 10
-            g = 0
-
-        return [r, g, b]
-    
-    def wheel_color(position):
-        """Get color from wheel value (0 - 384)."""
-        if position < 0:
-            position = 0
-        if position > 384:
-            position = 384
-
-        if position < 128:
-            r = 127 - position % 128
-            g = position % 128
-            b = 0
-        elif position < 256:
-            g = 127 - position % 128
-            b = position % 128
-            r = 0
-        else:
-            b = 127 - position % 128
-            r = position % 128
-            g = 0
-
-        return Color(r, g, b)  
 
     def rainbowDriveGameOver(self):
         self.rainbowDriveRunning = False
