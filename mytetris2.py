@@ -1491,13 +1491,16 @@ class RGB_Tetris:
         fac = 3
         """Generate rainbow colors across 0-255 positions."""
         if pos < 85:
-            return [pos * fac, 255 - pos * fac, 0] #Color(pos * 3, 255 - pos * 3, 0)
+            col = [pos * fac, 255 - pos * fac, 0] #Color(pos * 3, 255 - pos * 3, 0)
         elif pos < 170:
             pos -= 85
-            return [255 - pos * fac, 0, pos * fac] #Color(255 - pos * 3, 0, pos * 3)
+            col = [255 - pos * fac, 0, pos * fac] #Color(255 - pos * 3, 0, pos * 3)
         else:
             pos -= 170
-            return [0, pos * fac, 255 - pos * fac] #Color(0, pos * 3, 255 - pos * 3)
+            col = [0, pos * fac, 255 - pos * fac] #Color(0, pos * 3, 255 - pos * 3)
+        print(col)
+        return col
+
 
     def rainbow_color(self,position):
         """Get color from wheel value (0 - 30)."""
