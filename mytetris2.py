@@ -128,6 +128,7 @@ class RGB_Tetris:
     height = 15
     hiScores = []
     hiScores_Snake = []
+    hiScores_RainbowDrive = []
     snd_click = None
     snd_linekil = None
     snd_tilefix = None
@@ -1351,7 +1352,7 @@ class RGB_Tetris:
         print("Starting Rainbow Drive...")
         self.rainbowDriveRunning = True
         self.waittime = 200
-        self.rainbowCompression = 10 #full rainbow-length = 255 pixel
+        self.rainbowCompression = 10 #full rainbow-length would be 255 pixel - compression needed
         self.keyPressTimeout = 100
         self.acceleration = 0.3
         self.rainbow_points = 0
@@ -1505,6 +1506,20 @@ class RGB_Tetris:
     def rainbowDriveGameOver(self):
         self.rainbowDriveRunning = False
         print("Du hast "+str(self.rainbow_points)+" Punkte")
+        # if self.hiScores_RainbowDrive[0][1] < self.rainbow_points:
+            entry = (self.playerName, self.rainbow_points)
+            self.hiScores_RainbowDrive.append(entry)
+            self.hiScores_RainbowDrive.sort(key=self.getKey,reverse=True)
+            pickle.dump(self.hiScores_RainbowDrive,open("/home/pi/ledtable/hiscores_rainbowdrive.zfl","wb"))
+            self.speakEngine.say("Du hast einen neuen Rekord aufgestellt.")
+            self.speakEngine.runAndWait()
+            self.snd_appluse.play()
+            time.sleep(6)
+            self.snd_rocket.play()
+            time.sleep(10)
+        # else:
+        #     self.speakEngine.say("Der Rekord liegt bei "+str(self.hiScores_RainbowDrive[0][1])+" Punkten.")
+        #     self.speakEngine.runAndWait()
         self.waittime = 250
         time.sleep(3)
         self.fadeInOut([0,0,255])
