@@ -1489,6 +1489,7 @@ class RGB_Tetris:
 
     def wheel(self,pos):
         fac = 3
+        print(pos)
         """Generate rainbow colors across 0-255 positions."""
         if pos < 85:
             col = [pos * fac, 255 - pos * fac, 0] #Color(pos * 3, 255 - pos * 3, 0)
