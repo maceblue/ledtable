@@ -1334,7 +1334,7 @@ class RGB_Tetris:
         #print("checkSnakeBite")
         if self.snake[0][0] == self.cherryPosition[0] and self.snake[0][1] == self.cherryPosition[1]:
             #snake bites the cherry - longer snake
-            self.snakePoints += 1
+            self.snakePoints += 10
             self.snake.append(lastindexpos)
             #paint cherry green
             self.pixels[self.cherryPosition[0]][self.cherryPosition[1]] = gamecolors.GREEN
