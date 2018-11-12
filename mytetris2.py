@@ -893,9 +893,9 @@ class RGB_Tetris:
             self.lastPressed = "A"
         if u.get_button(2): #Button B - left yellow button 
             self.lastPressed = "B"
-        if u.get_button(0): #Button X - right green button 
+        if u.get_button(0): #Button X - right blue button 
             self.lastPressed = "X"
-        if u.get_button(3): #Button Y - left blue button 
+        if u.get_button(3): #Button Y - left green button 
             self.lastPressed = "Y"
         if u.get_button(8):
             self.lastPressed = "SELECT"
@@ -1125,9 +1125,10 @@ class RGB_Tetris:
 
             store_pressed = self.lastPressed
             self.getKeypress(self.gamepad)
-            if store_pressed == 'Y' and self.lastPressed == 'Y':
+            if store_pressed == 'X' and self.lastPressed == 'X':
                 countdown_shutdown += 1
                 if countdown_shutdown == 5:
+                    print('shutdown')
                      os.system("shutdown -h now")
             else:
                 countdown_shutdown = 0
