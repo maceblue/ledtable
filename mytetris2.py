@@ -1129,7 +1129,7 @@ class RGB_Tetris:
                 countdown_shutdown += 1
                 if countdown_shutdown == 5:
                      os.system("shutdown -h now")
-            else
+            else:
                 countdown_shutdown = 0
 
             if self.lastPressed == 'START':
