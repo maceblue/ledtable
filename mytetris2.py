@@ -1129,7 +1129,9 @@ class RGB_Tetris:
                 countdown_shutdown += 1
                 if countdown_shutdown == 5:
                     print('shutdown')
-                     os.system("shutdown -h now")
+                    self.fadeInOut([0,0,0])
+                    time.sleep(5)
+                    os.system("shutdown -h now")
             else:
                 countdown_shutdown = 0
 
