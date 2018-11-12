@@ -1088,6 +1088,7 @@ class RGB_Tetris:
         start = pygame.time.get_ticks()
         startbright = start
         startint = start
+        countdown_shutdown = 0
         while self.loungeTableRunning:
             pygame.event.pump()
             #Check if waitbright-Intervall has passed since last change of brightness and update if buttons pressed
@@ -1122,7 +1123,15 @@ class RGB_Tetris:
                 self.changePixels()
                 start = pygame.time.get_ticks()
 
+            store_pressed = self.lastPressed
             self.getKeypress(self.gamepad)
+            if store_pressed == 'Y' and self.lastPressed == 'Y':
+                countdown_shutdown += 1
+                if countdown_shutdown == 5
+                     os.system("shutdown -h now")
+            else
+                countdown_shutdown = 0
+
             if self.lastPressed == 'START':
                 self.loungeTableRunning = False
                 self.lastPressed = None
