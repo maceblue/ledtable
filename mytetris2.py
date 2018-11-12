@@ -1103,8 +1103,6 @@ class RGB_Tetris:
                 self.send2strip(self.pixels)
                 startbright = pygame.time.get_ticks()
 
-            else:
-                countdown_shutdown = 0
                             
             if (pygame.time.get_ticks()>=startint+self.waitint):
                 if self.gamepad.get_axis(0) >= +0.5:
@@ -1124,22 +1122,26 @@ class RGB_Tetris:
             
             if (pygame.time.get_ticks()>=start+self.waittime):
                 self.changePixels()
-                start = pygame.time.get_ticks()
                 store_pressed = self.lastPressed
                 self.getKeypress(self.gamepad)
                 if store_pressed == 'X' and self.lastPressed == 'X':
                     countdown_shutdown += 1
-                    if countdown_shutdown == 5:
-                        print('')
-                        print('!!!!!!!! S.H.U.T.D.O.W.N !!!!!!!!!')
-                        self.fadeInOut([0,0,0])
-                        time.sleep(5)
-                        self.brightness = 0
-                        os.system("shutdown -h now")
                 else:
                     countdown_shutdown = 0
 
+                start = pygame.time.get_ticks()
+           
             self.getKeypress(self.gamepad)
+            
+            if countdown_shutdown == 5:
+                print('')
+                print('!!!!!!!! S.H.U.T.D.O.W.N !!!!!!!!!')
+                self.fadeInOut([0,0,0])
+                time.sleep(5)
+                self.brightness = 0
+                os.system("shutdown -h now")
+            
+
             if self.lastPressed == 'START':
                 self.loungeTableRunning = False
                 self.lastPressed = None
