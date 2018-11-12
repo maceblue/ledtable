@@ -1127,10 +1127,12 @@ class RGB_Tetris:
             self.getKeypress(self.gamepad)
             if store_pressed == 'X' and self.lastPressed == 'X':
                 countdown_shutdown += 1
-                if countdown_shutdown == 5:
-                    print('shutdown')
+                if countdown_shutdown == 500:
+                    print('')
+                    print('!!!!!!!! S.H.U.T.D.O.W.N !!!!!!!!!')
                     self.fadeInOut([0,0,0])
                     time.sleep(5)
+                    self.brightness = 0
                     os.system("shutdown -h now")
             else:
                 countdown_shutdown = 0
