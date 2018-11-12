@@ -1126,6 +1126,7 @@ class RGB_Tetris:
                 self.getKeypress(self.gamepad)
                 if store_pressed == 'X' and self.lastPressed == 'X':
                     countdown_shutdown += 1
+                    self.lastPressed = 'None'
                 else:
                     countdown_shutdown = 0
 
